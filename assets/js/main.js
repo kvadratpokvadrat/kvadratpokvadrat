@@ -127,5 +127,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     statsObserver.observe(stats);
   }
+/* =====================
+   DARK MODE
+===================== */
+const toggle = document.getElementById("themeToggle");
+
+if (toggle) {
+  if (localStorage.theme === "dark") {
+    document.body.classList.add("dark");
+    toggle.textContent = "Light";
+  }
+
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const dark = document.body.classList.contains("dark");
+    toggle.textContent = dark ? "Light" : "Dark";
+    localStorage.theme = dark ? "dark" : "light";
+  });
+}
 
 });
+
