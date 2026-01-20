@@ -190,29 +190,62 @@ header {
 }
 
 /* =====================
-   STATS – PREMIUM GLOW
+   STATS – APPLE COUNTER
 ===================== */
 .stats {
+  padding: 120px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  text-align: center;
   position: relative;
+  overflow: hidden;
 }
 
-.stats strong {
-  position: relative;
-  color: var(--yellow);
-  text-shadow:
-    0 0 12px rgba(250,204,21,0.35),
-    0 0 32px rgba(250,204,21,0.25);
-}
-
-/* soft halo iza svakog stat-a */
-.stats div {
-  position: relative;
-}
-
-.stats div::after {
+/* flow linija iznad i ispod */
+.stats::before,
+.stats::after {
   content: "";
   position: absolute;
-  inset: -30px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(250,204,21,0.8),
+    transparent
+  );
+  transform: translateX(-50%);
+  transition: width 1.2s ease;
+}
+
+.stats::before { top: 0; }
+.stats::after { bottom: 0; }
+
+.stats.visible::before,
+.stats.visible::after {
+  width: 80%;
+}
+
+/* pojedinačni stat */
+.stat-item {
+  position: relative;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(.4,0,.2,1);
+}
+
+.stats.visible .stat-item {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* glow halo */
+.stat-item::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
   background: radial-gradient(
     circle,
     rgba(250,204,21,0.18),
@@ -223,16 +256,41 @@ header {
   z-index: -1;
 }
 
-.stats div:hover::after {
+.stat-item:hover::after {
   opacity: 1;
 }
-@keyframes softPulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.03); }
+
+/* broj */
+.stat-item strong {
+  display: block;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--yellow);
+  text-shadow:
+    0 0 14px rgba(250,204,21,0.4),
+    0 0 36px rgba(250,204,21,0.25);
+  margin-bottom: 10px;
+  transition: transform 0.4s ease;
 }
 
-.stats strong {
-  animation: softPulse 4s ease-in-out infinite;
+/* hover float */
+.stat-item:hover strong {
+  transform: translateY(-6px);
+}
+
+/* label */
+.stat-item span {
+  font-size: 14px;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .stats {
+    flex-direction: column;
+    gap: 50px;
+  }
 }
 
 
@@ -426,4 +484,5 @@ header {
   font-size:14px;
   border-top:1px solid var(--glass-border);
 }
+
 
