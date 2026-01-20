@@ -109,7 +109,6 @@ header {
   background: var(--yellow);
 }
 
-/* MOBILE NAV */
 @media (max-width: 768px) {
   .hamburger { display: flex; }
 
@@ -133,7 +132,7 @@ header {
 }
 
 /* =====================
-   GLOBAL SECTION LINES
+   SECTION DIVIDERS
 ===================== */
 section + section {
   border-top: 2px solid var(--yellow);
@@ -165,7 +164,7 @@ section + section {
   margin: 20px 0;
 }
 
-/* ===== HERO BUTTON – INVERT FIX ===== */
+/* HERO BUTTON */
 .btn {
   display: inline-block;
   padding: 14px 36px;
@@ -232,10 +231,10 @@ section + section {
 .episode-card h3 { padding: 15px; }
 
 /* =====================
-   HOSTS / GUESTS
+   HOSTS – HOME
 ===================== */
 .hosts {
-  padding: 90px 60px;
+  padding: 100px 60px;
 }
 
 .section-header {
@@ -245,7 +244,7 @@ section + section {
   margin-bottom: 40px;
 }
 
-/* BADGE BUTTON */
+/* BADGE */
 .badge-btn {
   padding: 8px 18px;
   border: 1.5px solid var(--yellow);
@@ -267,30 +266,16 @@ section + section {
   gap: 30px;
 }
 
-/* =====================
-   GUESTS – HOME (PORTRET)
-===================== */
-.hosts {
-  border-top: 2px solid var(--yellow);
-  padding: 100px 60px;
-}
-
-.hosts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-}
-
+/* GUEST CARD – HOME */
 .hosts .guest-card {
   position: relative;
-  height: 420px; /* PORTRET */
+  height: 420px;
   border-radius: 18px;
   overflow: hidden;
   background: #111;
   cursor: pointer;
 }
 
-/* SLIKA – USPRAVNA */
 .hosts .guest-card img {
   width: 100%;
   height: 100%;
@@ -302,7 +287,7 @@ section + section {
   transform: scale(1.08);
 }
 
-/* ZUTI GLOW */
+/* YELLOW GLOW */
 .hosts .guest-card::after {
   content: "";
   position: absolute;
@@ -317,7 +302,7 @@ section + section {
   box-shadow: 0 0 40px rgba(250,204,21,0.55);
 }
 
-/* ZUTI OVERLAY */
+/* YELLOW OVERLAY */
 .hosts .guest-overlay {
   position: absolute;
   inset: 0;
@@ -335,7 +320,6 @@ section + section {
   opacity: 1;
 }
 
-/* INFO */
 .hosts .guest-info {
   position: absolute;
   bottom: 0;
@@ -345,9 +329,114 @@ section + section {
   color: #000;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
+/* =====================
+   GOSTI PAGE
+===================== */
+.all-guests {
+  padding: 120px 60px;
+}
+
+.all-guests-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 40px;
+}
+
+.all-guests .guest-card {
+  height: 460px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+  cursor: pointer;
+}
+
+.all-guests .guest-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* DARK OVERLAY */
+.all-guests .guest-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.4),
+    transparent 60%
+  );
+}
+
+/* INFO */
+.all-guests .guest-info {
+  background: #111;
+  color: #fff;
+}
+
+.all-guests .guest-info span {
+  color: var(--yellow);
+}
+
+/* =====================
+   GUEST MODAL (BIO)
+===================== */
+.guest-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 9999;
+}
+
+.guest-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.guest-modal-content {
+  background: #111;
+  border-radius: 20px;
+  max-width: 900px;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 40px;
+  padding: 40px;
+  position: relative;
+}
+
+.guest-modal-image img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.guest-modal-text span {
+  color: var(--yellow);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.guest-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: var(--yellow);
+  cursor: pointer;
+}
 
 /* =====================
    NEWSLETTER
@@ -372,28 +461,8 @@ section + section {
   border-radius: 20px;
 }
 
-.newsletter-form {
-  display: flex;
-  gap: 14px;
-}
-
-.newsletter-form input {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 30px;
-  border: none;
-}
-
-.newsletter-form button {
-  background: var(--yellow);
-  border: none;
-  padding: 14px 26px;
-  border-radius: 30px;
-  font-weight: 600;
-}
-
 /* =====================
-   FOOTER – FINAL FIX
+   FOOTER
 ===================== */
 .footer {
   background: #000;
@@ -410,47 +479,6 @@ section + section {
   gap: 40px;
 }
 
-.footer .logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.footer .logo img {
-  height: 42px;
-}
-
-.footer-col h4 {
-  font-size: 14px;
-  margin-bottom: 14px;
-  color: #fff;
-}
-
-.footer-col p,
-.footer-col a {
-  font-size: 14px;
-  color: var(--gray);
-  margin-bottom: 8px;
-  display: block;
-}
-
-.footer-col a:hover {
-  color: var(--yellow);
-}
-
-.footer-socials a {
-  display: inline-flex;
-  width: 30px;
-  height: 30px;
-  background: var(--yellow);
-  color: #000;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  margin-right: 6px;
-}
-
 .footer-bottom {
   border-top: 1px solid #222;
   padding: 16px;
@@ -458,7 +486,6 @@ section + section {
   font-size: 12px;
   color: var(--gray);
 }
-
 
 /* =====================
    RESPONSIVE
@@ -471,56 +498,3 @@ section + section {
 @media (max-width: 500px) {
   .footer-inner { grid-template-columns: 1fr; }
 }
-
-/* =====================
-   GOSTI PAGE – FIX
-===================== */
-
-.all-guests {
-  padding: 120px 60px;
-}
-
-.all-guests-inner {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
-}
-
-/* KARTICA */
-.all-guests .guest-card {
-  height: 460px;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #111;
-}
-
-/* SLIKA */
-.all-guests .guest-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* TAMNI OVERLAY (NE ŽUTI) */
-.all-guests .guest-overlay {
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.85),
-    rgba(0,0,0,0.4),
-    transparent 60%
-  );
-  opacity: 1;
-}
-
-/* INFO */
-.all-guests .guest-info {
-  background: #111;
-  color: #fff;
-  bottom: 0;
-}
-
-.all-guests .guest-info span {
-  color: var(--yellow);
-}
-
-
