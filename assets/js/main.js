@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ---------- HAMBURGER ---------- */
+  /* =====================
+     HAMBURGER MENU
+  ===================== */
   const hamburger = document.querySelector(".hamburger");
   const nav = document.querySelector(".nav");
 
@@ -11,8 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- GUEST MODAL ---------- */
+  /* =====================
+     GUEST MODAL
+  ===================== */
   const modal = document.getElementById("guestModal");
+
   if (modal) {
     const img = modal.querySelector("#guestModalImg");
     const name = modal.querySelector("#guestModalName");
@@ -45,36 +50,82 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- SCROLL REVEAL ---------- */
-  const reveal = document.querySelectorAll("section, .episode-card, .guest-card");
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = 1;
-        e.target.style.transform = "translateY(0)";
-        io.unobserve(e.target);
+  /* =====================
+     SCROLL REVEAL
+     (NE dira .stats)
+  ===================== */
+  const revealItems = document.querySelectorAll(
+    "section:not(.stats), .episode-card, .guest-card"
+  );
+
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+        revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15 });
 
-  reveal.forEach(el => {
+  revealItems.forEach(el => {
     el.style.opacity = 0;
     el.style.transform = "translateY(40px)";
     el.style.transition = "0.8s cubic-bezier(.4,0,.2,1)";
-    io.observe(el);
+    revealObserver.observe(el);
   });
-document.querySelectorAll(".section-divider").forEach(divider => {
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        divider.classList.add("active");
-        io.unobserve(divider);
-      }
-    });
-  }, { threshold: 0.4 });
 
-  io.observe(divider);
+  /* =====================
+     SECTION DIVIDER
+  ===================== */
+  document.querySelectorAll(".section-divider").forEach(divider => {
+    const dividerObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          divider.classList.add("active");
+          dividerObserver.unobserve(divider);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    dividerObserver.observe(divider);
+  });
+
+  /* =====================
+     STATS REVEAL + COUNTER
+  ===================== */
+  const stats = document.querySelector(".stats");
+
+  if (stats) {
+    const numbers = stats.querySelectorAll("strong[data-count]");
+
+    const animateCount = (el) => {
+      const target = +el.dataset.count;
+      const duration = 1400;
+      const startTime = performance.now();
+
+      const update = (time) => {
+        const progress = Math.min((time - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString();
+
+        if (progress < 1) requestAnimationFrame(update);
+      };
+
+      requestAnimationFrame(update);
+    };
+
+    const statsObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          stats.classList.add("visible");
+          numbers.forEach(num => animateCount(num));
+          statsObserver.unobserve(stats);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    statsObserver.observe(stats);
+  }
+
 });
-
-});
-
