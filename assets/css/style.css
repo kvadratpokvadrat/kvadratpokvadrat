@@ -484,5 +484,43 @@ header {
   font-size:14px;
   border-top:1px solid var(--glass-border);
 }
+/* =====================
+   BADGE BUTTON – APPLE STYLE
+===================== */
+.badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--text);
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+
+  transition: all 0.35s cubic-bezier(.4,0,.2,1);
+}
+
+.badge-btn::after {
+  content: "→";
+  font-size: 14px;
+  transition: transform .3s ease;
+}
+
+.badge-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 45px rgba(0,0,0,0.15);
+  background: rgba(250,204,21,0.9);
+}
+
+.badge-btn:hover::after {
+  transform: translateX(4px);
+}
+
 
 
