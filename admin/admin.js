@@ -1,39 +1,53 @@
-const episodes = JSON.parse(localStorage.getItem("episodes")) || [];
-const guests = JSON.parse(localStorage.getItem("guests")) ||;
-
-/* EPIZODE */
-document.getElementById("episodeForm").addEventListener("submit", e => {
+// =====================
+// EPIZODE
+// =====================
+document.getElementById("episodeForm").addEventListener("submit", async e => {
   e.preventDefault();
 
-  const ep = {
+  const data = {
     title: epTitle.value,
     youtube: epYoutube.value,
-    thumb: epThumb.value,
-    desc: epDesc.value
+    thumbnail: epThumb.value,
+    description: epDesc.value
   };
 
-  episodes.push(ep);
-  localStorage.setItem("episodes", JSON.stringify(episodes));
-  e.target.reset();
+  const res = await fetch("/api/episodes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
 
-  alert("Epizoda dodata ✔");
+  if (res.ok) {
+    alert("Epizoda dodata ✅");
+    e.target.reset();
+  } else {
+    alert("Greška pri dodavanju ❌");
+  }
 });
 
-/* GOSTI */
-document.getElementById("guestForm").addEventListener("submit", e => {
+// =====================
+// GOSTI
+// =====================
+document.getElementById("guestForm").addEventListener("submit", async e => {
   e.preventDefault();
 
-  const guest = {
-    name: guestName.value,
-    role: guestRole.value,
-    img: guestImg.value,
-    bio: guestBio.value
+  const data = {
+    name: gName.value,
+    role: gRole.value,
+    image: gImage.value,
+    bio: gBio.value
   };
 
-  guests.push(guest);
-  localStorage.setItem("guests", JSON.stringify(guests));
-  e.target.reset();
+  const res = await fetch("/api/guests", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
 
-  alert("Gost dodat ✔");
+  if (res.ok) {
+    alert("Gost dodat ✅");
+    e.target.reset();
+  } else {
+    alert("Greška ❌");
+  }
 });
-
