@@ -17,8 +17,10 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: Inter, system-ui, sans-serif;
-  background: radial-gradient(circle at top, #0a0a0a, #000 70%);
-  color: #fff;
+  background: #fff;
+  color: #000;
+}
+
   padding-top: 90px;
   line-height: 1.6;
 }
@@ -538,6 +540,7 @@ section {
   box-shadow: 0 0 18px rgba(250,204,21,0.6);
   transform: translateY(-1px);
 }
+
 
 
 
