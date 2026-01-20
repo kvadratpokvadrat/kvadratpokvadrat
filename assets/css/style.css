@@ -24,7 +24,7 @@ body {
 }
 
 a { text-decoration: none; color: inherit; }
-img { max-width: 100%; display: block; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* =====================
    HEADER
@@ -39,7 +39,7 @@ header {
   display: flex;
   align-items: center;
   padding: 0 60px;
-  z-index: 3000;
+  z-index: 5000;
 }
 
 .logo {
@@ -50,7 +50,7 @@ header {
   letter-spacing: 2px;
 }
 
-.logo img { height: 38px; }
+.logo img { height: 36px; }
 
 .nav {
   display: flex;
@@ -59,7 +59,7 @@ header {
 }
 
 .nav a {
-  margin-left: 25px;
+  margin-left: 26px;
   color: var(--gray);
   position: relative;
   transition: 0.3s;
@@ -67,14 +67,13 @@ header {
 
 .nav a:hover {
   color: var(--yellow);
-  text-shadow: 0 0 10px rgba(250,204,21,0.8);
 }
 
 .nav a::after {
   content: "";
   position: absolute;
-  bottom: -6px;
   left: 0;
+  bottom: -6px;
   width: 0;
   height: 2px;
   background: var(--yellow);
@@ -88,6 +87,7 @@ header {
   color: #000;
   padding: 8px 18px;
   border-radius: 20px;
+  font-weight: 500;
 }
 
 /* =====================
@@ -99,7 +99,6 @@ header {
   gap: 6px;
   cursor: pointer;
   margin-left: auto;
-  z-index: 4000;
 }
 
 .hamburger span {
@@ -117,24 +116,15 @@ header {
     right: -100%;
     width: 100%;
     height: calc(100vh - 90px);
-    background: rgba(0,0,0,0.97);
+    background: #000;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    gap: 32px;
+    gap: 30px;
     transition: right 0.4s ease;
-    z-index: 2500;
   }
 
   .nav.active { right: 0; }
   .nav a { font-size: 22px; }
-}
-
-/* =====================
-   SECTION DIVIDERS
-===================== */
-section + section {
-  border-top: 2px solid var(--yellow);
 }
 
 /* =====================
@@ -143,7 +133,7 @@ section + section {
 .hero {
   height: 50vh;
   background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
     url("../images/hero.png") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -151,116 +141,49 @@ section + section {
   text-align: center;
 }
 
-.hero-content { max-width: 900px; }
-
 .hero h1 {
   font-size: 4rem;
-  letter-spacing: 3px;
 }
 
 .hero p {
   color: var(--gray);
-  margin: 20px 0;
+  margin-top: 16px;
 }
 
-/* HERO BUTTON */
+/* =====================
+   BUTTON
+===================== */
 .btn {
   display: inline-block;
+  margin-top: 30px;
   padding: 14px 36px;
   background: var(--yellow);
   color: #000;
   border-radius: 40px;
   border: 2px solid var(--yellow);
-  font-weight: 500;
   transition: 0.3s;
 }
 
 .btn:hover {
   background: transparent;
   color: var(--yellow);
-  box-shadow: 0 0 25px rgba(250,204,21,0.6);
+  box-shadow: 0 0 25px rgba(250,204,21,.6);
 }
 
 /* =====================
-   STATS
+   SECTIONS
 ===================== */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 80px;
-  padding: 70px 20px;
-  text-align: center;
-}
-
-.stats span {
-  font-size: 2.5rem;
-  color: var(--yellow);
-}
-
-/* =====================
-   EPISODES
-===================== */
-.episodes {
-  padding: 80px 60px;
-}
-
-.episodes h2 {
-  margin-bottom: 40px;
-  font-size: 2.2rem;
-}
-
-.episode-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
-  gap: 30px;
-}
-
-.episode-card {
-  background: #111;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: 0.4s;
-}
-
-.episode-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 30px rgba(250,204,21,0.25);
-}
-
-.episode-card h3 { padding: 15px; }
-
-/* =====================
-   HOSTS / GUEST CARDS
-   (ISTE NA OBE STRANE)
-===================== */
-.hosts,
-.all-guests {
+section {
   padding: 100px 60px;
 }
 
-.section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
+section + section {
+  border-top: 2px solid var(--yellow);
 }
 
-/* BADGE */
-.badge-btn {
-  padding: 8px 18px;
-  border: 1.5px solid var(--yellow);
-  border-radius: 30px;
-  font-size: 13px;
-  color: var(--yellow);
-  transition: 0.3s;
-}
-
-.badge-btn:hover {
-  background: var(--yellow);
-  color: #000;
-  box-shadow: 0 0 15px rgba(250,204,21,0.6);
-}
-
+/* =====================
+   GUEST CARDS (SVUDA ISTE)
+===================== */
 .hosts-grid,
 .all-guests-inner {
   display: grid;
@@ -268,22 +191,23 @@ section + section {
   gap: 30px;
 }
 
-/* CARD */
 .guest-card {
   position: relative;
-  height: 420px;
+  height: 460px;
   border-radius: 18px;
   overflow: hidden;
   background: #111;
   cursor: pointer;
+  transition: transform .4s;
 }
 
-/* IMAGE */
+.guest-card:hover {
+  transform: translateY(-6px);
+}
+
+/* IMAGE HOVER */
 .guest-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform .6s ease;
 }
 
 .guest-card:hover img {
@@ -297,12 +221,11 @@ section + section {
   inset: 0;
   border-radius: 18px;
   box-shadow: 0 0 0 rgba(250,204,21,0);
-  transition: box-shadow 0.4s ease;
-  pointer-events: none;
+  transition: .4s;
 }
 
 .guest-card:hover::after {
-  box-shadow: 0 0 40px rgba(250,204,21,0.55);
+  box-shadow: 0 0 40px rgba(250,204,21,.55);
 }
 
 /* OVERLAY */
@@ -311,12 +234,12 @@ section + section {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(250,204,21,0.9),
-    rgba(250,204,21,0.5),
+    rgba(250,204,21,.9),
+    rgba(250,204,21,.4),
     transparent 60%
   );
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: .4s;
 }
 
 .guest-card:hover .guest-overlay {
@@ -337,19 +260,19 @@ section + section {
 }
 
 /* =====================
-   GUEST MODAL (BIO)
+   MODAL (BIO)
 ===================== */
 .guest-modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0,0,0,.85);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: .4s;
   z-index: 9999;
 }
 
@@ -363,30 +286,28 @@ section + section {
   border-radius: 20px;
   max-width: 900px;
   width: 90%;
+  padding: 40px;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 40px;
-  padding: 40px;
   position: relative;
 }
 
 .guest-modal-image img {
-  width: 100%;
   height: 420px;
-  object-fit: cover;
   border-radius: 14px;
 }
 
 .guest-modal-text span {
   color: var(--yellow);
-  margin-bottom: 20px;
   display: block;
+  margin: 10px 0 20px;
 }
 
 .guest-modal-close {
   position: absolute;
-  top: 18px;
-  right: 22px;
+  top: 20px;
+  right: 24px;
   font-size: 26px;
   background: none;
   border: none;
@@ -395,10 +316,9 @@ section + section {
 }
 
 /* =====================
-   NEWSLETTER – FINAL
+   NEWSLETTER
 ===================== */
 .newsletter {
-  padding: 120px 60px;
   background: radial-gradient(circle at top, #111, #000 70%);
 }
 
@@ -412,33 +332,6 @@ section + section {
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
-  box-shadow: 0 0 60px rgba(250,204,21,0.08);
-}
-
-.newsletter-inner img {
-  height: 320px;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.newsletter-form {
-  display: flex;
-  gap: 14px;
-}
-
-.newsletter-form input {
-  flex: 1;
-  padding: 14px 20px;
-  border-radius: 40px;
-  border: none;
-}
-
-.newsletter-form button {
-  background: var(--yellow);
-  border: none;
-  padding: 14px 28px;
-  border-radius: 40px;
-  font-weight: 600;
 }
 
 /* =====================
@@ -447,15 +340,14 @@ section + section {
 .footer {
   background: #000;
   border-top: 2px solid var(--yellow);
-  padding-top: 100px;
 }
 
 .footer-inner {
   max-width: 1200px;
   margin: auto;
-  padding: 0 60px 80px;
+  padding: 80px 60px;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr 1fr;
   gap: 50px;
 }
 
@@ -471,26 +363,15 @@ section + section {
    RESPONSIVE
 ===================== */
 @media (max-width: 768px) {
-  .newsletter-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
+  section { padding: 80px 30px; }
 
-  .newsletter-form {
-    flex-direction: column;
-  }
-
-  .footer-inner {
-    grid-template-columns: 1fr 1fr;
-  }
-
+  .newsletter-inner,
   .guest-modal-content {
     grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 500px) {
   .footer-inner {
     grid-template-columns: 1fr;
+    text-align: center;
   }
 }
