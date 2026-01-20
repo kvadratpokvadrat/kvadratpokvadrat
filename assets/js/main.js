@@ -63,5 +63,18 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.transition = "0.8s cubic-bezier(.4,0,.2,1)";
     io.observe(el);
   });
+document.querySelectorAll(".section-divider").forEach(divider => {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        divider.classList.add("active");
+        io.unobserve(divider);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  io.observe(divider);
+});
 
 });
+
