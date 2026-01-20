@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel | Kvadrat po Kvadrat</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<section class="newsletter">
+  <div class="newsletter-inner">
+
+    <!-- EPIZODE -->
+    <div class="newsletter-content">
+      <h2>Dodaj epizodu</h2>
+
+      <form id="episodeForm" class="newsletter-form" style="flex-direction:column; gap:14px">
+        <input type="text" id="epTitle" placeholder="Naslov epizode" required>
+        <input type="text" id="epYoutube" placeholder="YouTube URL" required>
+        <input type="text" id="epThumb" placeholder="Thumbnail URL" required>
+        <textarea id="epDesc" rows="4" placeholder="Opis epizode"></textarea>
+        <button class="btn">Dodaj epizodu</button>
+      </form>
+    </div>
+
+    <!-- GOSTI -->
+    <div class="newsletter-content">
+      <h2>Dodaj gosta</h2>
+
+      <form id="guestForm" class="newsletter-form" style="flex-direction:column; gap:14px">
+        <input type="text" id="guestName" placeholder="Ime gosta" required>
+        <input type="text" id="guestRole" placeholder="Uloga / titula" required>
+        <input type="text" id="guestImg" placeholder="Slika URL" required>
+        <textarea id="guestBio" rows="4" placeholder="Biografija"></textarea>
+        <button class="btn">Dodaj gosta</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script src="admin.js"></script>
+</body>
+</html>
+
 
