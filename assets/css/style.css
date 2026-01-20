@@ -436,13 +436,13 @@ section {
 ===================== */
 .newsletter {
   padding: 120px 60px;
-   color: white;
+   color: black;
 }
 
 .newsletter-inner {
   max-width: 1200px;
   margin: auto;
-  background: #0c0c0c;
+  background: white;
   border-radius: 30px;
   padding: 70px;
   display: grid;
@@ -542,6 +542,7 @@ section {
   box-shadow: 0 0 18px rgba(250,204,21,0.6);
   transform: translateY(-1px);
 }
+
 
 
 
