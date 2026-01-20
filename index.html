@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KVADRATPOKVADRAT</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVADRAT PO KVADRAT</title>
 
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,12 +15,13 @@
 </head>
 <body>
 
+<!-- =====================
+     HEADER
+===================== -->
 <header>
-<div class="logo">
-  <img src="assets/images/logo.png" alt="Podcast logo">
-</div>
-
-
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+  </div>
 
   <nav class="nav">
     <a href="#">Početna</a>
@@ -37,6 +38,9 @@
   </div>
 </header>
 
+<!-- =====================
+     HERO
+===================== -->
 <section class="hero">
   <div class="hero-content">
     <h1>KVADRAT PO KVADRAT</h1>
@@ -45,18 +49,28 @@
   </div>
 </section>
 
-<section class="stats">
-  <div>
-    <span>1.2K+</span>
-    <p>Pretplatnika</p>
-  </div>
-  <div>
-    <span>2.5M</span>
-    <p>Rach</p>
-  </div>
-</section>
 <div class="section-divider"></div>
 
+<!-- =====================
+     STATS / REACH
+===================== -->
+<section class="stats" id="stats">
+  <div class="stat-item">
+    <strong data-count="1200">0</strong>
+    <span>Pretplatnika</span>
+  </div>
+
+  <div class="stat-item">
+    <strong data-count="2500000">0</strong>
+    <span>Ukupan reach</span>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- =====================
+     EPISODES
+===================== -->
 <section class="episodes">
   <h2>Najnovije epizode</h2>
 
@@ -77,111 +91,100 @@
     </div>
   </div>
 </section>
-  <div class="section-divider"></div>
 
-<!-- HOSTS / GUESTS -->
+<div class="section-divider"></div>
+
+<!-- =====================
+     GUESTS
+===================== -->
 <section class="hosts">
   <div class="section-header">
-    <h2>Naši  gosti</h2>
+    <h2>Naši gosti</h2>
     <a href="gosti.html" class="badge-btn">Pogledaj sve goste</a>
   </div>
 
   <div class="hosts-grid">
 
-    <!-- GUEST 1 -->
-    <div class="guest-card">
-      <img src="assets/images/host-1.jpg" alt="Holding Inc">
-
+    <div class="guest-card"
+         data-img="assets/images/host-1.jpg"
+         data-name="Holding Inc"
+         data-role="Producer"
+         data-bio="Kreativni producent sa višegodišnjim iskustvom u medijima.">
+      <img src="assets/images/host-1.jpg" alt="">
       <div class="guest-overlay"></div>
-
       <div class="guest-info">
         <div>
           <h3>Holding Inc</h3>
           <span>Producer</span>
         </div>
-
-        <div class="guest-socials">
-          <a href="#">●</a>
-          <a href="#">●</a>
-          <a href="#">●</a>
-        </div>
       </div>
     </div>
 
-    <!-- GUEST 2 -->
-    <div class="guest-card">
-      <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
-
+    <div class="guest-card"
+         data-img="assets/images/host-2.jpg"
+         data-name="Miloš Nedić"
+         data-role="Interviewer"
+         data-bio="Voditelj i sagovornik sa fokusom na biznis i lični razvoj.">
+      <img src="assets/images/host-2.jpg" alt="">
       <div class="guest-overlay"></div>
-
       <div class="guest-info">
         <div>
           <h3>Miloš Nedić</h3>
           <span>Interviewer</span>
         </div>
-
-        <div class="guest-socials">
-          <a href="#">●</a>
-          <a href="#">●</a>
-          <a href="#">●</a>
-        </div>
       </div>
     </div>
 
-    <!-- GUEST 3 -->
-    <div class="guest-card">
-      <img src="assets/images/host-3.jpg" alt="Luka Stokić">
-
+    <div class="guest-card"
+         data-img="assets/images/host-3.jpg"
+         data-name="Luka Stokić"
+         data-role="Host"
+         data-bio="Osnivač podcasta Kvadrat po Kvadrat.">
+      <img src="assets/images/host-3.jpg" alt="">
       <div class="guest-overlay"></div>
-
       <div class="guest-info">
         <div>
           <h3>Luka Stokić</h3>
           <span>Host</span>
         </div>
-
-        <div class="guest-socials">
-          <a href="#">●</a>
-          <a href="#">●</a>
-          <a href="#">●</a>
-        </div>
       </div>
     </div>
 
   </div>
 </section>
-  <div class="section-divider"></div>
 
+<div class="section-divider"></div>
 
-<!-- NEWSLETTER -->
+<!-- =====================
+     NEWSLETTER
+===================== -->
 <section class="newsletter">
   <div class="newsletter-inner">
     <img src="assets/images/newsletter.jpg" alt="">
     <div class="newsletter-content">
-      <h2>Ostanite u toku sa<br>najnovijim epizodama</h2>
-      <p>Subscribe for updates episodes</p>
+      <h2>Ostanite u toku</h2>
+      <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Enter your email">
+        <input type="email" placeholder="Vaš email">
         <button type="submit">Subscribe</button>
       </form>
     </div>
   </div>
 </section>
-  <div class="section-divider"></div>
 
+<div class="section-divider"></div>
 
-
+<!-- =====================
+     FOOTER
+===================== -->
 <footer class="footer">
   <div class="footer-inner">
 
     <div class="footer-col">
-      <div class="logo">
- 
-
       <p>
-        Edukativni podcast o biznisu i investiranju.
-        Razgovori sa ljudima koji prave razliku.
+        Kvadrat po Kvadrat je edukativni podcast o biznisu,
+        investiranju i ljudima koji prave razliku.
       </p>
     </div>
 
@@ -189,46 +192,51 @@
       <h4>Stranice</h4>
       <a href="#">Početna</a>
       <a href="#">Epizode</a>
-      <a href="#">Gosti</a>
+      <a href="gosti.html">Gosti</a>
       <a href="#">O nama</a>
       <a href="#">Kontakt</a>
     </div>
 
     <div class="footer-col">
-      <h4>Where to listen</h4>
+      <h4>Platforme</h4>
       <a href="#">Spotify</a>
-      <a href="#">Google Podcast</a>
       <a href="#">Apple Podcast</a>
-      <a href="#">Apple Music</a>
+      <a href="#">Google Podcast</a>
     </div>
 
     <div class="footer-col">
-      <h4>Kontakt info</h4>
-      <p>21000 Novi Sad</p>
+      <h4>Kontakt</h4>
+      <p>Novi Sad, Srbija</p>
       <p>kontakt@podcast.com</p>
-      <p>+381 62 123 456</p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Social Media</h4>
-      <div class="footer-socials">
-        <a href="#">●</a>
-        <a href="#">●</a>
-        <a href="#">●</a>
-        <a href="#">●</a>
-      </div>
     </div>
 
   </div>
 
   <div class="footer-bottom">
-    © 2026 KVADRAT PO KVADRAT
+    © 2026 Kvadrat po Kvadrat
   </div>
 </footer>
 
+<!-- =====================
+     MODAL (GOSTI)
+===================== -->
+<div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+    <button class="guest-modal-close" id="closeGuest">×</button>
+
+    <div class="guest-modal-image">
+      <img id="guestModalImg" src="" alt="">
+    </div>
+
+    <div class="guest-modal-text">
+      <h2 id="guestModalName"></h2>
+      <span id="guestModalRole"></span>
+      <p id="guestModalBio"></p>
+    </div>
+  </div>
+</div>
+
+<!-- JS -->
 <script src="assets/js/main.js"></script>
 </body>
 </html>
-
-
-
