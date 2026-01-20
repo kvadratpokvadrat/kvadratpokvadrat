@@ -267,29 +267,43 @@ section + section {
   gap: 30px;
 }
 
-/* ===== GUEST CARD – HOME HOVER FIX ===== */
-.guest-card {
+/* =====================
+   GUESTS – HOME (PORTRET)
+===================== */
+.hosts {
+  border-top: 2px solid var(--yellow);
+  padding: 100px 60px;
+}
+
+.hosts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.hosts .guest-card {
   position: relative;
-  overflow: hidden;
+  height: 420px; /* PORTRET */
   border-radius: 18px;
+  overflow: hidden;
   background: #111;
   cursor: pointer;
 }
 
-/* slika */
-.guest-card img {
+/* SLIKA – USPRAVNA */
+.hosts .guest-card img {
   width: 100%;
-  height: 360px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
 
-.guest-card:hover img {
+.hosts .guest-card:hover img {
   transform: scale(1.08);
 }
 
 /* ZUTI GLOW */
-.guest-card::after {
+.hosts .guest-card::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -299,39 +313,39 @@ section + section {
   pointer-events: none;
 }
 
-.guest-card:hover::after {
+.hosts .guest-card:hover::after {
   box-shadow: 0 0 40px rgba(250,204,21,0.55);
 }
 
 /* ZUTI OVERLAY */
-.guest-overlay {
+.hosts .guest-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(250,204,21,0.85),
-    rgba(250,204,21,0.45),
+    rgba(250,204,21,0.9),
+    rgba(250,204,21,0.5),
     transparent 60%
   );
   opacity: 0;
   transition: opacity 0.4s ease;
 }
 
-.guest-card:hover .guest-overlay {
+.hosts .guest-card:hover .guest-overlay {
   opacity: 1;
 }
 
 /* INFO */
-.guest-info {
+.hosts .guest-info {
   position: absolute;
   bottom: 0;
   width: 100%;
   padding: 18px 20px;
+  background: var(--yellow);
+  color: #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #000;
-  background: #facc15;
 }
 
 
@@ -457,4 +471,56 @@ section + section {
 @media (max-width: 500px) {
   .footer-inner { grid-template-columns: 1fr; }
 }
+
+/* =====================
+   GOSTI PAGE – FIX
+===================== */
+
+.all-guests {
+  padding: 120px 60px;
+}
+
+.all-guests-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+/* KARTICA */
+.all-guests .guest-card {
+  height: 460px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111;
+}
+
+/* SLIKA */
+.all-guests .guest-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* TAMNI OVERLAY (NE ŽUTI) */
+.all-guests .guest-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85),
+    rgba(0,0,0,0.4),
+    transparent 60%
+  );
+  opacity: 1;
+}
+
+/* INFO */
+.all-guests .guest-info {
+  background: #111;
+  color: #fff;
+  bottom: 0;
+}
+
+.all-guests .guest-info span {
+  color: var(--yellow);
+}
+
 
