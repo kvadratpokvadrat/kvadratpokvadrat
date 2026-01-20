@@ -3,7 +3,7 @@
    ROOT & RESET
 ===================== */
 :root {
-  --black: #FFFFFF;
+  --black: #000000;
   --yellow: #facc15;
   --gray: #9ca3af;
 }
@@ -541,6 +541,7 @@ section {
   box-shadow: 0 0 18px rgba(250,204,21,0.6);
   transform: translateY(-1px);
 }
+
 
 
 
