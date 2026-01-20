@@ -15,49 +15,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =====================
-   GUEST MODAL – FULL FIX
-===================== */
-const guestCards = document.querySelectorAll(".guest-card");
-const modal = document.getElementById("guestModal");
-const closeBtn = document.getElementById("closeGuest");
+     GUEST MODAL – SAFE FIX
+  ===================== */
+  const modal = document.getElementById("guestModal");
 
-const modalImg = document.getElementById("guestModalImg");
-const modalName = document.getElementById("guestModalName");
-const modalRole = document.getElementById("guestModalRole");
-const modalBio = document.getElementById("guestModalBio");
+  if (modal) {
+    const guestCards = document.querySelectorAll(".guest-card");
+    const closeBtn = document.getElementById("closeGuest");
 
-guestCards.forEach(card => {
-  card.addEventListener("click", () => {
-    modalImg.src = card.dataset.img;
-    modalName.textContent = card.dataset.name;
-    modalRole.textContent = card.dataset.role;
-    modalBio.textContent = card.dataset.bio;
+    const modalImg = document.getElementById("guestModalImg");
+    const modalName = document.getElementById("guestModalName");
+    const modalRole = document.getElementById("guestModalRole");
+    const modalBio = document.getElementById("guestModalBio");
 
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
-  });
-});
+    guestCards.forEach(card => {
+      card.addEventListener("click", () => {
+        modalImg.src = card.dataset.img;
+        modalName.textContent = card.dataset.name;
+        modalRole.textContent = card.dataset.role;
+        modalBio.textContent = card.dataset.bio;
 
-/* CLOSE FUNCTIONS */
-function closeModal() {
-  modal.classList.remove("active");
-  document.body.style.overflow = "";
-}
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      });
+    });
 
-/* X BUTTON */
-closeBtn.addEventListener("click", closeModal);
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
 
-/* CLICK OUTSIDE */
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) {
-    closeModal();
+    /* X BUTTON */
+    closeBtn.addEventListener("click", closeModal);
+
+    /* CLICK OUTSIDE */
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    /* ESC KEY */
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("active")) {
+        closeModal();
+      }
+    });
   }
 });
-
-/* ESC KEY */
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modal.classList.contains("active")) {
-    closeModal();
-  }
-});
-
