@@ -310,12 +310,13 @@ section {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: 0.4s;
+  transition: opacity 0.4s ease;
   z-index: 9999;
 }
 
@@ -324,16 +325,108 @@ section {
   pointer-events: auto;
 }
 
+/* MODAL BOX */
 .guest-modal-content {
-  background: #111;
-  border-radius: 22px;
+  background: linear-gradient(180deg, #111, #0b0b0b);
+  border-radius: 24px;
   max-width: 900px;
   width: 90%;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 40px;
   padding: 40px;
+  position: relative;
+  box-shadow: 0 0 60px rgba(0,0,0,0.9);
+  animation: modalIn 0.4s ease;
 }
+
+/* ANIMACIJA */
+@keyframes modalIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* IMAGE WRAP – FIX BELOG POLJA */
+.guest-modal-image {
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+  min-height: 420px;
+}
+
+.guest-modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* TEXT */
+.guest-modal-text h2 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.guest-modal-text span {
+  color: var(--yellow);
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.guest-modal-text p {
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* CLOSE BUTTON */
+.guest-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(250,204,21,0.6);
+  color: var(--yellow);
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+.guest-modal-close:hover {
+  background: var(--yellow);
+  color: #000;
+  box-shadow: 0 0 15px rgba(250,204,21,0.8);
+}
+
+/* =====================
+   MOBILE
+===================== */
+@media (max-width: 768px) {
+  .guest-modal-content {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .guest-modal-image {
+    min-height: 280px;
+  }
+}
+
 
 /* =====================
    NEWSLETTER
@@ -409,3 +502,16 @@ section {
     gap: 40px;
   }
 }
+/* UX POLISH */
+.guest-card {
+  cursor: pointer;
+}
+
+.guest-modal {
+  cursor: zoom-out;
+}
+
+.guest-modal-content {
+  cursor: default;
+}
+
