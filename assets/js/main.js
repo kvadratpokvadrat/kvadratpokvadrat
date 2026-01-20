@@ -1,59 +1,48 @@
-document.addEventListener("DOMContentLoaded", () => {
+/* =====================
+   MOBILE NAV
+===================== */
+const hamburger = document.querySelector('.hamburger');
+const nav = document.querySelector('.nav');
 
-  /* HAMBURGER */
-  const hamburger = document.querySelector(".hamburger");
-  const nav = document.querySelector(".nav");
-
-  hamburger?.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    nav.classList.toggle("active");
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('active');
   });
+}
 
-  /* SCROLL ANIMATIONS */
-  const reveal = document.querySelectorAll("section, .guest-card, .episode-card");
+/* =====================
+   MODAL – GUEST
+===================== */
+const modal = document.querySelector('.guest-modal');
+const modalClose = document.querySelector('.guest-modal-close');
+const guestCards = document.querySelectorAll('.guest-card');
 
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = 1;
-        e.target.style.transform = "translateY(0)";
-      }
-    });
-  }, { threshold: 0.15 });
-
-  reveal.forEach(el => {
-    el.style.opacity = 0;
-    el.style.transform = "translateY(40px)";
-    el.style.transition = "0.8s ease";
-    io.observe(el);
+guestCards.forEach(card => {
+  card.addEventListener('click', () => {
+    modal.classList.add('active');
   });
+});
 
-  /* GUEST MODAL */
-  const modal = document.getElementById("guestModal");
-  const img = document.getElementById("guestModalImg");
-  const name = document.getElementById("guestModalName");
-  const role = document.getElementById("guestModalRole");
-  const bio = document.getElementById("guestModalBio");
-  const close = document.getElementById("closeGuest");
-
-  document.querySelectorAll(".guest-card").forEach(card => {
-    card.addEventListener("click", () => {
-      img.src = card.dataset.img;
-      name.textContent = card.dataset.name;
-      role.textContent = card.dataset.role;
-      bio.textContent = card.dataset.bio;
-      modal.classList.add("active");
-      document.body.style.overflow = "hidden";
-    });
+if (modalClose) {
+  modalClose.addEventListener('click', () => {
+    modal.classList.remove('active');
   });
+}
 
-  function closeModal(){
-    modal.classList.remove("active");
-    document.body.style.overflow = "";
+if (modal) {
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      modal.classList.remove('active');
+    }
+  });
+}
+
+/* =====================
+   ESC CLOSE
+===================== */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    modal?.classList.remove('active');
   }
-
-  close?.addEventListener("click", closeModal);
-  modal?.addEventListener("click", e => e.target === modal && closeModal());
-  document.addEventListener("keydown", e => e.key === "Escape" && closeModal());
-
 });
