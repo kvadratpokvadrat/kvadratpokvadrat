@@ -521,6 +521,20 @@ header {
 .badge-btn:hover::after {
   transform: translateX(4px);
 }
+:root {
+  --bg: #ffffff;
+  --text: #0b0b0b;
+  --glass-bg: rgba(255,255,255,0.7);
+  --glass-border: rgba(0,0,0,0.08);
+}
+
+body.dark {
+  --bg: #0b0b0b;
+  --text: #f9fafb;
+  --glass-bg: rgba(20,20,20,0.7);
+  --glass-border: rgba(255,255,255,0.12);
+}
+
 
 
 
