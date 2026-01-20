@@ -39,7 +39,6 @@ header {
   display: flex;
   align-items: center;
   padding: 0 60px;
-  gap: 30px;
   z-index: 3000;
 }
 
@@ -173,7 +172,7 @@ section + section {
   border-radius: 40px;
   border: 2px solid var(--yellow);
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
 .btn:hover {
@@ -231,9 +230,11 @@ section + section {
 .episode-card h3 { padding: 15px; }
 
 /* =====================
-   HOSTS – HOME
+   HOSTS / GUEST CARDS
+   (ISTE NA OBE STRANE)
 ===================== */
-.hosts {
+.hosts,
+.all-guests {
   padding: 100px 60px;
 }
 
@@ -260,14 +261,15 @@ section + section {
   box-shadow: 0 0 15px rgba(250,204,21,0.6);
 }
 
-.hosts-grid {
+.hosts-grid,
+.all-guests-inner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
   gap: 30px;
 }
 
-/* GUEST CARD – HOME */
-.hosts .guest-card {
+/* CARD */
+.guest-card {
   position: relative;
   height: 420px;
   border-radius: 18px;
@@ -276,19 +278,20 @@ section + section {
   cursor: pointer;
 }
 
-.hosts .guest-card img {
+/* IMAGE */
+.guest-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
 
-.hosts .guest-card:hover img {
+.guest-card:hover img {
   transform: scale(1.08);
 }
 
 /* YELLOW GLOW */
-.hosts .guest-card::after {
+.guest-card::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -298,12 +301,12 @@ section + section {
   pointer-events: none;
 }
 
-.hosts .guest-card:hover::after {
+.guest-card:hover::after {
   box-shadow: 0 0 40px rgba(250,204,21,0.55);
 }
 
-/* YELLOW OVERLAY */
-.hosts .guest-overlay {
+/* OVERLAY */
+.guest-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -316,11 +319,12 @@ section + section {
   transition: opacity 0.4s ease;
 }
 
-.hosts .guest-card:hover .guest-overlay {
+.guest-card:hover .guest-overlay {
   opacity: 1;
 }
 
-.hosts .guest-info {
+/* INFO */
+.guest-info {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -329,55 +333,7 @@ section + section {
   color: #000;
   display: flex;
   justify-content: space-between;
-}
-
-/* =====================
-   GOSTI PAGE
-===================== */
-.all-guests {
-  padding: 120px 60px;
-}
-
-.all-guests-inner {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
-  gap: 40px;
-}
-
-.all-guests .guest-card {
-  height: 460px;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #111;
-  cursor: pointer;
-}
-
-.all-guests .guest-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* DARK OVERLAY */
-.all-guests .guest-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.85),
-    rgba(0,0,0,0.4),
-    transparent 60%
-  );
-}
-
-/* INFO */
-.all-guests .guest-info {
-  background: #111;
-  color: #fff;
-}
-
-.all-guests .guest-info span {
-  color: var(--yellow);
+  align-items: center;
 }
 
 /* =====================
@@ -439,20 +395,24 @@ section + section {
 }
 
 /* =====================
-   NEWSLETTER
+   NEWSLETTER – FINAL
 ===================== */
 .newsletter {
-  padding: 100px 60px;
+  padding: 120px 60px;
   background: radial-gradient(circle at top, #111, #000 70%);
 }
 
 .newsletter-inner {
   max-width: 1200px;
   margin: auto;
+  background: #0b0b0b;
+  border-radius: 28px;
+  padding: 60px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
+  box-shadow: 0 0 60px rgba(250,204,21,0.08);
 }
 
 .newsletter-inner img {
@@ -461,22 +421,42 @@ section + section {
   border-radius: 20px;
 }
 
+.newsletter-form {
+  display: flex;
+  gap: 14px;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 14px 20px;
+  border-radius: 40px;
+  border: none;
+}
+
+.newsletter-form button {
+  background: var(--yellow);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 40px;
+  font-weight: 600;
+}
+
 /* =====================
    FOOTER
 ===================== */
 .footer {
   background: #000;
   border-top: 2px solid var(--yellow);
-  padding-top: 80px;
+  padding-top: 100px;
 }
 
 .footer-inner {
   max-width: 1200px;
   margin: auto;
-  padding: 0 60px 60px;
+  padding: 0 60px 80px;
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  gap: 50px;
 }
 
 .footer-bottom {
@@ -491,43 +471,26 @@ section + section {
    RESPONSIVE
 ===================== */
 @media (max-width: 768px) {
-  .newsletter-inner { grid-template-columns: 1fr; text-align: center; }
-  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .newsletter-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .guest-modal-content {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 500px) {
-  .footer-inner { grid-template-columns: 1fr; }
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
 }
-/* =====================
-   GOSTI PAGE – HOVER FIX
-===================== */
-
-.all-guests .guest-card {
-  position: relative;
-  cursor: pointer;
-}
-
-/* ZUTI GLOW */
-.all-guests .guest-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  box-shadow: 0 0 0 rgba(250,204,21,0);
-  transition: box-shadow 0.4s ease;
-  pointer-events: none;
-}
-
-.all-guests .guest-card:hover::after {
-  box-shadow: 0 0 40px rgba(250,204,21,0.55);
-}
-
-/* SLIKA HOVER */
-.all-guests .guest-card img {
-  transition: transform 0.6s ease;
-}
-
-.all-guests .guest-card:hover img {
-  transform: scale(1.06);
-}
-
