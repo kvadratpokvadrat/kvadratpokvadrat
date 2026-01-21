@@ -1,5 +1,5 @@
 /* =========================================================
-   KVADRAT PO KVADRAT — FINAL MASTER CSS (CLEAN FLOW EDITION)
+   KVADRAT PO KVADRAT — FINAL MASTER CSS (STABLE EDITION)
 ========================================================= */
 
 /* =====================
@@ -7,7 +7,7 @@
 ===================== */
 :root {
   --bg: #f4f5f7;
-  --card: rgba(255,255,255,.85);
+  --card: rgba(255,255,255,.88);
   --text: #0b0b0b;
   --muted: #6b7280;
   --accent: #facc15;
@@ -26,7 +26,7 @@
 /* DARK MODE */
 body.dark {
   --bg: #0b0b0b;
-  --card: rgba(18,18,18,.85);
+  --card: rgba(18,18,18,.9);
   --text: #f9fafb;
   --muted: #9ca3af;
   --border: rgba(255,255,255,.14);
@@ -35,7 +35,9 @@ body.dark {
 /* =====================
    RESET
 ===================== */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -49,10 +51,11 @@ body {
   color: var(--text);
   line-height: 1.65;
   overflow-x: hidden;
+  padding-top: 96px; /* ⬅️ header fix */
 }
 
 img {
-  width: 100%;
+  max-width: 100%;
   display: block;
 }
 
@@ -77,7 +80,7 @@ h2 {
   font-size: clamp(1.6rem, 3vw, 2.1rem);
   position: relative;
   display: inline-block;
-  padding-bottom: 14px;
+  padding-bottom: 12px;
 }
 
 h2::after {
@@ -102,7 +105,9 @@ p {
 ===================== */
 header {
   position: fixed;
-  inset: 0 0 auto 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 96px;
   padding: 0 56px;
   display: flex;
@@ -110,11 +115,11 @@ header {
   background: var(--card);
   backdrop-filter: blur(26px);
   box-shadow: 0 8px 30px rgba(0,0,0,.06);
-  z-index: 3000;
+  z-index: 5000;
 }
 
 .logo img {
-  height: 54px;
+  height: 52px;
 }
 
 .nav {
@@ -134,19 +139,22 @@ header {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -10px;
+  bottom: -8px;
   width: 100%;
   height: 2px;
   background: var(--accent);
 }
 
-/* HAMBURGER */
+/* =====================
+   HAMBURGER
+===================== */
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 6px;
   margin-left: auto;
   cursor: pointer;
+  z-index: 6000;
 }
 
 .hamburger span {
@@ -156,7 +164,9 @@ header {
   transition: .3s;
 }
 
-/* MOBILE NAV */
+/* =====================
+   MOBILE NAV
+===================== */
 @media (max-width: 900px) {
   header { padding: 0 24px; }
 
@@ -173,6 +183,7 @@ header {
     padding: 32px 24px;
     transform: translateY(-120%);
     transition: .4s var(--ease);
+    box-shadow: 0 30px 80px rgba(0,0,0,.15);
   }
 
   .nav.active {
@@ -220,7 +231,7 @@ section:not(.hero)::before {
   background: linear-gradient(
     to right,
     transparent,
-    rgba(0,0,0,.08),
+    rgba(0,0,0,.12),
     transparent
   );
 }
@@ -237,11 +248,10 @@ section:not(.hero)::before {
 }
 
 /* =====================
-   HERO — FULL PREMIUM
+   HERO
 ===================== */
 .hero {
-  height: 100vh;
-  min-height: 680px;
+  min-height: calc(100vh - 96px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -260,7 +270,6 @@ section:not(.hero)::before {
   background:
     radial-gradient(circle at top, rgba(250,204,21,.22), transparent 55%);
   animation: heroGlow 7s ease-in-out infinite;
-  pointer-events: none;
 }
 
 @keyframes heroGlow {
@@ -274,12 +283,6 @@ section:not(.hero)::before {
   padding: 0 24px;
   color: #fff;
   z-index: 2;
-  animation: heroFadeUp 1.2s var(--ease) forwards;
-}
-
-@keyframes heroFadeUp {
-  from { opacity:0; transform:translateY(40px); }
-  to { opacity:1; transform:translateY(0); }
 }
 
 .hero-title {
@@ -301,29 +304,18 @@ section:not(.hero)::before {
   display: flex;
   justify-content: center;
   gap: 18px;
-}
-
-.hero-btn {
-  padding: 16px 46px;
-  box-shadow: 0 18px 45px rgba(250,204,21,.45);
-}
-
-.hero-btn:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow:
-    0 0 32px rgba(250,204,21,.65),
-    0 28px 80px rgba(0,0,0,.45);
+  flex-wrap: wrap;
 }
 
 /* =====================
-   GRIDS / CARDS
+   GRIDS
 ===================== */
 .episode-grid,
 .hosts-grid,
 .sponsor-grid {
   display: grid;
   gap: 32px;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
 }
 
 .episode-card,
@@ -346,7 +338,7 @@ section:not(.hero)::before {
 }
 
 /* =====================
-   MODAL GUEST
+   GUEST MODAL
 ===================== */
 .guest-modal {
   position: fixed;
@@ -356,7 +348,7 @@ section:not(.hero)::before {
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 4000;
+  z-index: 7000;
 }
 
 .guest-modal.active { display: flex; }
