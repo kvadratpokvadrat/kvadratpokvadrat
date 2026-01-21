@@ -251,7 +251,7 @@ section:not(.hero)::before {
    HERO
 ===================== */
 .hero {
-  min-height: calc(100vh - 96px);
+  min-height: calc(65vh - 96px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -544,4 +544,5 @@ header {
   max-width: 100vw;
   overflow-x: hidden;
 }
+
 
