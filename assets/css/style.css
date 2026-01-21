@@ -36,6 +36,18 @@ body{
 img{width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
+/* ================= SECTIONS ================= */
+section{
+  padding:110px 60px;
+  position:relative;
+}
+
+@media (max-width:768px){
+  section{
+    padding:80px 24px;
+  }
+}
+
 
 /* ================= HEADER ================= */
 header{
@@ -292,4 +304,5 @@ body.dark .badge-btn{
   background:#111;
   color:#fff;
 }
+
 
