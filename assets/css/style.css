@@ -1,5 +1,5 @@
 /* =========================================================
-   KVADRAT PO KVADRAT — BRUTAL CINEMATIC UI (FINAL)
+   KVADRAT PO KVADRAT — BRUTAL CINEMATIC UI (PRODUCTION FINAL)
 ========================================================= */
 
 /* ================= DESIGN SYSTEM ================= */
@@ -31,41 +31,37 @@ body{
   color:var(--text);
   line-height:1.7;
   padding-top:96px;
+  overflow-x:hidden;
 }
 img{width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
-/* ================= PAGE LOAD (KEYNOTE) ================= */
-body:not(.loaded) section{
+/* ================= PAGE LOAD (KEYNOTE STYLE) ================= */
+body:not(.loaded) section,
+body:not(.loaded) header,
+body:not(.loaded) footer{
   opacity:0;
-  transform:translateY(36px) scale(.98);
+  transform:translateY(40px) scale(.98);
 }
-body.loaded section{
+body.loaded section,
+body.loaded header,
+body.loaded footer{
   opacity:1;
   transform:none;
   transition:
-    opacity 1s ease,
-    transform 1s var(--ease);
+    opacity .9s ease,
+    transform .9s var(--ease);
 }
-body.loaded section:nth-of-type(1){transition-delay:.15s}
-body.loaded section:nth-of-type(2){transition-delay:.3s}
-body.loaded section:nth-of-type(3){transition-delay:.45s}
-body.loaded section:nth-of-type(4){transition-delay:.6s}
+body.loaded section:nth-of-type(1){transition-delay:.1s}
+body.loaded section:nth-of-type(2){transition-delay:.25s}
+body.loaded section:nth-of-type(3){transition-delay:.4s}
+body.loaded section:nth-of-type(4){transition-delay:.55s}
 
 /* ================= SECTIONS ================= */
-section{padding:120px 60px}
+section{padding:110px 60px; position:relative}
 @media(max-width:768px){
-  section{padding:90px 24px}
+  section{padding:80px 24px}
 }
-
-/* ================= DIVIDER ================= */
-.section-divider{
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--yellow),transparent);
-  transform:scaleX(0);
-  transition:1.2s var(--ease);
-}
-.section-divider.active{transform:scaleX(1)}
 
 /* ================= HEADER ================= */
 header{
@@ -76,11 +72,11 @@ header{
   display:flex;
   align-items:center;
   background:var(--glass-bg);
-  backdrop-filter:blur(24px);
+  backdrop-filter:blur(26px);
   border-bottom:1px solid var(--glass-border);
   z-index:9999;
 }
-.logo img{height:72px}
+.logo img{height:76px}
 
 .nav{
   margin-left:auto;
@@ -89,7 +85,7 @@ header{
   gap:32px;
 }
 .nav a{
-  font-weight:700;
+  font-weight:800;
   position:relative;
 }
 .nav a::after{
@@ -102,15 +98,16 @@ header{
 }
 .nav a:hover::after{width:100%}
 
-/* ================= BUTTONS ================= */
+/* ================= BUTTON SYSTEM ================= */
 .btn,
 .badge-btn,
 .cta{
   border-radius:999px;
-  font-weight:800;
+  font-weight:900;
   cursor:pointer;
   position:relative;
   transition:.4s var(--ease);
+  white-space:nowrap;
 }
 
 .btn{
@@ -121,7 +118,7 @@ header{
     inset 0 -3px 0 rgba(0,0,0,.25);
 }
 .btn:hover{
-  transform:translateY(-6px) scale(1.02);
+  transform:translateY(-6px) scale(1.03);
 }
 
 .badge-btn{
@@ -167,7 +164,7 @@ header{
 }
 @keyframes pulse{
   0%{box-shadow:0 0 0 rgba(250,204,21,0)}
-  50%{box-shadow:0 0 60px rgba(250,204,21,.7)}
+  50%{box-shadow:0 0 70px rgba(250,204,21,.75)}
   100%{box-shadow:0 0 0 rgba(250,204,21,0)}
 }
 
@@ -177,11 +174,11 @@ header{
   justify-content:space-between;
   align-items:center;
   gap:40px;
-  margin-bottom:80px;
+  margin-bottom:70px;
   flex-wrap:wrap;
 }
 .section-header h2{
-  font-size:clamp(2.2rem,3vw,2.8rem);
+  font-size:clamp(2.2rem,3vw,2.7rem);
   font-weight:900;
   letter-spacing:-.8px;
   position:relative;
@@ -190,27 +187,28 @@ header{
   content:"";
   position:absolute;
   left:0;bottom:-14px;
-  width:80px;height:4px;
+  width:70px;height:4px;
   background:var(--yellow);
   border-radius:999px;
   transition:.4s var(--ease);
 }
-.section-header:hover h2::after{width:160px}
+.section-header:hover h2::after{width:140px}
 
-/* ================= STATS ================= */
+/* ================= STATS (FIXED FORM) ================= */
 .stats{
   display:flex;
   justify-content:center;
-  gap:140px;
+  gap:120px;
   text-align:center;
+  flex-wrap:wrap;
+}
+.stat-item{
+  min-width:160px;
 }
 .stat-item strong{
-  font-size:3.6rem;
+  font-size:3.4rem;
   font-weight:900;
   color:var(--yellow);
-  text-shadow:
-    0 0 18px rgba(250,204,21,.6),
-    0 0 50px rgba(250,204,21,.35);
 }
 .stat-item span{
   font-size:14px;
@@ -221,7 +219,7 @@ header{
 .episode-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:48px;
+  gap:44px;
 }
 .episode-card{
   border-radius:var(--radius-md);
@@ -233,7 +231,7 @@ header{
   transition:.5s var(--ease);
 }
 .episode-card:hover{
-  transform:translateY(-16px) scale(1.02);
+  transform:translateY(-14px) scale(1.02);
   box-shadow:var(--shadow-strong);
 }
 .episode-card h3{
@@ -245,7 +243,7 @@ header{
 .hosts-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:48px;
+  gap:44px;
 }
 .guest-card{
   height:420px;
@@ -255,52 +253,51 @@ header{
   transition:.5s var(--ease);
 }
 .guest-card:hover{
-  transform:translateY(-18px) scale(1.02);
+  transform:translateY(-16px) scale(1.02);
   box-shadow:var(--shadow-strong);
 }
 
-/* ================= NEWSLETTER ================= */
+/* ================= NEWSLETTER (FIXED SIZE) ================= */
 .newsletter-inner{
-  max-width:1100px;
+  max-width:920px;
   margin:auto;
-  padding:80px;
-  border-radius:56px;
+  padding:60px 48px;
+  border-radius:42px;
   background:var(--glass-bg);
-  backdrop-filter:blur(30px);
-  box-shadow:var(--shadow-strong);
+  backdrop-filter:blur(28px);
+  box-shadow:var(--shadow-soft);
   text-align:center;
 }
 .newsletter-inner h2{
-  font-size:2.4rem;
+  font-size:2rem;
   font-weight:900;
 }
 .newsletter-form{
-  margin-top:36px;
+  margin-top:26px;
   display:flex;
-  gap:18px;
+  gap:16px;
   justify-content:center;
   flex-wrap:wrap;
 }
 .newsletter-form input{
-  padding:18px 26px;
+  padding:16px 22px;
   border-radius:999px;
   border:1px solid rgba(0,0,0,.25);
 }
 .newsletter-form button{
-  padding:18px 46px;
+  padding:16px 40px;
   border-radius:999px;
   background:var(--yellow);
   font-weight:900;
-  transition:.4s var(--ease);
 }
 .newsletter-form button:hover{
-  transform:translateY(-6px);
-  box-shadow:0 24px 70px rgba(250,204,21,.65);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(250,204,21,.6);
 }
 
 /* ================= FOOTER ================= */
 .footer{
-  padding:90px 20px 40px;
+  padding:80px 20px 40px;
   text-align:center;
   color:var(--muted);
 }
@@ -309,7 +306,7 @@ header{
 body.dark{
   --bg:#0b0b0b;
   --text:#f9fafb;
-  --glass-bg:rgba(18,18,18,.8);
+  --glass-bg:rgba(18,18,18,.85);
   --glass-border:rgba(255,255,255,.14);
 }
 body.dark .badge-btn{
@@ -330,7 +327,7 @@ body.dark .badge-btn{
 #page-loader.hide{
   opacity:0;
   visibility:hidden;
-  transition:.9s ease;
+  transition:.8s ease;
 }
 .loader-inner img{
   width:150px;
