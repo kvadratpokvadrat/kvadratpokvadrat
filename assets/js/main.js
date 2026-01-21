@@ -1,43 +1,118 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* MOBILE NAV */
+  /* =====================
+     MOBILE NAV
+  ===================== */
   const burger = document.querySelector(".hamburger");
   const nav = document.querySelector(".nav");
 
-  burger?.addEventListener("click", () => {
-    nav.classList.toggle("active");
-    burger.classList.toggle("active");
-  });
-
-  /* REVEAL */
-  const reveals = document.querySelectorAll(".reveal");
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if(e.isIntersecting){
-        e.target.style.opacity = 1;
-        e.target.style.transform = "none";
-        e.target.style.transition = "0.9s cubic-bezier(.4,0,.2,1)";
-        observer.unobserve(e.target);
-      }
+  if (burger && nav) {
+    burger.addEventListener("click", () => {
+      nav.classList.toggle("active");
+      burger.classList.toggle("active");
     });
-  },{threshold:0.15});
 
-  reveals.forEach(r => observer.observe(r));
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("active");
+        burger.classList.remove("active");
+      });
+    });
+  }
 
-  /* DARK MODE */
+  /* =====================
+     REVEAL ANIMATION
+  ===================== */
+  const revealItems = document.querySelectorAll(".reveal");
+
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealItems.forEach(el => revealObserver.observe(el));
+
+  /* =====================
+     FLOW DIVIDERS
+  ===================== */
+  const dividers = document.querySelectorAll(".section-divider");
+
+  const dividerObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          dividerObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  dividers.forEach(d => dividerObserver.observe(d));
+
+  /* =====================
+     STATS COUNTER 🔢
+  ===================== */
+  const statsSection = document.querySelector(".stats");
+  const counters = document.querySelectorAll("[data-count]");
+
+  if (statsSection && counters.length) {
+    const statsObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          statsSection.classList.add("visible");
+
+          counters.forEach(counter => {
+            const target = +counter.dataset.count;
+            let current = 0;
+            const step = Math.ceil(target / 80);
+
+            const update = () => {
+              current += step;
+              if (current >= target) {
+                counter.textContent = target;
+              } else {
+                counter.textContent = current;
+                requestAnimationFrame(update);
+              }
+            };
+
+            update();
+          });
+
+          statsObserver.unobserve(statsSection);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    statsObserver.observe(statsSection);
+  }
+
+  /* =====================
+     DARK MODE
+  ===================== */
   const toggle = document.getElementById("themeToggle");
-  if(toggle){
-    if(localStorage.theme === "dark"){
+
+  if (toggle) {
+    if (localStorage.theme === "dark") {
       document.body.classList.add("dark");
       toggle.textContent = "Light";
     }
-    toggle.onclick = () => {
+
+    toggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
-      const d = document.body.classList.contains("dark");
-      toggle.textContent = d ? "Light" : "Dark";
-      localStorage.theme = d ? "dark" : "light";
-    };
+      const isDark = document.body.classList.contains("dark");
+      toggle.textContent = isDark ? "Light" : "Dark";
+      localStorage.theme = isDark ? "dark" : "light";
+    });
   }
 
 });
