@@ -1,142 +1,287 @@
 /* =========================================================
-   FINAL POLISH — TEXT, BUTTONS, ANIMATIONS, LIGHT MODE FIX
+   APPLE-STYLE PREMIUM UI — FINAL MASTER CSS (PRODUCTION)
 ========================================================= */
 
-/* ---------- SECTION HEADER (TITLE + BUTTON) ---------- */
+/* ================= ROOT / DESIGN SYSTEM ================= */
+:root {
+  --bg:#ffffff;
+  --text:#0b0b0b;
+  --muted:#6b7280;
+  --yellow:#facc15;
+
+  --glass-bg:rgba(255,255,255,.75);
+  --glass-border:rgba(0,0,0,.12);
+
+  --radius-sm:14px;
+  --radius-md:22px;
+  --radius-lg:32px;
+
+  --shadow-soft:0 10px 30px rgba(0,0,0,.1);
+  --shadow-strong:0 35px 90px rgba(0,0,0,.22);
+
+  --transition:cubic-bezier(.4,0,.2,1);
+}
+
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  padding-top:90px;
+}
+img{width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ================= GLOBAL SECTION ================= */
+section{padding:120px 60px}
+@media(max-width:768px){
+  section{padding:90px 24px}
+}
+
+/* ================= DIVIDER ================= */
+.section-divider{
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--yellow),transparent);
+  transform:scaleX(0);
+  transition:transform 1s var(--transition);
+}
+.section-divider.active{transform:scaleX(1)}
+
+/* ================= HEADER ================= */
+header{
+  position:fixed;
+  inset:0 0 auto 0;
+  height:90px;
+  padding:0 60px;
+  display:flex;
+  align-items:center;
+  background:var(--glass-bg);
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--glass-border);
+  z-index:5000;
+}
+.logo img{height:68px}
+
+.nav{
+  margin-left:auto;
+  display:flex;
+  gap:28px;
+  align-items:center;
+}
+.nav a{
+  font-weight:600;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-6px;
+  width:0;height:2px;
+  background:var(--yellow);
+  transition:.3s;
+}
+.nav a:hover::after{width:100%}
+
+.cta{
+  padding:12px 28px;
+  border-radius:999px;
+  background:var(--yellow);
+  font-weight:700;
+  box-shadow:0 16px 45px rgba(250,204,21,.45);
+}
+
+/* ================= HERO ================= */
+.hero{
+  height:65vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("../images/hero.png") center/cover no-repeat;
+}
+.hero h1{
+  font-size:clamp(2.8rem,5vw,4.2rem);
+  color:#fff;
+  letter-spacing:-1px;
+}
+.hero p{
+  max-width:560px;
+  margin:20px auto 36px;
+  color:#e5e7eb;
+}
+
+.btn{
+  padding:16px 48px;
+  border-radius:999px;
+  background:var(--yellow);
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+  transition:.4s var(--transition);
+  box-shadow:0 18px 50px rgba(250,204,21,.45);
+}
+.btn:hover{transform:translateY(-4px)}
+
+.hero .btn{
+  animation:pulse 4s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(250,204,21,0)}
+  50%{box-shadow:0 0 50px rgba(250,204,21,.6)}
+  100%{box-shadow:0 0 0 rgba(250,204,21,0)}
+}
+
+/* ================= SECTION HEADER ================= */
 .section-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:60px;
+  margin-bottom:70px;
   gap:40px;
 }
-
 .section-header h2{
-  font-size:clamp(1.8rem,3vw,2.4rem);
-  font-weight:700;
-  letter-spacing:-0.6px;
+  font-size:clamp(2rem,3vw,2.6rem);
+  font-weight:800;
+  letter-spacing:-.6px;
   position:relative;
 }
-
 .section-header h2::after{
   content:"";
   position:absolute;
-  left:0;
-  bottom:-12px;
-  width:60px;
-  height:3px;
+  left:0;bottom:-14px;
+  width:70px;height:3px;
   background:var(--yellow);
   border-radius:999px;
-  transition:width .4s var(--transition);
+  transition:.4s var(--transition);
 }
+.section-header:hover h2::after{width:140px}
 
-.section-header:hover h2::after{
-  width:120px;
+/* ================= EPISODES ================= */
+.episode-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:44px;
 }
-
-/* ---------- TEXT HOVER (SUBTLE) ---------- */
-h1, h2, h3, p, span{
-  transition:color .35s ease, transform .35s ease;
+.episode-card{
+  border-radius:var(--radius-md);
+  background:var(--glass-bg);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--shadow-soft);
+  overflow:hidden;
+  transition:.45s var(--transition);
 }
-
-section:hover h2{
-  transform:translateY(-2px);
+.episode-card:hover{
+  transform:translateY(-12px);
+  box-shadow:var(--shadow-strong);
 }
-
-/* ---------- HERO CTA — ALIVE ---------- */
-.hero .btn{
-  position:relative;
-  animation:pulse 3.5s infinite;
-}
-
-@keyframes pulse{
-  0%{ box-shadow:0 0 0 rgba(250,204,21,0); }
-  50%{ box-shadow:0 0 40px rgba(250,204,21,.45); }
-  100%{ box-shadow:0 0 0 rgba(250,204,21,0); }
-}
-
-/* ---------- EPISODE CARD TEXT ---------- */
 .episode-card h3{
-  font-weight:600;
-  line-height:1.35;
-}
-
-.episode-card:hover h3{
-  transform:translateY(-2px);
-}
-
-/* ---------- BADGE BUTTON — LIGHT MODE FIX ---------- */
-.badge-btn{
-  color:var(--text);
-  background:rgba(255,255,255,.85);
-  border:1px solid rgba(0,0,0,.18);
-}
-
-.badge-btn:hover{
-  background:var(--yellow);
-  color:#000;
-}
-
-/* ---------- LIGHT MODE VISIBILITY BOOST ---------- */
-body:not(.dark) .episode-card,
-body:not(.dark) .guest-card{
-  border:1px solid rgba(0,0,0,.14);
-}
-
-/* ---------- GUEST CARD INFO ---------- */
-.guest-info{
-  transition:transform .4s var(--transition);
-}
-
-.guest-card:hover .guest-info{
-  transform:translateY(-6px);
-}
-
-/* ---------- NEWSLETTER FIX ---------- */
-.newsletter-inner h2{
-  font-size:2rem;
+  padding:24px;
   font-weight:700;
-  letter-spacing:-0.4px;
+  line-height:1.35;
+  transition:.3s;
+}
+.episode-card:hover h3{transform:translateY(-2px)}
+
+/* ================= GUESTS ================= */
+.hosts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:44px;
+}
+.guest-card{
+  height:420px;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  background:#000;
+  box-shadow:var(--shadow-soft);
+  transition:.45s var(--transition);
+}
+.guest-card:hover{
+  transform:translateY(-14px);
+  box-shadow:var(--shadow-strong);
 }
 
+/* ================= NEWSLETTER ================= */
+.newsletter-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:90px;
+  border-radius:52px;
+  background:var(--glass-bg);
+  backdrop-filter:blur(26px);
+  box-shadow:var(--shadow-strong);
+  text-align:center;
+}
+.newsletter-inner h2{
+  font-size:2.3rem;
+  font-weight:800;
+}
 .newsletter-form{
-  margin-top:24px;
+  margin-top:30px;
+  display:flex;
+  gap:16px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
-
 .newsletter-form input{
-  background:rgba(255,255,255,.9);
-  font-size:15px;
+  flex:1;
+  min-width:260px;
+  padding:16px 22px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.2);
+  background:rgba(255,255,255,.95);
+}
+.newsletter-form button{
+  padding:16px 42px;
+  border-radius:999px;
+  background:var(--yellow);
+  font-weight:700;
+  cursor:pointer;
+  transition:.4s var(--transition);
+}
+.newsletter-form button:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 55px rgba(250,204,21,.55);
 }
 
-.newsletter-form button{
-  cursor:pointer;
+/* ================= BADGE BUTTON ================= */
+.badge-btn{
+  padding:12px 26px;
+  border-radius:999px;
+  font-weight:700;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.18);
+  box-shadow:0 14px 40px rgba(0,0,0,.18);
   transition:.35s var(--transition);
 }
-
-.newsletter-form button:hover{
+.badge-btn:hover{
+  background:var(--yellow);
   transform:translateY(-3px);
-  box-shadow:0 14px 40px rgba(250,204,21,.45);
 }
 
-/* ---------- GLOBAL MICRO-MOTION ---------- */
-.episode-card,
-.guest-card,
-.badge-btn,
-.btn{
-  will-change:transform;
+/* ================= FOOTER ================= */
+.footer{
+  padding:90px 20px 40px;
+  text-align:center;
+  color:var(--muted);
 }
 
-/* ---------- DARK MODE REFINEMENTS ---------- */
+/* ================= DARK MODE ================= */
+body.dark{
+  --bg:#0b0b0b;
+  --text:#f9fafb;
+  --glass-bg:rgba(18,18,18,.8);
+  --glass-border:rgba(255,255,255,.14);
+}
 body.dark .badge-btn{
-  background:rgba(20,20,20,.9);
+  background:#111;
   border:1px solid rgba(255,255,255,.18);
   color:#fff;
 }
-
-body.dark .badge-btn:hover{
-  color:#000;
-}
-
-body.dark .section-header h2{
-  color:#fff;
-}
+body.dark .badge-btn:hover{color:#000}
