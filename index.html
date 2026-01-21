@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KVADRAT PO KVADRAT</title>
+  <title>Kvadrat po Kvadrat</title>
 
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
 
-<!-- =====================
-     HEADER
-===================== -->
+<body class="home">
+
+<!-- ================= HEADER ================= -->
 <header>
   <div class="logo">
     <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
@@ -30,10 +29,7 @@
     <a href="o-nama.html">O nama</a>
     <a href="kontakt.html">Kontakt</a>
 
-    <button class="badge-btn" id="themeToggle" aria-label="Toggle dark mode">
-      Dark
-    </button>
-
+    <button class="badge-btn" id="themeToggle">Dark</button>
     <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
   </nav>
 
@@ -44,11 +40,9 @@
   </div>
 </header>
 
-<!-- =====================
-     HERO
-===================== -->
+<!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="hero-content">
+  <div class="hero-content reveal">
     <h1>KVADRAT PO KVADRAT</h1>
     <p>Podcast o biznisu, ljudima i pričama koje imaju težinu.</p>
     <a href="epizode.html" class="btn">Poslednja epizoda</a>
@@ -57,16 +51,14 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     STATS
-===================== -->
-<section class="stats" id="stats">
-  <div class="stat-item">
+<!-- ================= STATS ================= -->
+<section class="stats">
+  <div class="stat-item reveal">
     <strong data-count="1200">0</strong>
     <span>Pretplatnika</span>
   </div>
 
-  <div class="stat-item">
+  <div class="stat-item reveal">
     <strong data-count="2500000">0</strong>
     <span>Ukupan reach</span>
   </div>
@@ -74,49 +66,52 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     EPISODES (API)
-===================== -->
+<!-- ================= EPISODES ================= -->
 <section class="episodes">
-  <div class="section-header">
+  <div class="section-header reveal">
     <h2>Najnovije epizode</h2>
-    <a href="epizode.html" class="badge-btn">Pogledaj sve epizode</a>
+    <a href="epizode.html" class="badge-btn">Sve epizode</a>
   </div>
 
-  <!-- PUNI SE IZ API-JA -->
-  <div class="episode-grid" id="homeEpisodes"></div>
+  <div class="episode-grid" id="homeEpisodes">
+    <!-- puni se iz API-ja -->
+  </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     GUESTS
-===================== -->
+<!-- ================= GUESTS ================= -->
 <section class="hosts">
-  <div class="section-header">
+  <div class="section-header reveal">
     <h2>Naši gosti</h2>
-    <a href="gosti.html" class="badge-btn">Pogledaj sve goste</a>
+    <a href="gosti.html" class="badge-btn">Svi gosti</a>
   </div>
 
-  <div class="hosts-grid" id="homeGuests">
-    <!-- opciono: možeš kasnije i goste povlačiti iz API-ja -->
+  <div class="hosts-grid">
+    <!-- primer gosta -->
+    <div class="guest-card reveal"
+      data-img="assets/images/guest1.jpg"
+      data-name="Ime Gosta"
+      data-role="CEO / Founder"
+      data-bio="Kratka bio priča o gostu.">
+      <img src="assets/images/guest1.jpg" alt="">
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     NEWSLETTER
-===================== -->
+<!-- ================= NEWSLETTER ================= -->
 <section class="newsletter">
-  <div class="newsletter-inner">
-    <img src="assets/images/newsletter.jpg" alt="">
+  <div class="newsletter-inner reveal">
+    <img src="assets/images/newsletter.jpg" alt="Newsletter">
+
     <div class="newsletter-content">
       <h2>Ostanite u toku</h2>
       <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Vaš email">
+        <input type="email" placeholder="Vaš email" required>
         <button type="submit">Subscribe</button>
       </form>
     </div>
@@ -125,18 +120,12 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     FOOTER
-===================== -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="footer-bottom">
-    © 2026 Kvadrat po Kvadrat
-  </div>
+  <p>© 2026 Kvadrat po Kvadrat</p>
 </footer>
 
-<!-- =====================
-     MODAL (GOSTI)
-===================== -->
+<!-- ================= GUEST MODAL ================= -->
 <div class="guest-modal" id="guestModal">
   <div class="guest-modal-content">
     <button class="guest-modal-close" id="closeGuest">×</button>
@@ -153,9 +142,7 @@
   </div>
 </div>
 
-<!-- =====================
-     JS
-===================== -->
+<!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
 
 <!-- HOME EPISODES API -->
@@ -165,20 +152,17 @@ fetch("/api/episodes")
   .then(data => {
     const grid = document.getElementById("homeEpisodes");
 
-    data
-      .slice(0, 3)
-      .forEach(ep => {
-        grid.innerHTML += `
-          <div class="episode-card">
-            <img src="${ep.thumbnail}" alt="">
-            <h3>${ep.title}</h3>
-          </div>
-        `;
-      });
+    data.slice(0,3).forEach(ep => {
+      grid.innerHTML += `
+        <div class="episode-card reveal">
+          <img src="${ep.thumbnail}" alt="">
+          <h3>${ep.title}</h3>
+          <p>${ep.description || ""}</p>
+        </div>
+      `;
+    });
   });
 </script>
 
 </body>
 </html>
-
-
