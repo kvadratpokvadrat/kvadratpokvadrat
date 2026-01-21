@@ -1,305 +1,242 @@
-/* =========================================================
-   APPLE LIQUID FLOW — FINAL POLISHED MASTER
-========================================================= */
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KVADRAT PO KVADRAT</title>
 
-/* =====================
-   DESIGN SYSTEM
-===================== */
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-:root {
-  --bg: #f6f6f4;              /* prljavo bela */
-  --bg-soft: rgba(255,255,255,0.75);
-  --text: #0b0b0b;
-  --muted: #6b7280;
-  --yellow: #facc15;
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
 
-  --glass-border: rgba(0,0,0,0.08);
+<!-- =====================
+     HEADER
+===================== -->
+<header>
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+  </div>
 
-  --radius-sm: 14px;
-  --radius-md: 24px;
-  --radius-lg: 36px;
+  <nav class="nav">
+    <a href="#">Početna</a>
+    <a href="gosti.html">Gosti</a>
+    <a href="#">O nama</a>
+    <a href="#">Kontakt</a>
+    <a href="#" class="cta">Postani sponzor</a>
+  </nav>
 
-  --shadow-soft: 0 12px 36px rgba(0,0,0,.08);
-  --shadow-strong: 0 30px 80px rgba(0,0,0,.18);
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</header>
 
-  --ease: cubic-bezier(.4,0,.2,1);
-}
+<!-- =====================
+     HERO
+===================== -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>KVADRAT PO KVADRAT</h1>
+    <p>Podcast o biznisu, ljudima i pričama koje imaju težinu.</p>
+    <a href="#" class="btn">Poslednja epizoda</a>
+  </div>
+</section>
 
-/* =====================
-   RESET
-===================== */
+<div class="section-divider"></div>
 
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family: Inter, system-ui, -apple-system, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height:1.6;
-  padding-top:90px;
-}
-img{width:100%;display:block}
-a{text-decoration:none;color:inherit}
+<!-- =====================
+     STATS / REACH
+===================== -->
+<section class="stats" id="stats">
+  <div class="stat-item">
+    <strong data-count="1200">0</strong>
+    <span>Pretplatnika</span>
+  </div>
 
-/* =====================
-   SECTIONS
-===================== */
+  <div class="stat-item">
+    <strong data-count="2500000">0</strong>
+    <span>Ukupan reach</span>
+  </div>
+</section>
 
-section{
-  padding:120px 60px;
-  position:relative;
-}
-@media(max-width:768px){
-  section{padding:90px 24px}
-}
+<div class="section-divider"></div>
 
-/* =====================
-   FLOW DIVIDER (SCROLL)
-===================== */
+<!-- =====================
+     EPISODES
+===================== -->
+<section class="episodes">
+  <h2>Najnovije epizode</h2>
 
-.section-divider{
-  width:100%;
-  height:2px;
-  margin:0 auto;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(250,204,21,.85),
-    transparent
-  );
-  transform:scaleX(0);
-  transform-origin:center;
-  transition:transform 1.2s var(--ease);
-}
-.section-divider.active{transform:scaleX(1)}
+  <div class="episode-grid">
+    <div class="episode-card">
+      <img src="assets/images/epizoda-1.jpg" alt="">
+      <h3>Kako razmišljaju investitori</h3>
+    </div>
 
-/* =====================
-   HEADER — LIQUID
-===================== */
+    <div class="episode-card">
+      <img src="assets/images/epizoda-2.jpg" alt="">
+      <h3>Greške u biznisu</h3>
+    </div>
 
-header{
-  position:fixed;
-  inset:0 0 auto 0;
-  height:90px;
-  padding:0 60px;
-  display:flex;
-  align-items:center;
-  z-index:5000;
-  background:var(--bg-soft);
-  backdrop-filter:blur(22px);
-  border-bottom:1px solid var(--glass-border);
-}
+    <div class="episode-card">
+      <img src="assets/images/epizoda-3.jpg" alt="">
+      <h3>Put do prvog miliona</h3>
+    </div>
+  </div>
+</section>
 
-.logo img{height:38px}
+<div class="section-divider"></div>
 
-.nav{
-  margin-left:auto;
-  display:flex;
-  gap:28px;
-}
+<!-- =====================
+     GUESTS
+===================== -->
+<section class="hosts">
+  <div class="section-header">
+    <h2>Naši gosti</h2>
+    <a href="gosti.html" class="badge-btn">Pogledaj sve goste</a>
+  </div>
 
-.nav a{
-  font-weight:500;
-  position:relative;
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:-6px;
-  width:0;height:2px;
-  background:var(--yellow);
-  transition:.35s var(--ease);
-}
-.nav a:hover::after{width:100%}
+  <div class="hosts-grid">
 
-.cta{
-  padding:10px 26px;
-  border-radius:999px;
-  background:var(--yellow);
-  font-weight:600;
-}
+    <div class="guest-card"
+         data-img="assets/images/host-1.jpg"
+         data-name="Holding Inc"
+         data-role="Producer"
+         data-bio="Kreativni producent sa višegodišnjim iskustvom u medijima.">
+      <img src="assets/images/host-1.jpg" alt="">
+      <div class="guest-overlay"></div>
+      <div class="guest-info">
+        <div>
+          <h3>Holding Inc</h3>
+          <span>Producer</span>
+        </div>
+      </div>
+    </div>
 
-/* =====================
-   HERO TEXT ANIMATION
-===================== */
+    <div class="guest-card"
+         data-img="assets/images/host-2.jpg"
+         data-name="Miloš Nedić"
+         data-role="Interviewer"
+         data-bio="Voditelj i sagovornik sa fokusom na biznis i lični razvoj.">
+      <img src="assets/images/host-2.jpg" alt="">
+      <div class="guest-overlay"></div>
+      <div class="guest-info">
+        <div>
+          <h3>Miloš Nedić</h3>
+          <span>Interviewer</span>
+        </div>
+      </div>
+    </div>
 
-.hero h1,
-.hero p{
-  opacity:0;
-  transform:translateY(20px);
-  animation:heroIn .9s var(--ease) forwards;
-}
-.hero p{animation-delay:.15s}
+    <div class="guest-card"
+         data-img="assets/images/host-3.jpg"
+         data-name="Luka Stokić"
+         data-role="Host"
+         data-bio="Osnivač podcasta Kvadrat po Kvadrat.">
+      <img src="assets/images/host-3.jpg" alt="">
+      <div class="guest-overlay"></div>
+      <div class="guest-info">
+        <div>
+          <h3>Luka Stokić</h3>
+          <span>Host</span>
+        </div>
+      </div>
+    </div>
 
-@keyframes heroIn{
-  to{opacity:1;transform:none}
-}
+  </div>
+</section>
 
-/* =====================
-   BUTTONS
-===================== */
+<div class="section-divider"></div>
 
-.btn{
-  padding:14px 44px;
-  border-radius:999px;
-  background:var(--yellow);
-  font-weight:600;
-  border:none;
-  cursor:pointer;
-  transition:.35s var(--ease);
-}
-.btn:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--shadow-soft);
-}
+<!-- =====================
+     NEWSLETTER
+===================== -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <img src="assets/images/newsletter.jpg" alt="">
+    <div class="newsletter-content">
+      <h2>Ostanite u toku</h2>
+      <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
-/* =====================
-   BADGE BUTTON
-===================== */
+      <form class="newsletter-form">
+        <input type="email" placeholder="Vaš email">
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
 
-.badge-btn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 22px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:500;
-  background:var(--bg-soft);
-  backdrop-filter:blur(16px);
-  border:1px solid var(--glass-border);
-  box-shadow:0 8px 30px rgba(0,0,0,.08);
-  transition:.35s var(--ease);
-}
-.badge-btn::after{
-  content:"→";
-  transition:.3s ease;
-}
-.badge-btn:hover{
-  background:rgba(250,204,21,.95);
-  transform:translateY(-3px);
-  box-shadow:0 16px 45px rgba(0,0,0,.18);
-}
-.badge-btn:hover::after{transform:translateX(5px)}
+<div class="section-divider"></div>
 
-/* =====================
-   EPISODE CARDS — LIQUID
-===================== */
+<!-- =====================
+     FOOTER
+===================== -->
+<footer class="footer">
+  <div class="footer-inner">
 
-.episode-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:40px;
-}
+    <div class="footer-col">
+      <p>
+        Kvadrat po Kvadrat je edukativni podcast o biznisu,
+        investiranju i ljudima koji prave razliku.
+      </p>
+    </div>
 
-.episode-card{
-  background:var(--bg-soft);
-  backdrop-filter:blur(18px);
-  border-radius:var(--radius-md);
-  border:1px solid var(--glass-border);
-  box-shadow:var(--shadow-soft);
-  overflow:hidden;
-  transition:.45s var(--ease);
-}
-.episode-card:hover{
-  transform:translateY(-12px);
-  box-shadow:var(--shadow-strong);
-}
-.episode-card img{
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
-.episode-card h3{
-  padding:22px;
-}
+    <div class="footer-col">
+      <h4>Stranice</h4>
+      <a href="#">Početna</a>
+      <a href="#">Epizode</a>
+      <a href="gosti.html">Gosti</a>
+      <a href="#">O nama</a>
+      <a href="#">Kontakt</a>
+    </div>
 
-/* =====================
-   GUEST CARDS — GLOW
-===================== */
+    <div class="footer-col">
+      <h4>Platforme</h4>
+      <a href="#">Spotify</a>
+      <a href="#">Apple Podcast</a>
+      <a href="#">Google Podcast</a>
+    </div>
 
-.hosts-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:40px;
-}
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <p>Novi Sad, Srbija</p>
+      <p>kontakt@podcast.com</p>
+    </div>
 
-.guest-card{
-  position:relative;
-  height:420px;
-  border-radius:var(--radius-lg);
-  overflow:hidden;
-  box-shadow:var(--shadow-soft);
-  transition:.45s var(--ease);
-}
-.guest-card:hover{
-  transform:translateY(-14px);
-  box-shadow:var(--shadow-strong);
-}
-.guest-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to top,
-    rgba(250,204,21,.9),
-    rgba(250,204,21,.4),
-    transparent 60%);
-  opacity:0;
-  transition:.4s;
-}
-.guest-card:hover .guest-overlay{opacity:1}
+  </div>
 
-.guest-info{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  padding:22px;
-  background:var(--yellow);
-  font-weight:600;
-  display:flex;
-  justify-content:space-between;
-}
+  <div class="footer-bottom">
+    © 2026 Kvadrat po Kvadrat
+  </div>
+</footer>
 
-/* =====================
-   NEWSLETTER — HERO BLOCK
-===================== */
+<!-- =====================
+     MODAL (GOSTI)
+===================== -->
+<div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+    <button class="guest-modal-close" id="closeGuest">×</button>
 
-.newsletter-inner{
-  max-width:1200px;
-  margin:auto;
-  padding:80px;
-  border-radius:48px;
-  background:var(--bg-soft);
-  backdrop-filter:blur(26px);
-  box-shadow:var(--shadow-strong);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-}
-@media(max-width:768px){
-  .newsletter-inner{
-    grid-template-columns:1fr;
-    padding:48px 24px;
-  }
-}
+    <div class="guest-modal-image">
+      <img id="guestModalImg" src="" alt="">
+    </div>
 
-/* =====================
-   FOOTER
-===================== */
+    <div class="guest-modal-text">
+      <h2 id="guestModalName"></h2>
+      <span id="guestModalRole"></span>
+      <p id="guestModalBio"></p>
+    </div>
+  </div>
+</div>
 
-.footer{
-  padding:120px 20px 40px;
-  text-align:center;
-  color:var(--muted);
-  border-top:1px solid var(--glass-border);
-}
-
-/* =====================
-   DARK MODE
-===================== */
-
-body.dark{
-  --bg:#0b0b0b;
-  --text:#f9fafb;
-  --bg-soft:rgba(20,20,20,.7);
-  --glass-border:rgba(255,255,255,.12);
-}
+<!-- JS -->
+<script src="assets/js/main.js"></script>
+</body>
+</html>
