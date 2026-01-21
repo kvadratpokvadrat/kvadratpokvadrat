@@ -380,3 +380,168 @@ section:not(.hero)::before {
   border-top: 1px solid var(--border);
   color: var(--muted);
 }
+/* =====================
+   SECTION DIVIDER
+===================== */
+.section-divider {
+  height: 1px;
+  margin: 0 56px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0,0,0,.12),
+    transparent
+  );
+}
+
+@media (max-width: 768px) {
+  .section-divider {
+    margin: 0 24px;
+  }
+}
+
+/* =====================
+   SECTION HEADER
+===================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 640px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =====================
+   STATS
+===================== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+  max-width: 900px;
+}
+
+.stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  box-shadow: var(--shadow);
+}
+
+.stat strong {
+  font-size: 2.4rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* =====================
+   EPISODE CARD FIX
+===================== */
+.episode-card img {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.episode-card h3 {
+  padding: 18px 20px 22px;
+  font-size: 1rem;
+}
+
+/* =====================
+   GUESTS
+===================== */
+.guest-card {
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.guest-card img {
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.guest-info {
+  padding: 18px 20px 22px;
+}
+
+.guest-info strong {
+  display: block;
+}
+
+.guest-info span {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* =====================
+   NEWSLETTER
+===================== */
+.newsletter-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.newsletter-image img {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.newsletter-content p {
+  margin: 18px 0 32px;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.newsletter-form input {
+  flex: 1;
+  min-width: 220px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .newsletter-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* =====================
+   HAMBURGER FIX (VISIBLE)
+===================== */
+@media (max-width: 900px) {
+  .nav .badge-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* =====================
+   PREVENT HORIZONTAL SCROLL
+===================== */
+body,
+section,
+header {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
