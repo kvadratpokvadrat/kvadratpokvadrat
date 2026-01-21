@@ -8,16 +8,15 @@
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<!-- =====================
-     HEADER
-===================== -->
+<!-- ================= HEADER ================= -->
 <header>
   <div class="logo">
     <a href="index.html">
@@ -25,21 +24,16 @@
     </a>
   </div>
 
- <nav class="nav">
-  <a href="index.html">Početna</a>
-  <a href="epizode.html">Epizode</a>
-  <a href="gosti.html">Gosti</a>
-  <a href="o-nama.html">O nama</a>
-  <a href="kontakt.html">Kontakt</a>
+  <nav class="nav">
+    <a href="index.html">Početna</a>
+    <a href="epizode.html" class="active">Epizode</a>
+    <a href="gosti.html">Gosti</a>
+    <a href="o-nama.html">O nama</a>
+    <a href="kontakt.html">Kontakt</a>
 
-  <!-- Dark mode toggle -->
-  <button class="badge-btn" id="themeToggle" aria-label="Toggle dark mode">
-    Dark
-  </button>
-
-  <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
-</nav>
-
+    <button class="badge-btn" id="themeToggle">Dark</button>
+    <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
+  </nav>
 
   <div class="hamburger">
     <span></span>
@@ -48,11 +42,9 @@
   </div>
 </header>
 
-<!-- =====================
-     HERO
-===================== -->
-<section class="hero" style="height:50vh">
-  <div class="hero-content">
+<!-- ================= HERO ================= -->
+<section class="hero hero-small">
+  <div class="hero-content reveal">
     <h1>EPIZODE</h1>
     <p>Sve epizode podcasta Kvadrat po Kvadrat</p>
   </div>
@@ -60,65 +52,32 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     EPISODES LIST
-===================== -->
+<!-- ================= EPISODES ================= -->
 <section class="episodes">
-  <div class="section-header">
+  <div class="section-header reveal">
     <h2>Sve epizode</h2>
     <span class="badge-btn">Podcast arhiva</span>
   </div>
 
-  <div class="episode-grid" id="episodeGrid"></div>
-
-
-    <div class="episode-card">
-      <img src="assets/images/epizoda-1.jpg" loading="lazy" alt="">
-      <h3>Kako razmišljaju investitori</h3>
-    </div>
-
-    <div class="episode-card">
-      <img src="assets/images/epizoda-2.jpg" loading="lazy" alt="">
-      <h3>Greške u biznisu koje koštaju milione</h3>
-    </div>
-
-    <div class="episode-card">
-      <img src="assets/images/epizoda-3.jpg" loading="lazy" alt="">
-      <h3>Put do prvog miliona</h3>
-    </div>
-
-    <div class="episode-card">
-      <img src="assets/images/epizoda-4.jpg" loading="lazy" alt="">
-      <h3>Kako skalirati firmu bez pucanja</h3>
-    </div>
-
-    <div class="episode-card">
-      <img src="assets/images/epizoda-5.jpg" loading="lazy" alt="">
-      <h3>Psihologija uspešnih preduzetnika</h3>
-    </div>
-
-    <div class="episode-card">
-      <img src="assets/images/epizoda-6.jpg" loading="lazy" alt="">
-      <h3>Investicije u Srbiji danas</h3>
-    </div>
-
+  <!-- GRID -->
+  <div class="episode-grid" id="episodeGrid">
+    <!-- puni se iz API-ja -->
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     NEWSLETTER
-===================== -->
+<!-- ================= NEWSLETTER ================= -->
 <section class="newsletter">
-  <div class="newsletter-inner">
-    <img src="assets/images/newsletter.jpg" loading="lazy" alt="">
+  <div class="newsletter-inner reveal">
+    <img src="assets/images/newsletter.jpg" loading="lazy" alt="Newsletter">
+
     <div class="newsletter-content">
       <h2>Ne propusti nove epizode</h2>
       <p>Pretplati se i budi prvi koji sluša.</p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Vaš email">
+        <input type="email" placeholder="Vaš email" required>
         <button type="submit">Subscribe</button>
       </form>
     </div>
@@ -127,18 +86,16 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     FOOTER
-===================== -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="footer-bottom">
-    © 2026 Kvadrat po Kvadrat
-  </div>
+  <p>© 2026 Kvadrat po Kvadrat</p>
 </footer>
 
-<!-- JS -->
+<!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
-  <script>
+
+<!-- ================= EPISODES API ================= -->
+<script>
 fetch("/api/episodes")
   .then(res => res.json())
   .then(data => {
@@ -146,16 +103,22 @@ fetch("/api/episodes")
 
     data.forEach(ep => {
       grid.innerHTML += `
-        <div class="episode-card">
-          <img src="${ep.thumbnail}" alt="">
-          <h3>${ep.title}</h3>
-          <p>${ep.description || ""}</p>
-          <a href="${ep.youtube}" target="_blank" class="badge-btn">
-            Gledaj epizodu
-          </a>
+        <div class="episode-card reveal">
+          <img src="${ep.thumbnail}" loading="lazy" alt="">
+          <div class="episode-card-body">
+            <h3>${ep.title}</h3>
+            <p>${ep.description || ""}</p>
+            <a href="${ep.youtube}" target="_blank" class="badge-btn">
+              Gledaj epizodu
+            </a>
+          </div>
         </div>
       `;
     });
+  })
+  .catch(() => {
+    document.getElementById("episodeGrid").innerHTML =
+      "<p>Epizode trenutno nisu dostupne.</p>";
   });
 </script>
 
