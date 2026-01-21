@@ -8,36 +8,32 @@
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<!-- =====================
-     HEADER (ISTI SVUDA)
-===================== -->
+<!-- ================= HEADER ================= -->
 <header>
   <div class="logo">
-    <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+    </a>
   </div>
 
- <nav class="nav">
-  <a href="index.html">Početna</a>
-  <a href="epizode.html">Epizode</a>
-  <a href="gosti.html">Gosti</a>
-  <a href="o-nama.html">O nama</a>
-  <a href="kontakt.html">Kontakt</a>
+  <nav class="nav">
+    <a href="index.html">Početna</a>
+    <a href="epizode.html">Epizode</a>
+    <a href="gosti.html">Gosti</a>
+    <a href="o-nama.html">O nama</a>
+    <a href="kontakt.html">Kontakt</a>
 
-  <!-- Dark mode toggle -->
-  <button class="badge-btn" id="themeToggle" aria-label="Toggle dark mode">
-    Dark
-  </button>
-
-  <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
-</nav>
-
+    <button class="badge-btn" id="themeToggle">Dark</button>
+    <a href="postani-sponzor.html" class="cta active">Postani sponzor</a>
+  </nav>
 
   <div class="hamburger">
     <span></span>
@@ -46,66 +42,65 @@
   </div>
 </header>
 
-<!-- =====================
-     HERO – SPONSOR
-===================== -->
-<section class="hero">
-  <div class="hero-content">
+<!-- ================= HERO ================= -->
+<section class="hero hero-small">
+  <div class="hero-content reveal">
     <h1>Postani sponzor</h1>
-    <p>
-      Poveži svoj brend sa publikom koja veruje, sluša i donosi odluke.
-    </p>
+    <p>Poveži svoj brend sa publikom koja veruje, sluša i donosi odluke.</p>
     <a href="#paketi" class="btn">Pogledaj pakete</a>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     WHY SPONSOR
-===================== -->
-<section class="episodes">
-  <h2>Zašto sponzorisati Kvadrat po Kvadrat?</h2>
+<!-- ================= WHY SPONSOR ================= -->
+<section>
+  <div class="section-header reveal">
+    <h2>Zašto Kvadrat po Kvadrat?</h2>
+  </div>
 
   <div class="episode-grid">
-    <div class="episode-card">
+
+    <div class="episode-card reveal">
       <h3>Premium publika</h3>
       <p>
-        Naši slušaoci su preduzetnici, investitori i ljudi koji donose odluke.
+        Naši slušaoci su preduzetnici, investitori i ljudi koji
+        aktivno donose poslovne odluke.
       </p>
     </div>
 
-    <div class="episode-card">
+    <div class="episode-card reveal">
       <h3>Autentičan format</h3>
       <p>
-        Bez agresivnih reklama. Prirodna integracija brenda u razgovor.
+        Bez agresivnih reklama. Brend se prirodno integriše
+        u razgovor i kontekst.
       </p>
     </div>
 
-    <div class="episode-card">
-      <h3>Dugoročna vrednost</h3>
+    <div class="episode-card reveal">
+      <h3>Dugoročna vidljivost</h3>
       <p>
-        Epizode ostaju online i godinama donose vidljivost vašem brendu.
+        Epizode ostaju online i godinama nastavljaju
+        da rade za vaš brend.
       </p>
     </div>
+
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     SPONSOR PACKAGES
-===================== -->
+<!-- ================= PACKAGES ================= -->
 <section class="hosts" id="paketi">
-  <div class="section-header">
+  <div class="section-header reveal">
     <h2>Sponzorski paketi</h2>
-    <span class="badge-btn">Fleksibilni modeli saradnje</span>
+    <span class="badge-btn">Fleksibilna saradnja</span>
   </div>
 
   <div class="hosts-grid">
 
-    <div class="guest-card">
-      <div class="guest-overlay"></div>
+    <!-- STARTER -->
+    <div class="guest-card reveal">
       <div class="guest-info">
         <div>
           <h3>Starter</h3>
@@ -113,15 +108,15 @@
         </div>
       </div>
 
-      <div style="padding:20px">
+      <div class="guest-details">
         <p>• Mention u epizodi</p>
         <p>• Link u opisu</p>
         <p>• Social tag</p>
       </div>
     </div>
 
-    <div class="guest-card">
-      <div class="guest-overlay"></div>
+    <!-- GROWTH -->
+    <div class="guest-card reveal">
       <div class="guest-info">
         <div>
           <h3>Growth</h3>
@@ -129,15 +124,15 @@
         </div>
       </div>
 
-      <div style="padding:20px">
+      <div class="guest-details">
         <p>• Brendirani intro</p>
         <p>• CTA u epizodi</p>
         <p>• Social + newsletter</p>
       </div>
     </div>
 
-    <div class="guest-card">
-      <div class="guest-overlay"></div>
+    <!-- EXCLUSIVE -->
+    <div class="guest-card reveal">
       <div class="guest-info">
         <div>
           <h3>Exclusive</h3>
@@ -145,7 +140,7 @@
         </div>
       </div>
 
-      <div style="padding:20px">
+      <div class="guest-details">
         <p>• Full brand integration</p>
         <p>• Host endorsement</p>
         <p>• Dugoročno partnerstvo</p>
@@ -157,11 +152,9 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     CONTACT CTA
-===================== -->
+<!-- ================= CTA ================= -->
 <section class="newsletter">
-  <div class="newsletter-inner">
+  <div class="newsletter-inner reveal">
     <div class="newsletter-content">
       <h2>Hajde da radimo zajedno</h2>
       <p>
@@ -169,7 +162,7 @@
       </p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Tvoj email">
+        <input type="email" placeholder="Tvoj email" required>
         <button type="submit">Kontaktiraj nas</button>
       </form>
     </div>
@@ -178,39 +171,13 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     FOOTER (ISTI SVUDA)
-===================== -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="footer-inner">
-
-    <div class="footer-col">
-      <p>
-        Kvadrat po Kvadrat je podcast o biznisu,
-        investiranju i ljudima koji razmišljaju dugoročno.
-      </p>
-    </div>
-
-    <div class="footer-col">
-      <h4>Stranice</h4>
-      <a href="index.html">Početna</a>
-      <a href="gosti.html">Gosti</a>
-      <a href="postani-sponzor.html">Sponzorstvo</a>
-    </div>
-
-    <div class="footer-col">
-      <h4>Kontakt</h4>
-      <p>kontakt@podcast.com</p>
-      <p>Novi Sad, Srbija</p>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 Kvadrat po Kvadrat
-  </div>
+  <p>© 2026 Kvadrat po Kvadrat</p>
 </footer>
 
+<!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
+
 </body>
 </html>
