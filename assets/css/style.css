@@ -272,27 +272,38 @@ input::placeholder{color:var(--muted)}
 }
 
 /* =====================
-   GUESTS RESPONSIVE
+   GUESTS — ALWAYS INLINE
 ===================== */
 .hosts-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
   gap:36px;
 }
+
+/* TABLET */
 @media(max-width:1024px){
-  .hosts-grid{grid-template-columns:repeat(2,1fr)}
+  .hosts-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
+
+/* MOBILE — SLIDER, NE VERTIKALNO */
 @media(max-width:640px){
   .hosts-grid{
     display:flex;
+    gap:24px;
     overflow-x:auto;
     scroll-snap-type:x mandatory;
+    padding-bottom:12px;
   }
+
   .guest-card{
     min-width:260px;
     scroll-snap-align:start;
+    flex-shrink:0;
   }
 }
+
 
 /* =====================
    GUEST OVERLAY
@@ -362,3 +373,4 @@ input::placeholder{color:var(--muted)}
   border-top:1px solid var(--border);
   color:var(--muted);
 }
+
