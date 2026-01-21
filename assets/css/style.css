@@ -1,316 +1,142 @@
 /* =========================================================
-   APPLE-STYLE PREMIUM UI — FINAL MASTER CSS (PRODUCTION)
+   FINAL POLISH — TEXT, BUTTONS, ANIMATIONS, LIGHT MODE FIX
 ========================================================= */
 
-/* ---------- ROOT / DESIGN SYSTEM ---------- */
-:root {
-  --bg: #ffffff;
-  --text: #0b0b0b;
-  --muted: #6b7280;
-  --yellow: #facc15;
-
-  --glass-bg: rgba(255,255,255,0.7);
-  --glass-border: rgba(0,0,0,0.08);
-
-  --radius-sm: 14px;
-  --radius-md: 22px;
-  --radius-lg: 32px;
-
-  --shadow-soft: 0 10px 30px rgba(0,0,0,.08);
-  --shadow-strong: 0 30px 80px rgba(0,0,0,.18);
-
-  --transition: cubic-bezier(.4,0,.2,1);
-}
-
-/* ---------- RESET ---------- */
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height:1.6;
-  padding-top:90px;
-}
-img { width:100%; display:block; }
-a { color:inherit; text-decoration:none; }
-
-/* ---------- GLOBAL SECTION ---------- */
-section {
-  padding:120px 60px;
-}
-@media(max-width:768px){
-  section { padding:90px 24px; }
-}
-
-/* ---------- DIVIDER ---------- */
-.section-divider {
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(250,204,21,0.8),
-    transparent
-  );
-  transform: scaleX(0);
-  transition: transform 1s cubic-bezier(.4,0,.2,1);
-}
-.section-divider.active { transform: scaleX(1); }
-
-/* =========================================================
-   HEADER
-========================================================= */
-header {
-  position:fixed;
-  inset:0 0 auto 0;
-  height:90px;
-  padding:0 60px;
+/* ---------- SECTION HEADER (TITLE + BUTTON) ---------- */
+.section-header{
   display:flex;
   align-items:center;
-  z-index:5000;
-  background:var(--glass-bg);
-  backdrop-filter: blur(22px);
-  border-bottom:1px solid var(--glass-border);
+  justify-content:space-between;
+  margin-bottom:60px;
+  gap:40px;
 }
 
-/* LOGO — FINAL */
-.logo img { height:56px; }
-
-.nav {
-  margin-left:auto;
-  display:flex;
-  align-items:center;
-  gap:28px;
-}
-
-.nav a {
-  font-weight:500;
+.section-header h2{
+  font-size:clamp(1.8rem,3vw,2.4rem);
+  font-weight:700;
+  letter-spacing:-0.6px;
   position:relative;
 }
-.nav a::after{
+
+.section-header h2::after{
   content:"";
   position:absolute;
-  left:0; bottom:-6px;
-  width:0; height:2px;
+  left:0;
+  bottom:-12px;
+  width:60px;
+  height:3px;
   background:var(--yellow);
-  transition:.3s;
-}
-.nav a:hover::after{ width:100%; }
-
-.cta {
-  padding:10px 24px;
   border-radius:999px;
-  background:var(--yellow);
-  font-weight:600;
+  transition:width .4s var(--transition);
 }
 
-/* ---------- HAMBURGER ---------- */
-.hamburger{
-  display:none;
-  margin-left:auto;
-  flex-direction:column;
-  gap:6px;
-  cursor:pointer;
-}
-.hamburger span{
-  width:26px; height:2px;
-  background:#111;
-  transition:.3s;
-}
-.hamburger.active span:nth-child(1){
-  transform:translateY(8px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2){ opacity:0; }
-.hamburger.active span:nth-child(3){
-  transform:translateY(-8px) rotate(-45deg);
+.section-header:hover h2::after{
+  width:120px;
 }
 
-@media(max-width:768px){
-  header{ padding:0 24px; }
-  .hamburger{ display:flex; }
-  .nav{
-    position:fixed;
-    top:90px; right:-100%;
-    width:100%;
-    height:calc(100vh - 90px);
-    background:var(--glass-bg);
-    backdrop-filter:blur(22px);
-    flex-direction:column;
-    justify-content:center;
-    gap:32px;
-    transition:.4s var(--transition);
-  }
-  .nav.active{ right:0; }
+/* ---------- TEXT HOVER (SUBTLE) ---------- */
+h1, h2, h3, p, span{
+  transition:color .35s ease, transform .35s ease;
 }
 
-/* =========================================================
-   HERO
-========================================================= */
-.hero{
-  height:60vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-    url("../images/hero.png") center/cover no-repeat;
-}
-.hero h1{
-  font-size:clamp(2.6rem,5vw,4rem);
-  letter-spacing:-1px;
-  color:#fff;
-}
-.hero p{
-  color:#e5e7eb;
-  margin:20px auto 34px;
-  max-width:560px;
+section:hover h2{
+  transform:translateY(-2px);
 }
 
-.btn{
-  padding:14px 44px;
-  border-radius:999px;
-  background:var(--yellow);
-  font-weight:600;
-  border:none;
-  cursor:pointer;
-  transition:.35s var(--transition);
+/* ---------- HERO CTA — ALIVE ---------- */
+.hero .btn{
+  position:relative;
+  animation:pulse 3.5s infinite;
 }
 
-/* =========================================================
-   STATS
-========================================================= */
-.stats {
-  padding:90px 20px;
-  display:flex;
-  justify-content:center;
-  gap:120px;
-  text-align:center;
+@keyframes pulse{
+  0%{ box-shadow:0 0 0 rgba(250,204,21,0); }
+  50%{ box-shadow:0 0 40px rgba(250,204,21,.45); }
+  100%{ box-shadow:0 0 0 rgba(250,204,21,0); }
 }
 
-.stat-item strong{
-  font-size:3.2rem;
-  font-weight:700;
-  color:var(--yellow);
-}
-
-/* =========================================================
-   EPISODES
-========================================================= */
-.episode-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:40px;
-}
-
-.episode-card{
-  border-radius:var(--radius-md);
-  background:var(--glass-bg);
-  backdrop-filter:blur(16px);
-  border:1px solid var(--glass-border);
-  box-shadow:var(--shadow-soft);
-  overflow:hidden;
-  transition:.45s var(--transition);
-}
-.episode-card:hover{
-  transform:translateY(-10px);
-  box-shadow:var(--shadow-strong);
-}
+/* ---------- EPISODE CARD TEXT ---------- */
 .episode-card h3{
-  padding:22px;
-  font-size:1.05rem;
-}
-
-/* =========================================================
-   GUESTS
-========================================================= */
-.hosts-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:40px;
-}
-
-.guest-card{
-  height:420px;
-  border-radius:var(--radius-lg);
-  overflow:hidden;
-  box-shadow:var(--shadow-soft);
-  transition:.45s var(--transition);
-}
-.guest-card:hover{
-  transform:translateY(-12px);
-  box-shadow:var(--shadow-strong);
-}
-
-/* =========================================================
-   NEWSLETTER
-========================================================= */
-.newsletter-inner{
-  max-width:1200px;
-  margin:auto;
-  padding:80px;
-  border-radius:48px;
-  background:var(--glass-bg);
-  backdrop-filter:blur(24px);
-  box-shadow:var(--shadow-strong);
-}
-
-/* =========================================================
-   FOOTER
-========================================================= */
-.footer{
-  padding:90px 20px 40px;
-  text-align:center;
-  color:var(--muted);
-}
-
-/* =========================================================
-   BADGE BUTTONS — BRUTAL
-========================================================= */
-.badge-btn{
-  padding:10px 22px;
-  border-radius:999px;
   font-weight:600;
-  background:rgba(255,255,255,.6);
-  border:1px solid rgba(0,0,0,.08);
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.12),
-    inset 0 -2px 0 rgba(0,0,0,.08);
-  transition:.35s var(--transition);
+  line-height:1.35;
 }
+
+.episode-card:hover h3{
+  transform:translateY(-2px);
+}
+
+/* ---------- BADGE BUTTON — LIGHT MODE FIX ---------- */
+.badge-btn{
+  color:var(--text);
+  background:rgba(255,255,255,.85);
+  border:1px solid rgba(0,0,0,.18);
+}
+
 .badge-btn:hover{
   background:var(--yellow);
   color:#000;
+}
+
+/* ---------- LIGHT MODE VISIBILITY BOOST ---------- */
+body:not(.dark) .episode-card,
+body:not(.dark) .guest-card{
+  border:1px solid rgba(0,0,0,.14);
+}
+
+/* ---------- GUEST CARD INFO ---------- */
+.guest-info{
+  transition:transform .4s var(--transition);
+}
+
+.guest-card:hover .guest-info{
+  transform:translateY(-6px);
+}
+
+/* ---------- NEWSLETTER FIX ---------- */
+.newsletter-inner h2{
+  font-size:2rem;
+  font-weight:700;
+  letter-spacing:-0.4px;
+}
+
+.newsletter-form{
+  margin-top:24px;
+}
+
+.newsletter-form input{
+  background:rgba(255,255,255,.9);
+  font-size:15px;
+}
+
+.newsletter-form button{
+  cursor:pointer;
+  transition:.35s var(--transition);
+}
+
+.newsletter-form button:hover{
   transform:translateY(-3px);
+  box-shadow:0 14px 40px rgba(250,204,21,.45);
 }
 
-/* =========================================================
-   CTA BOOST
-========================================================= */
-.cta,
+/* ---------- GLOBAL MICRO-MOTION ---------- */
+.episode-card,
+.guest-card,
+.badge-btn,
 .btn{
-  box-shadow:
-    0 14px 40px rgba(250,204,21,.35),
-    inset 0 -3px 0 rgba(0,0,0,.15);
-}
-.cta:hover,
-.btn:hover{
-  transform:translateY(-4px);
+  will-change:transform;
 }
 
-/* =========================================================
-   DARK MODE
-========================================================= */
-body.dark{
-  --bg:#0b0b0b;
-  --text:#f9fafb;
-  --glass-bg:rgba(20,20,20,.7);
-  --glass-border:rgba(255,255,255,.12);
+/* ---------- DARK MODE REFINEMENTS ---------- */
+body.dark .badge-btn{
+  background:rgba(20,20,20,.9);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;
 }
 
-body.dark .episode-card,
-body.dark .guest-card,
-body.dark .newsletter-inner{
-  box-shadow:0 30px 80px rgba(0,0,0,.65);
+body.dark .badge-btn:hover{
+  color:#000;
+}
+
+body.dark .section-header h2{
+  color:#fff;
 }
