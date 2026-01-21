@@ -8,16 +8,15 @@
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<!-- =====================
-     HEADER
-===================== -->
+<!-- ================= HEADER ================= -->
 <header>
   <div class="logo">
     <a href="index.html">
@@ -26,20 +25,15 @@
   </div>
 
   <nav class="nav">
-  <a href="index.html">Početna</a>
-  <a href="epizode.html">Epizode</a>
-  <a href="gosti.html">Gosti</a>
-  <a href="o-nama.html">O nama</a>
-  <a href="kontakt.html">Kontakt</a>
+    <a href="index.html">Početna</a>
+    <a href="epizode.html">Epizode</a>
+    <a href="gosti.html">Gosti</a>
+    <a href="o-nama.html" class="active">O nama</a>
+    <a href="kontakt.html">Kontakt</a>
 
-  <!-- Dark mode toggle -->
-  <button class="badge-btn" id="themeToggle" aria-label="Toggle dark mode">
-    Dark
-  </button>
-
-  <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
-</nav>
-
+    <button class="badge-btn" id="themeToggle">Dark</button>
+    <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
+  </nav>
 
   <div class="hamburger">
     <span></span>
@@ -48,11 +42,9 @@
   </div>
 </header>
 
-<!-- =====================
-     HERO
-===================== -->
-<section class="hero" style="height:50vh">
-  <div class="hero-content">
+<!-- ================= HERO ================= -->
+<section class="hero hero-small">
+  <div class="hero-content reveal">
     <h1>O NAMA</h1>
     <p>Zašto postoji Kvadrat po Kvadrat</p>
   </div>
@@ -60,11 +52,9 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     ABOUT INTRO
-===================== -->
-<section class="about">
-  <div class="newsletter-inner">
+<!-- ================= ABOUT INTRO ================= -->
+<section>
+  <div class="newsletter-inner reveal">
     <div class="newsletter-content">
       <h2>Ideja iza podcasta</h2>
       <p>
@@ -77,40 +67,39 @@
         i sa razumevanjem. Baš kao i dobar posao.
       </p>
     </div>
-    <img src="assets/images/about-1.jpg" loading="lazy" alt="">
+
+    <img src="assets/images/about-1.jpg" loading="lazy" alt="O nama">
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     VALUES
-===================== -->
-<section class="about">
-  <div class="section-header">
+<!-- ================= VALUES ================= -->
+<section>
+  <div class="section-header reveal">
     <h2>Naše vrednosti</h2>
   </div>
 
   <div class="episode-grid">
 
-    <div class="episode-card">
+    <div class="episode-card reveal">
       <h3>Transparentnost</h3>
-      <p style="padding:0 22px 22px">
+      <p>
         Govorimo otvoreno o uspesima i greškama, jer su obe strane
         sastavni deo svakog puta.
       </p>
     </div>
 
-    <div class="episode-card">
+    <div class="episode-card reveal">
       <h3>Kvalitet ispred kvantiteta</h3>
-      <p style="padding:0 22px 22px">
+      <p>
         Manje epizoda, više suštine. Svaki razgovor ima razlog.
       </p>
     </div>
 
-    <div class="episode-card">
+    <div class="episode-card reveal">
       <h3>Dugoročno razmišljanje</h3>
-      <p style="padding:0 22px 22px">
+      <p>
         Ne jurimo trendove — gradimo sadržaj koji ima vrednost
         i za pet godina.
       </p>
@@ -121,19 +110,16 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     TEAM
-===================== -->
+<!-- ================= TEAM ================= -->
 <section class="hosts">
-  <div class="section-header">
+  <div class="section-header reveal">
     <h2>Tim iza mikrofona</h2>
   </div>
 
   <div class="hosts-grid">
 
-    <div class="guest-card">
-      <img src="assets/images/host-3.jpg" alt="">
-      <div class="guest-overlay"></div>
+    <div class="guest-card reveal">
+      <img src="assets/images/host-1.jpg" alt="Luka Stokić">
       <div class="guest-info">
         <div>
           <h3>Luka Stokić</h3>
@@ -142,9 +128,8 @@
       </div>
     </div>
 
-    <div class="guest-card">
-      <img src="assets/images/host-2.jpg" alt="">
-      <div class="guest-overlay"></div>
+    <div class="guest-card reveal">
+      <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
       <div class="guest-info">
         <div>
           <h3>Miloš Nedić</h3>
@@ -158,35 +143,31 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     CTA
-===================== -->
+<!-- ================= CTA ================= -->
 <section class="newsletter">
-  <div class="newsletter-inner">
+  <div class="newsletter-inner reveal">
     <div class="newsletter-content">
       <h2>Želite da budete deo priče?</h2>
       <p>
         Ako imate ideju, biznis ili priču vrednu deljenja —
         rado ćemo vas ugostiti.
       </p>
-      <a href="#" class="btn">Kontaktirajte nas</a>
+      <a href="kontakt.html" class="btn">Kontaktirajte nas</a>
     </div>
+
     <img src="assets/images/about-2.jpg" loading="lazy" alt="">
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     FOOTER
-===================== -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="footer-bottom">
-    © 2026 Kvadrat po Kvadrat
-  </div>
+  <p>© 2026 Kvadrat po Kvadrat</p>
 </footer>
 
-<!-- JS -->
+<!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
+
 </body>
 </html>
