@@ -217,44 +217,116 @@ section {
 }
 
 /* =====================
-   HERO
+   HERO — FULL PREMIUM
 ===================== */
 .hero {
-  height: 52vh;
+  position: relative;
+  height: 100vh;
+  min-height: 680px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  overflow: hidden;
   background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-    url("../images/hero.png") center/cover no-repeat;
+    radial-gradient(circle at top, rgba(250,204,21,.15), transparent 40%),
+    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
+    url("../images/hero.png") center / cover no-repeat;
 }
 
-.hero h1,
-.hero p { color: #fff; }
-
-/* =====================
-   STATS
-===================== */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 28px;
-  flex-wrap: wrap;
+/* soft animated glow */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(circle, rgba(250,204,21,.25), transparent 60%);
+  animation: heroGlow 8s ease-in-out infinite;
 }
 
-.stat {
-  background: var(--card);
-  padding: 22px 34px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+@keyframes heroGlow {
+  0%,100% { transform: scale(1); opacity:.4; }
+  50% { transform: scale(1.15); opacity:.7; }
 }
 
-.stat strong {
-  font-size: 1.9rem;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(2px);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 0 24px;
+  text-align: center;
+  animation: heroFadeUp 1.2s var(--ease) forwards;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* TITLE */
+.hero-title {
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  color: #fff;
+  line-height: 1.05;
+}
+
+.hero-title span {
   color: var(--accent);
 }
+
+/* SUBTITLE */
+.hero-subtitle {
+  margin: 26px auto 42px;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: rgba(255,255,255,.85);
+  max-width: 640px;
+}
+
+/* ACTIONS */
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.hero-btn {
+  font-size: 15px;
+  padding: 16px 44px;
+  box-shadow:
+    0 0 0 rgba(0,0,0,0),
+    0 18px 45px rgba(250,204,21,.45);
+}
+
+.hero-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 0 32px rgba(250,204,21,.65),
+    0 28px 80px rgba(0,0,0,.45);
+}
+
+/* MOBILE TWEAKS */
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 32px;
+  }
+}
+
 
 /* =====================
    EPISODES
@@ -416,3 +488,4 @@ section {
   border-top: 1px solid var(--border);
   color: var(--muted);
 }
+
