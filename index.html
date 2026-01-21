@@ -1,168 +1,305 @@
-<!DOCTYPE html>
-<html lang="sr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kvadrat po Kvadrat</title>
+/* =========================================================
+   APPLE LIQUID FLOW — FINAL POLISHED MASTER
+========================================================= */
 
-  <!-- FONT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+/* =====================
+   DESIGN SYSTEM
+===================== */
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
-</head>
+:root {
+  --bg: #f6f6f4;              /* prljavo bela */
+  --bg-soft: rgba(255,255,255,0.75);
+  --text: #0b0b0b;
+  --muted: #6b7280;
+  --yellow: #facc15;
 
-<body class="home">
+  --glass-border: rgba(0,0,0,0.08);
 
-<!-- ================= HEADER ================= -->
-<header>
-  <div class="logo">
-    <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
-  </div>
+  --radius-sm: 14px;
+  --radius-md: 24px;
+  --radius-lg: 36px;
 
-  <nav class="nav">
-    <a href="index.html">Početna</a>
-    <a href="epizode.html">Epizode</a>
-    <a href="gosti.html">Gosti</a>
-    <a href="o-nama.html">O nama</a>
-    <a href="kontakt.html">Kontakt</a>
+  --shadow-soft: 0 12px 36px rgba(0,0,0,.08);
+  --shadow-strong: 0 30px 80px rgba(0,0,0,.18);
 
-    <button class="badge-btn" id="themeToggle">Dark</button>
-    <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
-  </nav>
+  --ease: cubic-bezier(.4,0,.2,1);
+}
 
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</header>
+/* =====================
+   RESET
+===================== */
 
-<!-- ================= HERO ================= -->
-<section class="hero">
-  <div class="hero-content reveal">
-    <h1>KVADRAT PO KVADRAT</h1>
-    <p>Podcast o biznisu, ljudima i pričama koje imaju težinu.</p>
-    <a href="epizode.html" class="btn">Poslednja epizoda</a>
-  </div>
-</section>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height:1.6;
+  padding-top:90px;
+}
+img{width:100%;display:block}
+a{text-decoration:none;color:inherit}
 
-<div class="section-divider"></div>
+/* =====================
+   SECTIONS
+===================== */
 
-<!-- ================= STATS ================= -->
-<section class="stats">
-  <div class="stat-item reveal">
-    <strong data-count="1200">0</strong>
-    <span>Pretplatnika</span>
-  </div>
+section{
+  padding:120px 60px;
+  position:relative;
+}
+@media(max-width:768px){
+  section{padding:90px 24px}
+}
 
-  <div class="stat-item reveal">
-    <strong data-count="2500000">0</strong>
-    <span>Ukupan reach</span>
-  </div>
-</section>
+/* =====================
+   FLOW DIVIDER (SCROLL)
+===================== */
 
-<div class="section-divider"></div>
+.section-divider{
+  width:100%;
+  height:2px;
+  margin:0 auto;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(250,204,21,.85),
+    transparent
+  );
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform 1.2s var(--ease);
+}
+.section-divider.active{transform:scaleX(1)}
 
-<!-- ================= EPISODES ================= -->
-<section class="episodes">
-  <div class="section-header reveal">
-    <h2>Najnovije epizode</h2>
-    <a href="epizode.html" class="badge-btn">Sve epizode</a>
-  </div>
+/* =====================
+   HEADER — LIQUID
+===================== */
 
-  <div class="episode-grid" id="homeEpisodes">
-    <!-- puni se iz API-ja -->
-  </div>
-</section>
+header{
+  position:fixed;
+  inset:0 0 auto 0;
+  height:90px;
+  padding:0 60px;
+  display:flex;
+  align-items:center;
+  z-index:5000;
+  background:var(--bg-soft);
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid var(--glass-border);
+}
 
-<div class="section-divider"></div>
+.logo img{height:38px}
 
-<!-- ================= GUESTS ================= -->
-<section class="hosts">
-  <div class="section-header reveal">
-    <h2>Naši gosti</h2>
-    <a href="gosti.html" class="badge-btn">Svi gosti</a>
-  </div>
+.nav{
+  margin-left:auto;
+  display:flex;
+  gap:28px;
+}
 
-  <div class="hosts-grid">
-    <!-- primer gosta -->
-    <div class="guest-card reveal"
-      data-img="assets/images/guest1.jpg"
-      data-name="Ime Gosta"
-      data-role="CEO / Founder"
-      data-bio="Kratka bio priča o gostu.">
-      <img src="assets/images/guest1.jpg" alt="">
-    </div>
-  </div>
-</section>
+.nav a{
+  font-weight:500;
+  position:relative;
+}
+.nav a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-6px;
+  width:0;height:2px;
+  background:var(--yellow);
+  transition:.35s var(--ease);
+}
+.nav a:hover::after{width:100%}
 
-<div class="section-divider"></div>
+.cta{
+  padding:10px 26px;
+  border-radius:999px;
+  background:var(--yellow);
+  font-weight:600;
+}
 
-<!-- ================= NEWSLETTER ================= -->
-<section class="newsletter">
-  <div class="newsletter-inner reveal">
-    <img src="assets/images/newsletter.jpg" alt="Newsletter">
+/* =====================
+   HERO TEXT ANIMATION
+===================== */
 
-    <div class="newsletter-content">
-      <h2>Ostanite u toku</h2>
-      <p>Pretplatite se i dobijajte nove epizode prvi.</p>
+.hero h1,
+.hero p{
+  opacity:0;
+  transform:translateY(20px);
+  animation:heroIn .9s var(--ease) forwards;
+}
+.hero p{animation-delay:.15s}
 
-      <form class="newsletter-form">
-        <input type="email" placeholder="Vaš email" required>
-        <button type="submit">Subscribe</button>
-      </form>
-    </div>
-  </div>
-</section>
+@keyframes heroIn{
+  to{opacity:1;transform:none}
+}
 
-<div class="section-divider"></div>
+/* =====================
+   BUTTONS
+===================== */
 
-<!-- ================= FOOTER ================= -->
-<footer class="footer">
-  <p>© 2026 Kvadrat po Kvadrat</p>
-</footer>
+.btn{
+  padding:14px 44px;
+  border-radius:999px;
+  background:var(--yellow);
+  font-weight:600;
+  border:none;
+  cursor:pointer;
+  transition:.35s var(--ease);
+}
+.btn:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-soft);
+}
 
-<!-- ================= GUEST MODAL ================= -->
-<div class="guest-modal" id="guestModal">
-  <div class="guest-modal-content">
-    <button class="guest-modal-close" id="closeGuest">×</button>
+/* =====================
+   BADGE BUTTON
+===================== */
 
-    <div class="guest-modal-image">
-      <img id="guestModalImg" src="" alt="">
-    </div>
+.badge-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 22px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:500;
+  background:var(--bg-soft);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);
+  box-shadow:0 8px 30px rgba(0,0,0,.08);
+  transition:.35s var(--ease);
+}
+.badge-btn::after{
+  content:"→";
+  transition:.3s ease;
+}
+.badge-btn:hover{
+  background:rgba(250,204,21,.95);
+  transform:translateY(-3px);
+  box-shadow:0 16px 45px rgba(0,0,0,.18);
+}
+.badge-btn:hover::after{transform:translateX(5px)}
 
-    <div class="guest-modal-text">
-      <h2 id="guestModalName"></h2>
-      <span id="guestModalRole"></span>
-      <p id="guestModalBio"></p>
-    </div>
-  </div>
-</div>
+/* =====================
+   EPISODE CARDS — LIQUID
+===================== */
 
-<!-- ================= JS ================= -->
-<script src="assets/js/main.js"></script>
+.episode-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+}
 
-<!-- HOME EPISODES API -->
-<script>
-fetch("/api/episodes")
-  .then(res => res.json())
-  .then(data => {
-    const grid = document.getElementById("homeEpisodes");
+.episode-card{
+  background:var(--bg-soft);
+  backdrop-filter:blur(18px);
+  border-radius:var(--radius-md);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--shadow-soft);
+  overflow:hidden;
+  transition:.45s var(--ease);
+}
+.episode-card:hover{
+  transform:translateY(-12px);
+  box-shadow:var(--shadow-strong);
+}
+.episode-card img{
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+.episode-card h3{
+  padding:22px;
+}
 
-    data.slice(0,3).forEach(ep => {
-      grid.innerHTML += `
-        <div class="episode-card reveal">
-          <img src="${ep.thumbnail}" alt="">
-          <h3>${ep.title}</h3>
-          <p>${ep.description || ""}</p>
-        </div>
-      `;
-    });
-  });
-</script>
+/* =====================
+   GUEST CARDS — GLOW
+===================== */
 
-</body>
-</html>
+.hosts-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:40px;
+}
+
+.guest-card{
+  position:relative;
+  height:420px;
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
+  transition:.45s var(--ease);
+}
+.guest-card:hover{
+  transform:translateY(-14px);
+  box-shadow:var(--shadow-strong);
+}
+.guest-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(250,204,21,.9),
+    rgba(250,204,21,.4),
+    transparent 60%);
+  opacity:0;
+  transition:.4s;
+}
+.guest-card:hover .guest-overlay{opacity:1}
+
+.guest-info{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  padding:22px;
+  background:var(--yellow);
+  font-weight:600;
+  display:flex;
+  justify-content:space-between;
+}
+
+/* =====================
+   NEWSLETTER — HERO BLOCK
+===================== */
+
+.newsletter-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:80px;
+  border-radius:48px;
+  background:var(--bg-soft);
+  backdrop-filter:blur(26px);
+  box-shadow:var(--shadow-strong);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+@media(max-width:768px){
+  .newsletter-inner{
+    grid-template-columns:1fr;
+    padding:48px 24px;
+  }
+}
+
+/* =====================
+   FOOTER
+===================== */
+
+.footer{
+  padding:120px 20px 40px;
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--glass-border);
+}
+
+/* =====================
+   DARK MODE
+===================== */
+
+body.dark{
+  --bg:#0b0b0b;
+  --text:#f9fafb;
+  --bg-soft:rgba(20,20,20,.7);
+  --glass-border:rgba(255,255,255,.12);
+}
