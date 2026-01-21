@@ -180,38 +180,37 @@ input{
 input::placeholder{color:var(--muted)}
 
 /* =====================
-   HERO
+   HERO — COMPACT APPLE
 ===================== */
 .hero{
-  height:65vh;
+  height:52vh;              /* bilo 60–65vh */
+  min-height:420px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
   background:
-    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
     url("../images/hero.png") center/cover no-repeat;
 }
-.hero-content{
-  animation:float 6s ease-in-out infinite;
-}
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-12px)}
-}
-.hero h1{color:#fff}
-.hero p{color:#e5e7eb;margin:18px auto 32px}
 
-/* =====================
-   SECTION HEADER
-===================== */
+.hero-content{
+  animation:heroFloat 7s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(-8px); } /* manje pomeranje */
+}
+
+
 .section-header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  margin-bottom:48px;
-  gap:32px;
+  margin-bottom:28px;
 }
+
 
 /* =====================
    CARD SYSTEM (ONE)
@@ -373,4 +372,5 @@ input::placeholder{color:var(--muted)}
   border-top:1px solid var(--border);
   color:var(--muted);
 }
+
 
