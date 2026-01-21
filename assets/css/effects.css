@@ -1,23 +1,27 @@
-/* =====================
-   EFFECTS
-===================== */
+/* BUTTON HOVER */
+.btn:hover,
+.badge-btn:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-2px);
+}
 
+/* CARD HOVER */
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 28px rgba(250,204,21,.35);
+}
+
+/* REVEAL */
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translateY(30px);
 }
 
 .reveal-visible {
   opacity: 1;
   transform: none;
   transition: .9s var(--ease);
-}
-
-.card {
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(0,0,0,.12);
 }
