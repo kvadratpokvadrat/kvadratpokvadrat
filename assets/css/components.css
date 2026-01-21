@@ -1,88 +1,120 @@
-/* =====================
-   BUTTONS
-===================== */
-
-.btn {
-  padding: 14px 26px;
-  border-radius: 999px;
-  font-weight: 600;
-  background: var(--accent);
-  border: none;
-  cursor: pointer;
+/* NAV LINKS */
+.nav a {
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
 }
 
-/* =====================
-   CARDS
-===================== */
+.nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+}
 
+/* BUTTONS */
+.btn,
+.badge-btn {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .35s var(--ease);
+  white-space: nowrap;
+}
+
+/* SECTION HEADER */
+.section-header {
+  max-width: 1200px;
+  margin: 0 auto 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* CARD */
 .card {
   background: var(--card);
-  border-radius: var(--radius-md);
   border: 1px solid var(--border);
+  border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
+  transition: .45s var(--ease);
 }
 
-/* GUEST CARD */
-.guest-card {
-  max-width: 280px;
-  margin-inline: auto;
-}
-
-.guest-card img {
-  width: 100%;
+.card img {
   height: 220px;
   object-fit: cover;
 }
 
-.guest-info {
-  padding: 18px;
-  text-align: center;
+.card-body {
+  padding: 18px 20px 22px;
 }
 
-.guest-info strong {
-  display: block;
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.guest-info span {
+.card-meta {
   font-size: 13px;
   color: var(--muted);
 }
 
-/* =====================
-   NEWSLETTER (SVUDA ISTI)
-===================== */
+/* STATS */
+.stats {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
 
+.stat {
+  padding: 36px 32px;
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.stat strong {
+  font-size: 2.4rem;
+  display: block;
+  margin-bottom: 8px;
+  text-shadow: 0 0 22px rgba(250,204,21,.35);
+}
+
+/* NEWSLETTER */
 .newsletter-inner {
   max-width: 1100px;
-  margin-inline: auto;
+  margin: 0 auto;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 56px;
   box-shadow: var(--shadow);
-  text-align: center;
-}
-
-/* =====================
-   MODAL
-===================== */
-
-.guest-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  display: none;
-  place-items: center;
-}
-
-.guest-modal.active {
   display: grid;
+  gap: 56px;
+  grid-template-columns: 1fr 1fr;
 }
 
-.guest-modal-content {
-  background: #fff;
-  border-radius: var(--radius-lg);
-  max-width: 520px;
-  padding: 32px;
+.newsletter-form {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.newsletter-form input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
 }
