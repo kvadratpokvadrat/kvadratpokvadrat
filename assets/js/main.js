@@ -10,12 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     hamburger.addEventListener("click", () => {
       hamburger.classList.toggle("active");
       nav.classList.toggle("active");
+      document.body.classList.toggle("nav-open");
     });
   }
 
   /* =====================
-     GUEST MODAL
-     (SAMO NA POČETNOJ)
+     GUEST MODAL (HOME ONLY)
   ===================== */
   const modal = document.getElementById("guestModal");
   const isHome = document.body.classList.contains("home");
@@ -56,32 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =====================
-     SCROLL REVEAL
-     (NE DIRA .stats)
+     SCROLL REVEAL (FIXED)
+     ➜ NEMA SKRIVANJA SECTION-a
   ===================== */
-  const revealItems = document.querySelectorAll(
-    "section:not(.stats), .episode-card, .guest-card"
-  );
+  const revealItems = document.querySelectorAll(".reveal");
 
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = "translateY(0)";
+        entry.target.classList.add("is-visible");
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15 });
-
-  revealItems.forEach(el => {
-    el.style.opacity = 0;
-    el.style.transform = "translateY(40px)";
-    el.style.transition = "0.8s cubic-bezier(.4,0,.2,1)";
-    revealObserver.observe(el);
+  }, {
+    threshold: 0.15,
+    rootMargin: "0px 0px -80px 0px"
   });
 
+  revealItems.forEach(el => revealObserver.observe(el));
+
   /* =====================
-     SECTION DIVIDER
+     SECTION DIVIDER FLOW
   ===================== */
   document.querySelectorAll(".section-divider").forEach(divider => {
     const dividerObserver = new IntersectionObserver(entries => {
@@ -97,8 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =====================
-     STATS COUNTER
-     (JEDNOM, BEZ BUGA)
+     STATS COUNTER (SAFE)
   ===================== */
   const stats = document.querySelector(".stats");
 
