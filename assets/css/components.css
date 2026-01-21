@@ -93,65 +93,77 @@
 }
 
 /* =====================
-   EPISODE CARDS
+   CARDS – FIXED SYSTEM
 ===================== */
-.episode-card img {
-  height: 200px;
-}
-
-.episode-card .card-title {
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-/* =====================
-   GUEST CARDS (FIX)
-===================== */
-.guest-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.guest-card {
+.card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  transition: .45s var(--ease);
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
 }
 
-.guest-card img {
-  height: 260px;
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 28px rgba(250,204,21,.35);
+}
+
+.card img {
   width: 100%;
   object-fit: cover;
 }
 
-.guest-info {
-  padding: 20px 22px 24px;
+.card-body {
+  padding: 18px 20px 22px;
+  flex: 1;
 }
 
-.guest-info strong {
-  display: block;
-  font-size: 16px;
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.guest-info span {
-  font-size: 14px;
+.card-meta {
+  font-size: 13px;
   color: var(--muted);
 }
+
 /* =====================
-   EPISODE CARDS
+   EPISODES – LANDSCAPE
 ===================== */
-.episode-card img {
+.episodes-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+}
+
+.card--episode img {
   height: 200px;
 }
 
-.episode-card .card-title {
-  font-size: 15px;
-  line-height: 1.4;
+/* =====================
+   GUESTS – PORTRAIT
+===================== */
+.guests-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.card--guest img {
+  height: 300px;
+}
+
+.card--guest .card-title {
+  font-size: 16px;
 }
