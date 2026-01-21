@@ -285,3 +285,92 @@ body.dark .badge-btn{
   color:#fff;
 }
 body.dark .badge-btn:hover{color:#000}
+
+/* =========================================================
+   NETFLIX INTRO LOADER
+========================================================= */
+
+#page-loader{
+  position:fixed;
+  inset:0;
+  background:#0b0b0b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+
+#page-loader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:26px;
+}
+
+.loader-inner img{
+  width:150px;
+  animation:logoPulse 1.6s ease-in-out infinite;
+}
+
+/* loading bar */
+.loader-bar{
+  width:220px;
+  height:3px;
+  background:rgba(255,255,255,.15);
+  overflow:hidden;
+  border-radius:999px;
+}
+
+.loader-bar span{
+  display:block;
+  width:0%;
+  height:100%;
+  background:var(--yellow);
+  animation:loadingBar 1.4s ease forwards;
+}
+
+@keyframes logoPulse{
+  0%{ opacity:.35; transform:scale(.96); }
+  50%{ opacity:1; transform:scale(1); }
+  100%{ opacity:.35; transform:scale(.96); }
+}
+
+@keyframes loadingBar{
+  to{ width:100%; }
+}
+/* =========================================================
+   KEYNOTE SECTION REVEAL
+========================================================= */
+
+body:not(.loaded) section,
+body:not(.loaded) header,
+body:not(.loaded) footer{
+  opacity:0;
+  transform:translateY(40px);
+}
+
+body.loaded section,
+body.loaded header,
+body.loaded footer{
+  opacity:1;
+  transform:translateY(0);
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(.4,0,.2,1);
+}
+
+/* stagger delay */
+body.loaded section:nth-of-type(1){ transition-delay:.1s }
+body.loaded section:nth-of-type(2){ transition-delay:.25s }
+body.loaded section:nth-of-type(3){ transition-delay:.4s }
+body.loaded section:nth-of-type(4){ transition-delay:.55s }
+body.loaded section:nth-of-type(5){ transition-delay:.7s }
+
+
+
