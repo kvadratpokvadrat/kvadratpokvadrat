@@ -69,7 +69,8 @@
     <span class="badge-btn">Podcast arhiva</span>
   </div>
 
-  <div class="episode-grid">
+  <div class="episode-grid" id="episodeGrid"></div>
+
 
     <div class="episode-card">
       <img src="assets/images/epizoda-1.jpg" loading="lazy" alt="">
@@ -137,5 +138,26 @@
 
 <!-- JS -->
 <script src="assets/js/main.js"></script>
+  <script>
+fetch("/api/episodes")
+  .then(res => res.json())
+  .then(data => {
+    const grid = document.getElementById("episodeGrid");
+
+    data.forEach(ep => {
+      grid.innerHTML += `
+        <div class="episode-card">
+          <img src="${ep.thumbnail}" alt="">
+          <h3>${ep.title}</h3>
+          <p>${ep.description || ""}</p>
+          <a href="${ep.youtube}" target="_blank" class="badge-btn">
+            Gledaj epizodu
+          </a>
+        </div>
+      `;
+    });
+  });
+</script>
+
 </body>
 </html>
