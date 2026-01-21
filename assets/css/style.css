@@ -36,54 +36,6 @@ body{
 img{width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
-/* ================= NETFLIX INTRO ================= */
-#page-loader{
-  position:fixed;
-  inset:0;
-  background:#0b0b0b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-  transition:.8s ease;
-}
-#page-loader.hide{
-  opacity:0;
-  visibility:hidden;
-}
-.loader-inner img{
-  width:150px;
-  animation:logoPulse 1.6s infinite;
-}
-@keyframes logoPulse{
-  0%{opacity:.35;transform:scale(.96)}
-  50%{opacity:1;transform:scale(1)}
-  100%{opacity:.35;transform:scale(.96)}
-}
-
-/* ================= PAGE LOAD ================= */
-body:not(.loaded) header,
-body:not(.loaded) .hero{
-  opacity:0;
-  transform:translateY(30px);
-}
-body.loaded header,
-body.loaded .hero{
-  opacity:1;
-  transform:none;
-  transition:
-    opacity .9s ease,
-    transform .9s var(--ease);
-}
-
-/* ================= SECTIONS ================= */
-section{
-  padding:110px 60px;
-  position:relative;
-}
-@media(max-width:768px){
-  section{padding:80px 24px}
-}
 
 /* ================= HEADER ================= */
 header{
@@ -340,3 +292,4 @@ body.dark .badge-btn{
   background:#111;
   color:#fff;
 }
+
