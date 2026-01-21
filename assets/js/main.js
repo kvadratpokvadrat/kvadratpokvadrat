@@ -147,4 +147,14 @@ if (toggle) {
 }
 
 });
+window.addEventListener("load", () => {
+  const loader = document.getElementById("page-loader");
+
+  setTimeout(() => {
+    loader.classList.add("hide");
+    document.body.classList.add("loaded");
+  }, 1600);
+});
+
+
 
