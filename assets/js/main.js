@@ -15,10 +15,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =====================
      GUEST MODAL
+     (SAMO NA POČETNOJ)
   ===================== */
   const modal = document.getElementById("guestModal");
+  const isHome = document.body.classList.contains("home");
 
-  if (modal) {
+  if (modal && isHome) {
     const img = modal.querySelector("#guestModalImg");
     const name = modal.querySelector("#guestModalName");
     const role = modal.querySelector("#guestModalRole");
@@ -27,10 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".guest-card").forEach(card => {
       card.addEventListener("click", () => {
-        img.src = card.dataset.img;
-        name.textContent = card.dataset.name;
-        role.textContent = card.dataset.role;
-        bio.textContent = card.dataset.bio;
+        img.src = card.dataset.img || "";
+        name.textContent = card.dataset.name || "";
+        role.textContent = card.dataset.role || "";
+        bio.textContent = card.dataset.bio || "";
+
         modal.classList.add("active");
         document.body.style.overflow = "hidden";
       });
@@ -41,10 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.style.overflow = "";
     };
 
-    close.addEventListener("click", closeModal);
+    close?.addEventListener("click", closeModal);
+
     modal.addEventListener("click", e => {
       if (e.target === modal) closeModal();
     });
+
     document.addEventListener("keydown", e => {
       if (e.key === "Escape") closeModal();
     });
@@ -52,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =====================
      SCROLL REVEAL
-     (NE dira .stats)
+     (NE DIRA .stats)
   ===================== */
   const revealItems = document.querySelectorAll(
     "section:not(.stats), .episode-card, .guest-card"
@@ -61,8 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = 1;
-        entry.target.style.transform = "translateY(0)";
+        entry.target.classList.add("revealed");
         revealObserver.unobserve(entry.target);
       }
     });
@@ -92,12 +96,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =====================
-     STATS REVEAL + COUNTER
+     STATS COUNTER
+     (JEDNOM, BEZ BUGA)
   ===================== */
   const stats = document.querySelector(".stats");
 
   if (stats) {
     const numbers = stats.querySelectorAll("strong[data-count]");
+    let animated = false;
 
     const animateCount = (el) => {
       const target = +el.dataset.count;
@@ -117,44 +123,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const statsObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          stats.classList.add("visible");
+        if (entry.isIntersecting && !animated) {
+          animated = true;
           numbers.forEach(num => animateCount(num));
           statsObserver.unobserve(stats);
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.35 });
 
     statsObserver.observe(stats);
   }
-/* =====================
-   DARK MODE
-===================== */
-const toggle = document.getElementById("themeToggle");
 
-if (toggle) {
-  if (localStorage.theme === "dark") {
-    document.body.classList.add("dark");
-    toggle.textContent = "Light";
+  /* =====================
+     DARK MODE (STABLE)
+  ===================== */
+  const toggle = document.getElementById("themeToggle");
+
+  if (toggle) {
+    if (localStorage.theme === "dark") {
+      document.body.classList.add("dark");
+      toggle.textContent = "Light";
+    }
+
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const dark = document.body.classList.contains("dark");
+      toggle.textContent = dark ? "Light" : "Dark";
+      localStorage.theme = dark ? "dark" : "light";
+    });
   }
 
-  toggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    const dark = document.body.classList.contains("dark");
-    toggle.textContent = dark ? "Light" : "Dark";
-    localStorage.theme = dark ? "dark" : "light";
-  });
-}
-
 });
+
+/* =====================
+   NETFLIX LOADER
+   (SAMO PRVI PUT)
+===================== */
 window.addEventListener("load", () => {
   const loader = document.getElementById("page-loader");
+
+  if (!loader) {
+    document.body.classList.add("loaded");
+    return;
+  }
+
+  const alreadyLoaded = sessionStorage.getItem("siteLoaded");
+
+  if (alreadyLoaded) {
+    loader.remove();
+    document.body.classList.add("loaded");
+    return;
+  }
 
   setTimeout(() => {
     loader.classList.add("hide");
     document.body.classList.add("loaded");
+    sessionStorage.setItem("siteLoaded", "true");
   }, 1600);
 });
-
-
-
