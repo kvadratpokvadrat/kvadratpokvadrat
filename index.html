@@ -13,7 +13,6 @@
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">
     <a href="index.html">
@@ -28,18 +27,14 @@
     <a href="o-nama.html">O nama</a>
     <a href="kontakt.html">Kontakt</a>
     <a href="postani-sponzor.html" class="btn">Postani sponzor</a>
-    <button class="btn" id="themeToggle">Dark</button>
+    <button class="badge-btn" id="themeToggle">Dark</button>
+    
   </nav>
-
-  <div class="hamburger">
-    <span></span><span></span><span></span>
-  </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-content reveal">
-    <h1>KVADRAT PO KVADRAT</h1>
+  <div class="hero-content">
+    <h1>Kvadrat po Kvadrat</h1>
     <p>Podcast o biznisu, ljudima i pričama koje imaju težinu.</p>
     <a href="epizode.html" class="btn">Poslednja epizoda</a>
   </div>
@@ -47,15 +42,14 @@
 
 <div class="section-divider"></div>
 
-<!-- STATS -->
 <section>
-  <div class="stats reveal">
-    <div class="card stat">
-      <strong data-count="1200">0</strong>
+  <div class="stats">
+    <div class="stat">
+      <strong data-count="1200">1200</strong>
       <span>Pretplatnika</span>
     </div>
-    <div class="card stat">
-      <strong data-count="2500000">0</strong>
+    <div class="stat">
+      <strong data-count="2500000">2.5M</strong>
       <span>Ukupan reach</span>
     </div>
   </div>
@@ -63,75 +57,76 @@
 
 <div class="section-divider"></div>
 
-<!-- EPISODES -->
 <section>
-  <h2 class="reveal">Najnovije epizode</h2>
+  <div class="section-header">
+    <h2>Najnovije epizode</h2>
+    <a href="epizode.html" class="badge-btn">Sve epizode</a>
+  </div>
 
-  <div class="grid reveal">
-    <div class="card">
+  <div class="episode-grid">
+    <div class="episode-card">
       <img src="assets/images/epizoda-1.jpg" alt="">
       <h3>Kako razmišljaju investitori</h3>
-      <a href="#" class="btn">Pogledaj</a>
+      <a href="#" class="badge-btn">Pogledaj</a>
     </div>
 
-    <div class="card">
+    <div class="episode-card">
       <img src="assets/images/epizoda-2.jpg" alt="">
       <h3>Greške u biznisu</h3>
-      <a href="#" class="btn">Pogledaj</a>
+      <a href="#" class="badge-btn">Pogledaj</a>
     </div>
 
-    <div class="card">
+    <div class="episode-card">
       <img src="assets/images/epizoda-3.jpg" alt="">
       <h3>Put do prvog miliona</h3>
-      <a href="#" class="btn">Pogledaj</a>
+      <a href="#" class="badge-btn">Pogledaj</a>
     </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- GUESTS -->
 <section>
-  <div class="section-header reveal">
+  <div class="section-header">
     <h2>Naši gosti</h2>
-    <a href="gosti.html" class="btn">Svi gosti</a>
+    <a href="gosti.html" class="badge-btn">Svi gosti</a>
   </div>
 
-  <div class="guests-track reveal">
+  <div class="hosts-grid">
 
-    <div class="guest-card card"
+    <div class="guest-card"
       data-img="assets/images/host-1.jpg"
       data-name="Holding Inc"
       data-role="Producer"
       data-bio="Kreativni producent sa višegodišnjim iskustvom.">
       <img src="assets/images/host-1.jpg" alt="">
       <div class="guest-info">
-        <strong>Holding Inc</strong><br>
-        <span>Producer</span>
+        <h3>Holding Inc</h3>
+        <p>Producer</p>
       </div>
     </div>
 
-    <div class="guest-card card"
+    <div class="guest-card"
       data-img="assets/images/host-2.jpg"
       data-name="Miloš Nedić"
       data-role="Interviewer"
       data-bio="Voditelj sa fokusom na biznis.">
       <img src="assets/images/host-2.jpg" alt="">
       <div class="guest-info">
-        <strong>Miloš Nedić</strong><br>
-        <span>Interviewer</span>
+        <h3>Miloš Nedić</h3>
+        <p>Interviewer</p>
       </div>
     </div>
 
-    <div class="guest-card card"
+    <div class="guest-card"
       data-img="assets/images/host-3.jpg"
       data-name="Luka Stokić"
       data-role="Host"
       data-bio="Osnivač podcasta.">
       <img src="assets/images/host-3.jpg" alt="">
       <div class="guest-info">
-        <strong>Luka Stokić</strong><br>
-        <span>Host</span>
+        <h3>Luka Stokić</h3>
+        <p>Host</p>
       </div>
     </div>
 
@@ -140,34 +135,33 @@
 
 <div class="section-divider"></div>
 
-<!-- NEWSLETTER -->
 <section>
-  <div class="card reveal" style="max-width:900px;margin:auto;">
-    <h2>Ostanite u toku</h2>
-    <p>Pretplatite se i dobijajte nove epizode prvi.</p>
+  <div class="newsletter-inner">
+    <div class="newsletter-content">
+      <h2>Ostanite u toku</h2>
+      <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
-    <form class="newsletter-form">
-      <input type="email" class="input" placeholder="Vaš email">
-      <button class="btn">Subscribe</button>
-    </form>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Vaš email" required>
+        <button class="btn">Subscribe</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- FOOTER -->
 <footer class="footer">
-  <p>© 2026 Kvadrat po Kvadrat</p>
+  © 2026 Kvadrat po Kvadrat
 </footer>
 
-<!-- MODAL -->
-<div class="modal" id="guestModal">
-  <div class="modal-content">
-    <button class="btn" id="closeGuest">Zatvori</button>
-    <img id="guestModalImg">
+<div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+    <img id="guestModalImg" alt="">
     <h2 id="guestModalName"></h2>
-    <span id="guestModalRole"></span>
+    <p id="guestModalRole"></p>
     <p id="guestModalBio"></p>
+    <button class="btn" id="closeGuest">Zatvori</button>
   </div>
 </div>
 
