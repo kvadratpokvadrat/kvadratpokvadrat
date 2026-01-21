@@ -1,5 +1,5 @@
 /* =========================================================
-   APPLE-STYLE PREMIUM UI — FINAL MASTER CSS
+   APPLE-STYLE PREMIUM UI — FINAL MASTER CSS (PRODUCTION)
 ========================================================= */
 
 /* ---------- ROOT / DESIGN SYSTEM ---------- */
@@ -42,13 +42,11 @@ section {
 @media(max-width:768px){
   section { padding:90px 24px; }
 }
-/* =====================
-   SECTION FLOW DIVIDER
-===================== */
+
+/* ---------- DIVIDER ---------- */
 .section-divider {
   width: 100%;
   height: 2px;
-  margin: 0 auto;
   background: linear-gradient(
     90deg,
     transparent,
@@ -56,18 +54,12 @@ section {
     transparent
   );
   transform: scaleX(0);
-  transform-origin: center;
   transition: transform 1s cubic-bezier(.4,0,.2,1);
 }
-
-/* aktivacija animacije */
-.section-divider.active {
-  transform: scaleX(1);
-}
-
+.section-divider.active { transform: scaleX(1); }
 
 /* =========================================================
-   HEADER — LIQUID GLASS
+   HEADER
 ========================================================= */
 header {
   position:fixed;
@@ -77,13 +69,13 @@ header {
   display:flex;
   align-items:center;
   z-index:5000;
-
   background:var(--glass-bg);
   backdrop-filter: blur(22px);
   border-bottom:1px solid var(--glass-border);
 }
 
-.logo img { height:38px; }
+/* LOGO — FINAL */
+.logo img { height:56px; }
 
 .nav {
   margin-left:auto;
@@ -137,7 +129,6 @@ header {
 @media(max-width:768px){
   header{ padding:0 24px; }
   .hamburger{ display:flex; }
-
   .nav{
     position:fixed;
     top:90px; right:-100%;
@@ -154,7 +145,7 @@ header {
 }
 
 /* =========================================================
-   HERO — IMAGE + CINEMATIC FEEL
+   HERO
 ========================================================= */
 .hero{
   height:60vh;
@@ -173,8 +164,10 @@ header {
 }
 .hero p{
   color:#e5e7eb;
-  margin:20px 0 34px;
+  margin:20px auto 34px;
+  max-width:560px;
 }
+
 .btn{
   padding:14px 44px;
   border-radius:999px;
@@ -184,118 +177,26 @@ header {
   cursor:pointer;
   transition:.35s var(--transition);
 }
-.btn:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow-soft);
-}
-
-/* =====================
-   STATS – APPLE COUNTER
-===================== */
-.stats {
-  padding: 120px 20px;
-  display: flex;
-  justify-content: center;
-  gap: 120px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-/* flow linija iznad i ispod */
-.stats::before,
-.stats::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(250,204,21,0.8),
-    transparent
-  );
-  transform: translateX(-50%);
-  transition: width 1.2s ease;
-}
-
-.stats::before { top: 0; }
-.stats::after { bottom: 0; }
-
-.stats.visible::before,
-.stats.visible::after {
-  width: 80%;
-}
-
-/* pojedinačni stat */
-.stat-item {
-  position: relative;
-  transform: translateY(20px);
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(.4,0,.2,1);
-}
-
-.stats.visible .stat-item {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* glow halo */
-.stat-item::after {
-  content: "";
-  position: absolute;
-  inset: -40px;
-  background: radial-gradient(
-    circle,
-    rgba(250,204,21,0.18),
-    transparent 70%
-  );
-  opacity: 0;
-  transition: 0.6s ease;
-  z-index: -1;
-}
-
-.stat-item:hover::after {
-  opacity: 1;
-}
-
-/* broj */
-.stat-item strong {
-  display: block;
-  font-size: 3.2rem;
-  font-weight: 700;
-  color: var(--yellow);
-  text-shadow:
-    0 0 14px rgba(250,204,21,0.4),
-    0 0 36px rgba(250,204,21,0.25);
-  margin-bottom: 10px;
-  transition: transform 0.4s ease;
-}
-
-/* hover float */
-.stat-item:hover strong {
-  transform: translateY(-6px);
-}
-
-/* label */
-.stat-item span {
-  font-size: 14px;
-  color: var(--muted);
-  letter-spacing: 0.3px;
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .stats {
-    flex-direction: column;
-    gap: 50px;
-  }
-}
-
 
 /* =========================================================
-   EPISODES — PREMIUM CARDS
+   STATS
+========================================================= */
+.stats {
+  padding:90px 20px;
+  display:flex;
+  justify-content:center;
+  gap:120px;
+  text-align:center;
+}
+
+.stat-item strong{
+  font-size:3.2rem;
+  font-weight:700;
+  color:var(--yellow);
+}
+
+/* =========================================================
+   EPISODES
 ========================================================= */
 .episode-grid{
   display:grid;
@@ -316,30 +217,24 @@ header {
   transform:translateY(-10px);
   box-shadow:var(--shadow-strong);
 }
-.episode-card img{
-  aspect-ratio:16/9;
-  object-fit:cover;
-}
 .episode-card h3{
   padding:22px;
+  font-size:1.05rem;
 }
 
 /* =========================================================
-   GUEST CARDS — HOME + GOSTI
+   GUESTS
 ========================================================= */
-.hosts-grid,
-.all-guests-inner{
+.hosts-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:40px;
 }
 
 .guest-card{
-  position:relative;
   height:420px;
   border-radius:var(--radius-lg);
   overflow:hidden;
-  cursor:pointer;
   box-shadow:var(--shadow-soft);
   transition:.45s var(--transition);
 }
@@ -347,96 +242,9 @@ header {
   transform:translateY(-12px);
   box-shadow:var(--shadow-strong);
 }
-.guest-card img{
-  height:100%;
-  object-fit:cover;
-}
-.guest-overlay{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to top,
-    rgba(250,204,21,.95),
-    rgba(250,204,21,.45),
-    transparent 60%);
-  opacity:0;
-  transition:.4s;
-}
-.guest-card:hover .guest-overlay{ opacity:1; }
-
-.guest-info{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  padding:20px;
-  background:var(--yellow);
-  font-weight:600;
-  display:flex;
-  justify-content:space-between;
-}
 
 /* =========================================================
-   MODAL — APPLE SHEET
-========================================================= */
-.guest-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.4s;
-  z-index:9999;
-}
-.guest-modal.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.guest-modal-content{
-  background:var(--glass-bg);
-  backdrop-filter:blur(22px);
-  border-radius:40px;
-  max-width:900px;
-  width:90%;
-  padding:40px;
-  display:grid;
-  grid-template-columns:1fr 1.2fr;
-  gap:40px;
-  position:relative;
-  animation:modalIn .4s var(--transition);
-}
-
-@keyframes modalIn{
-  from{ transform:scale(.9); opacity:0; }
-  to{ transform:scale(1); opacity:1; }
-}
-
-.guest-modal-image{
-  border-radius:26px;
-  overflow:hidden;
-}
-.guest-modal-image img{
-  height:100%;
-  object-fit:cover;
-}
-
-.guest-modal-close{
-  position:absolute;
-  top:18px; right:18px;
-  width:44px; height:44px;
-  border-radius:50%;
-  background:var(--yellow);
-  border:none;
-  font-size:24px;
-  cursor:pointer;
-}
-
-/* =========================================================
-   NEWSLETTER — GLASS BLOCK
+   NEWSLETTER
 ========================================================= */
 .newsletter-inner{
   max-width:1200px;
@@ -446,95 +254,63 @@ header {
   background:var(--glass-bg);
   backdrop-filter:blur(24px);
   box-shadow:var(--shadow-strong);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-}
-.newsletter-form{
-  display:flex;
-  gap:16px;
-}
-.newsletter-form input{
-  flex:1;
-  padding:16px 22px;
-  border-radius:999px;
-  border:1px solid #ddd;
-}
-.newsletter-form button{
-  padding:16px 36px;
-  border-radius:999px;
-  border:none;
-  background:var(--yellow);
-  font-weight:600;
-}
-@media(max-width:768px){
-  .newsletter-inner{
-    grid-template-columns:1fr;
-    padding:48px 24px;
-  }
 }
 
 /* =========================================================
-   FOOTER — CLEAN & QUIET
+   FOOTER
 ========================================================= */
 .footer{
-  padding:120px 20px 40px;
+  padding:90px 20px 40px;
   text-align:center;
   color:var(--muted);
-  font-size:14px;
-  border-top:1px solid var(--glass-border);
-}
-/* =====================
-   BADGE BUTTON – APPLE STYLE
-===================== */
-.badge-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 22px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-
-  color: var(--text);
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(14px);
-
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-
-  transition: all 0.35s cubic-bezier(.4,0,.2,1);
 }
 
-.badge-btn::after {
-  content: "→";
-  font-size: 14px;
-  transition: transform .3s ease;
+/* =========================================================
+   BADGE BUTTONS — BRUTAL
+========================================================= */
+.badge-btn{
+  padding:10px 22px;
+  border-radius:999px;
+  font-weight:600;
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(0,0,0,.08);
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.12),
+    inset 0 -2px 0 rgba(0,0,0,.08);
+  transition:.35s var(--transition);
+}
+.badge-btn:hover{
+  background:var(--yellow);
+  color:#000;
+  transform:translateY(-3px);
 }
 
-.badge-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 45px rgba(0,0,0,0.15);
-  background: rgba(250,204,21,0.9);
+/* =========================================================
+   CTA BOOST
+========================================================= */
+.cta,
+.btn{
+  box-shadow:
+    0 14px 40px rgba(250,204,21,.35),
+    inset 0 -3px 0 rgba(0,0,0,.15);
+}
+.cta:hover,
+.btn:hover{
+  transform:translateY(-4px);
 }
 
-.badge-btn:hover::after {
-  transform: translateX(4px);
-}
-:root {
-  --bg: #ffffff;
-  --text: #0b0b0b;
-  --glass-bg: rgba(255,255,255,0.7);
-  --glass-border: rgba(0,0,0,0.08);
-}
-
-body.dark {
-  --bg: #0b0b0b;
-  --text: #f9fafb;
-  --glass-bg: rgba(20,20,20,0.7);
-  --glass-border: rgba(255,255,255,0.12);
+/* =========================================================
+   DARK MODE
+========================================================= */
+body.dark{
+  --bg:#0b0b0b;
+  --text:#f9fafb;
+  --glass-bg:rgba(20,20,20,.7);
+  --glass-border:rgba(255,255,255,.12);
 }
 
-
-
-
+body.dark .episode-card,
+body.dark .guest-card,
+body.dark .newsletter-inner{
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+}
