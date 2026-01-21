@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body class="home">
 
 <!-- =====================
@@ -41,10 +42,18 @@
      HERO
 ===================== -->
 <section class="hero">
-  <div class="hero-content">
-    <h1>KVADRAT PO KVADRAT</h1>
-    <p>Podcast o biznisu, ljudima i pričama koje imaju težinu.</p>
-    <a href="epizode.html" class="btn">Poslednja epizoda</a>
+  <div class="hero-inner">
+    <h1 class="hero-title">
+      KVADRAT <span>PO</span> KVADRAT
+    </h1>
+
+    <p class="hero-subtitle">
+      Podcast o biznisu, ljudima i pričama koje imaju težinu.
+    </p>
+
+    <div class="hero-actions">
+      <a href="epizode.html" class="btn hero-btn">Poslednja epizoda</a>
+    </div>
   </div>
 </section>
 
@@ -108,6 +117,7 @@
   </div>
 
   <div class="hosts-grid">
+
     <div class="guest-card">
       <img src="assets/images/host-1.jpg" alt="">
       <div class="guest-info">
@@ -131,6 +141,7 @@
         <span>Host</span>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -142,12 +153,10 @@
 <section>
   <div class="newsletter-inner">
 
-    <!-- IMAGE -->
     <div class="newsletter-image">
       <img src="assets/images/newsletter.jpg" alt="">
     </div>
 
-    <!-- CONTENT -->
     <div class="newsletter-content">
       <h2>Ostanite u toku</h2>
       <p>Pretplatite se i dobijajte nove epizode prvi.</p>
@@ -168,7 +177,19 @@
   © 2026 Kvadrat po Kvadrat
 </footer>
 
+<!-- =====================
+     GUEST MODAL
+===================== -->
+<div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+    <img id="guestModalImg" src="" alt="">
+    <div>
+      <h3 id="guestModalName"></h3>
+      <p id="guestModalRole"></p>
+    </div>
+  </div>
+</div>
+
 <script src="assets/js/main.js"></script>
 </body>
 </html>
-
