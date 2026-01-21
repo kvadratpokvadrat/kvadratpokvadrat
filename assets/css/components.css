@@ -118,3 +118,43 @@
   border-radius: 999px;
   border: 1px solid var(--border);
 }
+/* =====================
+   GUEST CARDS (FIX)
+===================== */
+.guest-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.guest-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: .45s var(--ease);
+  cursor: pointer;
+}
+
+.guest-card img {
+  height: 260px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.guest-info {
+  padding: 20px 22px 24px;
+}
+
+.guest-info strong {
+  display: block;
+  font-size: 16px;
+}
+
+.guest-info span {
+  font-size: 14px;
+  color: var(--muted);
+}
