@@ -404,3 +404,171 @@ body.dark {
   --glass-bg: rgba(20,20,20,0.72);
   --glass-border: rgba(255,255,255,0.12);
 }
+/* =========================================================
+   FINAL POLISH — APPLE LIQUID TEXT & FLOW
+   (DODATI NA KRAJ FAJLA)
+========================================================= */
+
+/* ---------- GLOBAL TYPO FEEL ---------- */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: var(--text);
+}
+
+h1 { letter-spacing: -0.045em; }
+h2 { font-size: clamp(28px, 4vw, 36px); }
+
+p {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+/* ---------- FLOW SECTIONS ---------- */
+section {
+  position: relative;
+}
+
+.section-divider {
+  opacity: .9;
+  filter: blur(.2px);
+}
+
+/* ---------- HERO TEXT ---------- */
+.hero-content h1 {
+  text-shadow: 0 20px 60px rgba(0,0,0,.45);
+}
+
+.hero-content p {
+  font-size: 18px;
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* ---------- BUTTON MICRO MOTION ---------- */
+.btn,
+.cta,
+.badge-btn {
+  transition: all .35s cubic-bezier(.4,0,.2,1);
+}
+
+.btn:hover,
+.cta:hover,
+.badge-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 45px rgba(0,0,0,.15);
+}
+
+/* ---------- CARD TEXT POLISH ---------- */
+.episode-card,
+.guest-card {
+  padding-bottom: 6px;
+}
+
+.episode-card h3 {
+  padding: 22px 22px 8px;
+  font-size: 18px;
+}
+
+.episode-card p {
+  padding: 0 22px 22px;
+  font-size: 14.5px;
+  line-height: 1.75;
+}
+
+/* ---------- GUEST INFO ---------- */
+.guest-info {
+  backdrop-filter: blur(12px);
+  background: linear-gradient(
+    to top,
+    rgba(250,204,21,.95),
+    rgba(250,204,21,.75)
+  );
+}
+
+.guest-info h3 {
+  font-size: 17px;
+}
+
+.guest-info span {
+  font-size: 13px;
+  opacity: .85;
+}
+
+/* ---------- STATS COUNTER FEEL ---------- */
+.stats {
+  isolation: isolate;
+}
+
+.stat-item strong {
+  letter-spacing: -0.035em;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.stat-item span {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+
+/* ---------- NEWSLETTER TEXT ---------- */
+.newsletter-content h2 {
+  font-size: 30px;
+}
+
+.newsletter-content p {
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+/* ---------- TEXT BLOCKS (O NAMA / KONTAKT) ---------- */
+.text-block {
+  max-width: 720px;
+  margin: auto;
+}
+
+.text-block p {
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+/* ---------- DARK MODE POLISH ---------- */
+body.dark p,
+body.dark span {
+  color: #cfd2d8;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3 {
+  color: #f9fafb;
+}
+
+body.dark .episode-card,
+body.dark .guest-card {
+  box-shadow: 0 20px 70px rgba(0,0,0,.6);
+}
+
+/* ---------- SUBTLE TEXT REVEAL ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+  transition: .9s cubic-bezier(.4,0,.2,1);
+}
+
