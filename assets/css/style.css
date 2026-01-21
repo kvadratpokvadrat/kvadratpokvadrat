@@ -1,5 +1,5 @@
 /* =========================================================
-   KVADRAT PO KVADRAT — BRUTAL CINEMATIC UI (PRODUCTION FINAL)
+   KVADRAT PO KVADRAT — BRUTAL CINEMATIC UI (FINAL STABLE)
 ========================================================= */
 
 /* ================= DESIGN SYSTEM ================= */
@@ -36,29 +36,51 @@ body{
 img{width:100%;display:block}
 a{text-decoration:none;color:inherit}
 
-/* ================= PAGE LOAD (KEYNOTE STYLE) ================= */
-body:not(.loaded) section,
-body:not(.loaded) header,
-body:not(.loaded) footer{
-  opacity:0;
-  transform:translateY(40px) scale(.98);
+/* ================= NETFLIX INTRO ================= */
+#page-loader{
+  position:fixed;
+  inset:0;
+  background:#0b0b0b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:99999;
 }
-body.loaded section,
+#page-loader.hide{
+  opacity:0;
+  visibility:hidden;
+  transition:.8s ease;
+}
+.loader-inner img{
+  width:150px;
+  animation:logoPulse 1.6s infinite;
+}
+@keyframes logoPulse{
+  0%{opacity:.35;transform:scale(.96)}
+  50%{opacity:1;transform:scale(1)}
+  100%{opacity:.35;transform:scale(.96)}
+}
+
+/* ================= PAGE LOAD (KEYNOTE – SAMO HERO + HEADER) ================= */
+body:not(.loaded) header,
+body:not(.loaded) .hero{
+  opacity:0;
+  transform:translateY(30px);
+}
 body.loaded header,
-body.loaded footer{
+body.loaded .hero{
   opacity:1;
   transform:none;
   transition:
     opacity .9s ease,
     transform .9s var(--ease);
 }
-body.loaded section:nth-of-type(1){transition-delay:.1s}
-body.loaded section:nth-of-type(2){transition-delay:.25s}
-body.loaded section:nth-of-type(3){transition-delay:.4s}
-body.loaded section:nth-of-type(4){transition-delay:.55s}
 
 /* ================= SECTIONS ================= */
-section{padding:110px 60px; position:relative}
+section{
+  padding:110px 60px;
+  position:relative;
+}
 @media(max-width:768px){
   section{padding:80px 24px}
 }
@@ -105,7 +127,6 @@ header{
   border-radius:999px;
   font-weight:900;
   cursor:pointer;
-  position:relative;
   transition:.4s var(--ease);
   white-space:nowrap;
 }
@@ -194,7 +215,7 @@ header{
 }
 .section-header:hover h2::after{width:140px}
 
-/* ================= STATS (FIXED FORM) ================= */
+/* ================= STATS ================= */
 .stats{
   display:flex;
   justify-content:center;
@@ -202,9 +223,7 @@ header{
   text-align:center;
   flex-wrap:wrap;
 }
-.stat-item{
-  min-width:160px;
-}
+.stat-item{min-width:160px}
 .stat-item strong{
   font-size:3.4rem;
   font-weight:900;
@@ -257,7 +276,7 @@ header{
   box-shadow:var(--shadow-strong);
 }
 
-/* ================= NEWSLETTER (FIXED SIZE) ================= */
+/* ================= NEWSLETTER ================= */
 .newsletter-inner{
   max-width:920px;
   margin:auto;
@@ -312,29 +331,4 @@ body.dark{
 body.dark .badge-btn{
   background:#111;
   color:#fff;
-}
-
-/* ================= NETFLIX INTRO ================= */
-#page-loader{
-  position:fixed;
-  inset:0;
-  background:#0b0b0b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:99999;
-}
-#page-loader.hide{
-  opacity:0;
-  visibility:hidden;
-  transition:.8s ease;
-}
-.loader-inner img{
-  width:150px;
-  animation:logoPulse 1.6s infinite;
-}
-@keyframes logoPulse{
-  0%{opacity:.35;transform:scale(.96)}
-  50%{opacity:1;transform:scale(1)}
-  100%{opacity:.35;transform:scale(.96)}
 }
