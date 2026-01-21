@@ -8,16 +8,15 @@
   <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<!-- =====================
-     HEADER
-===================== -->
+<!-- ================= HEADER ================= -->
 <header>
   <div class="logo">
     <a href="index.html">
@@ -26,20 +25,15 @@
   </div>
 
   <nav class="nav">
-  <a href="index.html">Početna</a>
-  <a href="epizode.html">Epizode</a>
-  <a href="gosti.html">Gosti</a>
-  <a href="o-nama.html">O nama</a>
-  <a href="kontakt.html">Kontakt</a>
+    <a href="index.html">Početna</a>
+    <a href="epizode.html">Epizode</a>
+    <a href="gosti.html">Gosti</a>
+    <a href="o-nama.html">O nama</a>
+    <a href="kontakt.html" class="active">Kontakt</a>
 
-  <!-- Dark mode toggle -->
-  <button class="badge-btn" id="themeToggle" aria-label="Toggle dark mode">
-    Dark
-  </button>
-
-  <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
-</nav>
-
+    <button class="badge-btn" id="themeToggle">Dark</button>
+    <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
+  </nav>
 
   <div class="hamburger">
     <span></span>
@@ -48,11 +42,9 @@
   </div>
 </header>
 
-<!-- =====================
-     HERO
-===================== -->
-<section class="hero" style="height:50vh">
-  <div class="hero-content">
+<!-- ================= HERO ================= -->
+<section class="hero hero-small">
+  <div class="hero-content reveal">
     <h1>KONTAKT</h1>
     <p>Javite nam se — odgovaramo lično</p>
   </div>
@@ -60,32 +52,31 @@
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     CONTACT INTRO
-===================== -->
-<section class="about">
-  <div class="newsletter-inner">
+<!-- ================= INTRO ================= -->
+<section>
+  <div class="newsletter-inner contact-layout reveal">
     <div class="newsletter-content">
       <h2>Otvoreni smo za saradnju</h2>
       <p>
         Ako imate predlog za gosta, želite sponzorsku saradnju
-        ili jednostavno imate pitanje — slobodno nam se obratite.
+        ili imate pitanje — slobodno nam se obratite.
       </p>
       <p>
         Cenimo jasne poruke i dobre ideje.
       </p>
     </div>
-    <img src="assets/images/contact.jpg" loading="lazy" alt="">
+
+    <img src="assets/images/contact.jpg" loading="lazy" alt="Kontakt">
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     CONTACT FORM
-===================== -->
-<section class="newsletter">
-  <div class="newsletter-inner">
+<!-- ================= CONTACT FORM ================= -->
+<section>
+  <div class="newsletter-inner contact-layout reveal">
+
+    <!-- FORM -->
     <div class="newsletter-content">
       <h2>Pošaljite poruku</h2>
       <p>Odgovaramo u najkraćem mogućem roku.</p>
@@ -93,49 +84,43 @@
       <form class="newsletter-form" style="flex-direction:column; gap:18px">
         <input type="text" placeholder="Vaše ime" required>
         <input type="email" placeholder="Email adresa" required>
+
         <textarea
           placeholder="Vaša poruka"
           rows="5"
-          style="
-            padding:16px 22px;
-            border-radius:22px;
-            border:1px solid #ddd;
-            font-family:inherit;
-            resize:vertical;
-          "
           required></textarea>
 
         <button type="submit" class="btn">Pošalji poruku</button>
       </form>
     </div>
 
+    <!-- INFO -->
     <div class="newsletter-content">
       <h2>Kontakt informacije</h2>
-      <p><strong>Email:</strong> kontakt@podcast.com</p>
-      <p><strong>Lokacija:</strong> Novi Sad, Srbija</p>
-      <p><strong>Društvene mreže:</strong></p>
 
+      <p><strong>Email:</strong><br> kontakt@podcast.com</p>
+      <p><strong>Lokacija:</strong><br> Novi Sad, Srbija</p>
+
+      <p><strong>Društvene mreže:</strong></p>
       <p>
         <a href="#">Instagram</a><br>
         <a href="#">YouTube</a><br>
         <a href="#">LinkedIn</a>
       </p>
     </div>
+
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- =====================
-     FOOTER
-===================== -->
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <div class="footer-bottom">
-    © 2026 Kvadrat po Kvadrat
-  </div>
+  <p>© 2026 Kvadrat po Kvadrat</p>
 </footer>
 
-<!-- JS -->
+<!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
+
 </body>
 </html>
