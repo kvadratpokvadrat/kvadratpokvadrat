@@ -25,3 +25,10 @@
   transform: none;
   transition: .9s var(--ease);
 }
+/* GUEST CARD HOVER */
+.guest-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 32px rgba(250,204,21,.4);
+}
