@@ -216,8 +216,26 @@
 
 <!-- JS -->
 <script src="assets/js/main.js"></script>
+  <script>
+fetch("/api/episodes")
+  .then(res => res.json())
+  .then(data => {
+    const grid = document.getElementById("homeEpisodes");
+
+    data.slice(0, 3).forEach(ep => {
+      grid.innerHTML += `
+        <div class="episode-card">
+          <img src="${ep.thumbnail}">
+          <h3>${ep.title}</h3>
+        </div>
+      `;
+    });
+  });
+</script>
+
 </body>
 </html>
+
 
 
 
