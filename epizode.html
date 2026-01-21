@@ -5,18 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Epizode | Kvadrat po Kvadrat</title>
 
-  <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
 <header>
   <div class="logo">
     <a href="index.html">
@@ -30,36 +27,27 @@
     <a href="gosti.html">Gosti</a>
     <a href="o-nama.html">O nama</a>
     <a href="kontakt.html">Kontakt</a>
-
+    <a href="postani-sponzor.html" class="btn">Postani sponzor</a>
     <button class="badge-btn" id="themeToggle">Dark</button>
-    <a href="postani-sponzor.html" class="cta">Postani sponzor</a>
+    
   </nav>
-
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero hero-small">
-  <div class="hero-content reveal">
-    <h1>EPIZODE</h1>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Epizode</h1>
     <p>Sve epizode podcasta Kvadrat po Kvadrat</p>
   </div>
 </section>
 
 <div class="section-divider"></div>
 
-<!-- ================= EPISODES ================= -->
-<section class="episodes">
-  <div class="section-header reveal">
+<section>
+  <div class="section-header">
     <h2>Sve epizode</h2>
     <span class="badge-btn">Podcast arhiva</span>
   </div>
 
-  <!-- GRID -->
   <div class="episode-grid" id="episodeGrid">
     <!-- puni se iz API-ja -->
   </div>
@@ -67,9 +55,8 @@
 
 <div class="section-divider"></div>
 
-<!-- ================= NEWSLETTER ================= -->
-<section class="newsletter">
-  <div class="newsletter-inner reveal">
+<section>
+  <div class="newsletter-inner">
     <img src="assets/images/newsletter.jpg" loading="lazy" alt="Newsletter">
 
     <div class="newsletter-content">
@@ -78,7 +65,7 @@
 
       <form class="newsletter-form">
         <input type="email" placeholder="Vaš email" required>
-        <button type="submit">Subscribe</button>
+        <button type="submit" class="btn">Subscribe</button>
       </form>
     </div>
   </div>
@@ -86,15 +73,12 @@
 
 <div class="section-divider"></div>
 
-<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  <p>© 2026 Kvadrat po Kvadrat</p>
+  © 2026 Kvadrat po Kvadrat
 </footer>
 
-<!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
 
-<!-- ================= EPISODES API ================= -->
 <script>
 fetch("/api/episodes")
   .then(res => res.json())
@@ -103,15 +87,13 @@ fetch("/api/episodes")
 
     data.forEach(ep => {
       grid.innerHTML += `
-        <div class="episode-card reveal">
+        <div class="episode-card">
           <img src="${ep.thumbnail}" loading="lazy" alt="">
-          <div class="episode-card-body">
-            <h3>${ep.title}</h3>
-            <p>${ep.description || ""}</p>
-            <a href="${ep.youtube}" target="_blank" class="badge-btn">
-              Gledaj epizodu
-            </a>
-          </div>
+          <h3>${ep.title}</h3>
+          <p>${ep.description || ""}</p>
+          <a href="${ep.youtube}" target="_blank" class="badge-btn">
+            Gledaj epizodu
+          </a>
         </div>
       `;
     });
