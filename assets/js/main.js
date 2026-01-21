@@ -66,7 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("revealed");
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
         revealObserver.unobserve(entry.target);
       }
     });
@@ -153,31 +154,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-});
-
-/* =====================
-   NETFLIX LOADER
-   (SAMO PRVI PUT)
-===================== */
-window.addEventListener("load", () => {
-  const loader = document.getElementById("page-loader");
-
-  if (!loader) {
-    document.body.classList.add("loaded");
-    return;
-  }
-
-  const alreadyLoaded = sessionStorage.getItem("siteLoaded");
-
-  if (alreadyLoaded) {
-    loader.remove();
-    document.body.classList.add("loaded");
-    return;
-  }
-
-  setTimeout(() => {
-    loader.classList.add("hide");
-    document.body.classList.add("loaded");
-    sessionStorage.setItem("siteLoaded", "true");
-  }, 1600);
 });
