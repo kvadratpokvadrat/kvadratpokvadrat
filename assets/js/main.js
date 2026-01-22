@@ -155,6 +155,7 @@ if (modal) {
    YOUTUBE STATS
    Likes = ALL
    Others = Videos >= 2 min
+   Subscribers = Channel level
 ========================================= */
 
 (() => {
@@ -162,7 +163,7 @@ if (modal) {
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
   const MIN_SECONDS = 120;
 
-  const CACHE_KEY = "yt_stats_likes_all";
+  const CACHE_KEY = "yt_stats_full";
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6h
 
   const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
@@ -174,28 +175,31 @@ if (modal) {
 
   async function fetchStats() {
     try {
-      /* 1️⃣ Uploads playlist */
-      const ch = await fetch(
-        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      /* 1️⃣ CHANNEL STATS (SUBSCRIBERS) */
+      const channelRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const uploads =
-        ch.items[0].contentDetails.relatedPlaylists.uploads;
+      const stats = channelRes.items[0].statistics;
+      const subscribers = Number(stats.subscriberCount || 0);
 
-      /* 2️⃣ Playlist items */
+      const uploads =
+        channelRes.items[0].contentDetails.relatedPlaylists.uploads;
+
+      /* 2️⃣ PLAYLIST ITEMS */
       const pl = await fetch(
         `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
       ).then(r => r.json());
 
       const ids = pl.items.map(i => i.contentDetails.videoId).join(",");
 
-      /* 3️⃣ Video details */
+      /* 3️⃣ VIDEO DETAILS */
       const vids = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${ids}&key=${API_KEY}`
       ).then(r => r.json());
 
       let totalViews = 0;
-      let totalLikes = 0; // 👈 SVI LAJKOVI
+      let totalLikes = 0;
       let totalComments = 0;
       let videoCount = 0;
       let totalDuration = 0;
@@ -208,10 +212,10 @@ if (modal) {
         const comments = Number(v.statistics.commentCount || 0);
         const seconds = parseDuration(v.contentDetails.duration);
 
-        // 👍 lajkovi = svi
+        // 👍 LAJKOVI = SVI
         totalLikes += likes;
 
-        // 👀 ostalo = samo >= 2 min
+        // 👀 OSTALO = VIDEO ≥ 2 MIN
         if (seconds >= MIN_SECONDS) {
           totalViews += views;
           totalComments += comments;
@@ -228,6 +232,7 @@ if (modal) {
       });
 
       const data = {
+        subscribers,
         views: totalViews,
         likes: totalLikes,
         comments: totalComments,
@@ -258,6 +263,7 @@ if (modal) {
   }
 
   function apply(d) {
+    set("yt-subs", d.subscribers);
     set("yt-views", d.views);
     set("yt-likes", d.likes);
     set("yt-comments", d.comments);
@@ -274,6 +280,8 @@ if (modal) {
     el.textContent = "0";
   }
 })();
+
+
 
 
 
