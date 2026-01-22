@@ -322,6 +322,14 @@ header {
   border-radius: 999px;
   border: 1px solid var(--border);
 }
+/* =====================
+   NEWSLETTER – HIDE IMAGE ON MOBILE & TABLET
+===================== */
+@media (max-width: 1024px) {
+  .newsletter-image {
+    display: none;
+  }
+}
 
 /* =====================
    FOOTER
@@ -346,5 +354,6 @@ header {
   transform: none;
   transition: .9s var(--ease);
 }
+
 
 
