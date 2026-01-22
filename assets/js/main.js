@@ -157,7 +157,7 @@ if (modal) {
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 120;
+  const MIN_SECONDS = 1200;
 
   const CACHE_KEY = "yt_stats_full";
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6h
@@ -284,6 +284,95 @@ if (modal) {
     el.textContent = "0";
   }
 })();
+/* =========================================
+   YOUTUBE EPISODES → CARDS
+   Only VIDEOS >= 2 min
+========================================= */
+
+(() => {
+  const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
+  const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
+  const MIN_SECONDS = 12000;
+  const MAX_EPISODES = 3;
+
+  const container = document.getElementById("yt-episodes");
+  if (!container) return;
+
+  fetchEpisodes();
+
+  async function fetchEpisodes() {
+    try {
+      /* 1️⃣ GET UPLOADS PLAYLIST */
+      const channelRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      ).then(r => r.json());
+
+      const uploads =
+        channelRes.items[0].contentDetails.relatedPlaylists.uploads;
+
+      /* 2️⃣ GET VIDEOS FROM PLAYLIST */
+      const pl = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=10&playlistId=${uploads}&key=${API_KEY}`
+      ).then(r => r.json());
+
+      const ids = pl.items.map(i => i.contentDetails.videoId).join(",");
+
+      /* 3️⃣ VIDEO DETAILS */
+      const vids = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
+      ).then(r => r.json());
+
+      let episodeIndex = 0;
+      container.innerHTML = "";
+
+      vids.items.forEach(v => {
+        if (episodeIndex >= MAX_EPISODES) return;
+
+        const seconds = parseDuration(v.contentDetails.duration);
+        if (seconds < MIN_SECONDS) return;
+
+        episodeIndex++;
+
+        const title = v.snippet.title;
+        const thumb = v.snippet.thumbnails.high.url;
+        const url = `https://www.youtube.com/watch?v=${v.id}`;
+
+        container.innerHTML += `
+          <a href="${url}" target="_blank" rel="noopener">
+            <article class="card card--episode reveal">
+              <img src="${thumb}" alt="${title}">
+              <div class="card-body">
+                <h3 class="card-title">${title}</h3>
+                <p class="card-meta">
+                  Epizoda #${episodeIndex} • ${formatDuration(seconds)}
+                </p>
+              </div>
+            </article>
+          </a>
+        `;
+      });
+
+    } catch (e) {
+      console.error("YT EPISODES ERROR:", e);
+    }
+  }
+
+  function parseDuration(iso) {
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    return (
+      (parseInt(m[1] || 0) * 3600) +
+      (parseInt(m[2] || 0) * 60) +
+      parseInt(m[3] || 0)
+    );
+  }
+
+  function formatDuration(sec) {
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    return h ? `${h}h ${m}min` : `${m}min`;
+  }
+})();
+
 
 
 
