@@ -202,3 +202,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const grid = document.getElementById("yt-episodes");
   if (!grid) return;
+
+  const LIMIT = grid.dataset.limit ? Number(grid.dataset.limit) : 3;
+
+  try {
+    const ch = await fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+    ).then(r => r.json());
+
+    const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
+
+    const pl = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=15&playlistId=${uploads}&key=${API_KEY}`
+    ).then(r => r.json());
+
+    const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
+
+    const vids = await fetch(
+      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
+    ).then(r => r.json());
+
+    grid.innerHTML = "";
+    let shown = 0;
+
+    vids.items.forEach(v => {
+      if (shown >= LIMIT) return;
+      if (parse(v.contentDetails.duration) < MIN) return;
+
+      grid.innerHTML += `
+        <article class="card episode-card reveal">
+          <span class="badge-new">Nova epizoda</span>
+          <img src="${v.snippet.thumbnails.high.url}" alt="">
+          <div class="card-body">
+            <h3>${v.snippet.title}</h3>
+          </div>
+        </article>
+      `;
+      shown++;
+    });
+
+  } catch (e) {
+    console.error("YT EPISODES ERROR:", e);
+  }
+
+  function parse(iso){
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
+  }
+
+})();
