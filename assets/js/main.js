@@ -354,21 +354,43 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(updateDots);
     });
 
-    /* ---------- AUTO SCROLL ---------- */
-    let auto = setInterval(() => {
-      track.scrollBy({ left: cardWidth, behavior: "smooth" });
-    }, 4500);
+/* ---------- CINEMATIC INFINITE AUTO SCROLL ---------- */
 
-    slider.addEventListener("mouseenter", () => clearInterval(auto));
-    slider.addEventListener("mouseleave", () => {
-      auto = setInterval(() => {
-        track.scrollBy({ left: cardWidth, behavior: "smooth" });
-      }, 4500);
-    });
+let pos = 0;
+let speed = 0.45; // cinematic
+let paused = false;
+
+// DUPLICIRAJ KARTICE ZA LOOP
+cards.forEach(card => {
+  const clone = card.cloneNode(true);
+  clone.classList.add("clone");
+  track.appendChild(clone);
+});
+
+function cinematicLoop() {
+  if (!paused) {
+    pos -= speed;
+
+    const loopWidth = track.scrollWidth / 2;
+    if (Math.abs(pos) >= loopWidth) {
+      pos = 0;
+    }
+
+    track.style.transform = `translateX(${pos}px)`;
   }
+
+  requestAnimationFrame(cinematicLoop);
 }
 
-});
+// PAUSE NA HOVER / TOUCH
+slider.addEventListener("mouseenter", () => paused = true);
+slider.addEventListener("mouseleave", () => paused = false);
+slider.addEventListener("touchstart", () => paused = true);
+slider.addEventListener("touchend", () => paused = false);
+
+cinematicLoop();
+
+
 
 
 
