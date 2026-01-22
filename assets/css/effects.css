@@ -412,3 +412,11 @@ header .section-divider {
   opacity: 1;
   background: #f5c400;
 }
+.no-slider .slider-track {
+  overflow: visible;
+  scroll-behavior: auto;
+}
+
+.hide {
+  display: none !important;
+}
