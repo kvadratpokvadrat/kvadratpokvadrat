@@ -193,6 +193,7 @@ modal?.addEventListener("click", e => {
       }
     });
 
+    set("yt-subs", views);
     set("yt-views", views);
     set("yt-videos", videos);
   }
@@ -275,3 +276,4 @@ modal?.addEventListener("click", e => {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+
