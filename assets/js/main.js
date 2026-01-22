@@ -151,61 +151,130 @@ if (modal) {
    YOUTUBE CHANNEL STATS
 ========================= */
 
+/* =========================================
+   YOUTUBE STATS
+   Likes = ALL
+   Others = Videos >= 2 min
+========================================= */
+
 (() => {
-  const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org"; // OGRANIČI NA DOMEN
-  const CHANNEL = "@kvadratpokvadrat";
+  const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
+  const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
+  const MIN_SECONDS = 120;
 
-  const CACHE_KEY = "yt_channel_stats";
-  const CACHE_TTL = 60 * 60 * 1000; // 1 sat
+  const CACHE_KEY = "yt_stats_likes_all";
+  const CACHE_TTL = 6 * 60 * 60 * 1000; // 6h
 
-  const IDS = {
-    subs: "yt-subs",
-    views: "yt-views",
-    videos: "yt-videos"
-  };
-
-  const now = Date.now();
   const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
-
-  if (cached && now - cached.time < CACHE_TTL) {
-    applyStats(cached.data);
+  if (cached && Date.now() - cached.time < CACHE_TTL) {
+    apply(cached.data);
   } else {
     fetchStats();
   }
 
-  function fetchStats() {
-    fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=${CHANNEL}&key=${API_KEY}`
-    )
-      .then(res => res.json())
-      .then(data => {
-        if (!data.items || !data.items.length) return;
-        localStorage.setItem(
-          CACHE_KEY,
-          JSON.stringify({ time: Date.now(), data })
-        );
-        applyStats(data);
-      })
-      .catch(err => {
-        console.error("YT API error:", err);
+  async function fetchStats() {
+    try {
+      /* 1️⃣ Uploads playlist */
+      const ch = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      ).then(r => r.json());
+
+      const uploads =
+        ch.items[0].contentDetails.relatedPlaylists.uploads;
+
+      /* 2️⃣ Playlist items */
+      const pl = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
+      ).then(r => r.json());
+
+      const ids = pl.items.map(i => i.contentDetails.videoId).join(",");
+
+      /* 3️⃣ Video details */
+      const vids = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics,snippet&id=${ids}&key=${API_KEY}`
+      ).then(r => r.json());
+
+      let totalViews = 0;
+      let totalLikes = 0; // 👈 SVI LAJKOVI
+      let totalComments = 0;
+      let videoCount = 0;
+      let totalDuration = 0;
+
+      let topVideo = { views: 0, title: "" };
+
+      vids.items.forEach(v => {
+        const views = Number(v.statistics.viewCount || 0);
+        const likes = Number(v.statistics.likeCount || 0);
+        const comments = Number(v.statistics.commentCount || 0);
+        const seconds = parseDuration(v.contentDetails.duration);
+
+        // 👍 lajkovi = svi
+        totalLikes += likes;
+
+        // 👀 ostalo = samo >= 2 min
+        if (seconds >= MIN_SECONDS) {
+          totalViews += views;
+          totalComments += comments;
+          totalDuration += seconds;
+          videoCount++;
+
+          if (views > topVideo.views) {
+            topVideo = {
+              views,
+              title: v.snippet.title
+            };
+          }
+        }
       });
+
+      const data = {
+        views: totalViews,
+        likes: totalLikes,
+        comments: totalComments,
+        videos: videoCount,
+        avgDuration:
+          videoCount ? Math.round(totalDuration / videoCount) : 0,
+        topVideo
+      };
+
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ time: Date.now(), data })
+      );
+
+      apply(data);
+    } catch (e) {
+      console.error("YT API ERROR:", e);
+    }
   }
 
-  function applyStats(data) {
-    const s = data.items[0].statistics;
-
-    setCount(IDS.subs, s.subscriberCount);
-    setCount(IDS.views, s.viewCount);
-    setCount(IDS.videos, s.videoCount);
+  function parseDuration(iso) {
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    return (
+      (parseInt(m[1] || 0) * 3600) +
+      (parseInt(m[2] || 0) * 60) +
+      parseInt(m[3] || 0)
+    );
   }
 
-  function setCount(id, value) {
+  function apply(d) {
+    set("yt-views", d.views);
+    set("yt-likes", d.likes);
+    set("yt-comments", d.comments);
+    set("yt-videos", d.videos);
+    set("yt-avg-duration", d.avgDuration + "s");
+
+    console.log("TOP VIDEO (>=2min):", d.topVideo.title, d.topVideo.views);
+  }
+
+  function set(id, val) {
     const el = document.getElementById(id);
     if (!el) return;
-
-    el.dataset.count = value;
+    el.dataset.count = val;
     el.textContent = "0";
   }
 })();
+
+
 
 
