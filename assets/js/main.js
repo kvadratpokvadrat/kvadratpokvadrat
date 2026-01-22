@@ -276,4 +276,89 @@ modal?.addEventListener("click", e => {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+/* =====================================
+   SMART SLIDERS (EP + GUESTS)
+===================================== */
+document.addEventListener("DOMContentLoaded", () => {
+
+  initSlider(".slider--episodes", {
+    desktopMin: 4 // više od 3
+  });
+
+  initSlider(".slider--guests", {
+    desktopMin: 5 // više od 4
+  });
+
+  function initSlider(selector, rules) {
+    const slider = document.querySelector(selector);
+    if (!slider) return;
+
+    const track = slider.querySelector(".slider-track");
+    const cards = track.children;
+    const prev = slider.querySelector(".prev");
+    const next = slider.querySelector(".next");
+    const dotsWrap = slider.querySelector(".slider-dots");
+
+    const isMobile = window.matchMedia("(max-width:1023px)").matches;
+
+    if (!isMobile && cards.length < rules.desktopMin) {
+      slider.classList.add("no-slider");
+      return;
+    }
+
+    /* ---------- DOTS ---------- */
+    const total = cards.length;
+    dotsWrap.innerHTML = "";
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement("button");
+      if (i === 0) dot.classList.add("active");
+      dotsWrap.appendChild(dot);
+
+      dot.addEventListener("click", () => {
+        scrollToIndex(i);
+      });
+    }
+
+    function setActiveDot() {
+      const index = Math.round(track.scrollLeft / cards[0].offsetWidth);
+      dotsWrap.querySelectorAll("button").forEach((d, i) => {
+        d.classList.toggle("active", i === index);
+      });
+    }
+
+    /* ---------- SCROLL ---------- */
+    function scrollToIndex(i) {
+      track.scrollTo({
+        left: cards[i].offsetLeft,
+        behavior: "smooth"
+      });
+    }
+
+    prev?.addEventListener("click", () => {
+      track.scrollBy({ left: -cards[0].offsetWidth, behavior: "smooth" });
+    });
+
+    next?.addEventListener("click", () => {
+      track.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" });
+    });
+
+    track.addEventListener("scroll", () => {
+      requestAnimationFrame(setActiveDot);
+    });
+
+    /* ---------- AUTO SCROLL ---------- */
+    let auto = setInterval(() => {
+      track.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" });
+    }, 4500);
+
+    slider.addEventListener("mouseenter", () => clearInterval(auto));
+    slider.addEventListener("mouseleave", () => {
+      auto = setInterval(() => {
+        track.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" });
+      }, 4500);
+    });
+  }
+
+});
+
 
