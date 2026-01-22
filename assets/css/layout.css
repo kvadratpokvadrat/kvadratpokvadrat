@@ -45,7 +45,10 @@ header::after {
   height: 52px;
 }
 
-/* NAV */
+/* =====================
+   NAV – DESKTOP
+===================== */
+
 .nav {
   margin-left: auto;
   display: flex;
@@ -54,12 +57,12 @@ header::after {
 }
 
 .nav a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   height: 40px;
   font-size: 14px;
   font-weight: 500;
-  position: relative;
 }
 
 .nav a::after {
@@ -70,7 +73,7 @@ header::after {
   width: 0;
   height: 2px;
   background: var(--yellow);
-  transition: .3s var(--ease);
+  transition: .3s ease;
 }
 
 .nav a:hover::after,
@@ -78,15 +81,8 @@ header::after {
   width: 100%;
 }
 
-.nav .btn {
-  height: 40px;
-  padding: 0 24px;
-  display: inline-flex;
-  align-items: center;
-}
-
 /* =====================
-   SECTIONS + FLOW LINES
+   SECTIONS
 ===================== */
 
 section {
@@ -94,24 +90,22 @@ section {
   padding: 96px 56px;
 }
 
-
 /* =====================
    HERO
 ===================== */
 
 .hero {
   min-height: calc(65vh - 96px);
+  padding-top: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: 96px;
   background:
     radial-gradient(circle at top, rgba(250,204,21,.22), transparent 45%),
     linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
     url("../images/hero.png") center / cover no-repeat;
   color: #fff;
-  position: relative;
 }
 
 .hero-inner {
@@ -123,29 +117,17 @@ section {
    GRIDS
 ===================== */
 
-.grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-/* GUESTS GRID */
-.guests-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-/* EPISODES GRID */
+.grid,
+.guests-grid,
 .episode-grid {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   gap: 32px;
+}
+
+.guests-grid,
+.episode-grid {
   grid-template-columns: repeat(3, 1fr);
 }
 
@@ -158,6 +140,67 @@ section {
   text-align: center;
   border-top: 1px solid var(--border);
   color: var(--muted);
+}
+
+/* =====================
+   HAMBURGER
+===================== */
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  position: relative;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  height: 2px;
+  background: var(--yellow);
+  transition: .3s ease;
+}
+
+.hamburger span:nth-child(1) { top: 13px; }
+.hamburger span:nth-child(2) { top: 20px; }
+.hamburger span:nth-child(3) { top: 27px; }
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 20px;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 20px;
+}
+
+/* =====================
+   OVERLAY
+===================== */
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s ease;
+  z-index: 3000;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
 /* =====================
@@ -181,94 +224,27 @@ section {
     padding: 80px 24px;
   }
 
-  section:not(.hero)::before,
-  header::after,
-  .hero::after {
-    width: calc(100% - 48px);
-  }
-}
-
-@media (max-width: 560px) {
-  .guests-grid,
-  .episode-grid {
-    grid-template-columns: 1fr;
-  }
-}
-/* =====================
-   HAMBURGER (DEFAULT)
-===================== */
-
-.hamburger {
-  display: none; /* ← KLJUČNO */
-  background: none;
-  border: none;
-  cursor: pointer;
-  width: 42px;
-  height: 42px;
-  position: relative;
-}
-
-.hamburger span {
-  position: absolute;
-  left: 9px;
-  right: 9px;
-  height: 2px;
-  background: #facc15;
-  border-radius: 2px;
-  transition: .3s ease;
-}
-
-.hamburger span:nth-child(1) { top: 13px; }
-.hamburger span:nth-child(2) { top: 20px; }
-.hamburger span:nth-child(3) { top: 27px; }
-/* =====================
-   MOBILE HEADER
-===================== */
-
-@media (max-width: 768px) {
-
-  /* SHOW HAMBURGER */
   .hamburger {
     display: block;
     margin-left: auto;
   }
 
-  /* NAV → MOBILE DRAWER */
-  .nav a {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  height: 40px;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 0 2px;
-}
-
-/* ZUTA LINIJA */
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -6px;
-  width: 0;
-  height: 2px;
-  background: var(--yellow);
-  transform: translateX(-50%);
-  transition: width .3s var(--ease);
-}
-
-/* ACTIVE / HOVER */
-.nav a:hover::after,
-.nav a.active::after {
-  width: 100%;
-}
+  /* MOBILE NAV DRAWER */
+  .nav {
+    position: fixed;
+    top: 96px;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px 24px;
 
     transform: translateY(-120%);
     opacity: 0;
     pointer-events: none;
 
     transition: .4s cubic-bezier(.4,0,.2,1);
-    border-bottom: 1px solid var(--border);
     z-index: 4000;
   }
 
@@ -278,49 +254,21 @@ section {
     pointer-events: all;
   }
 
-  /* LINKS FULL WIDTH */
-  .nav a,
-  .nav .btn,
-  .nav .badge-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-/* =========================================
-   HAMBURGER ACTIVE LINE – MOBILE ONLY
-========================================= */
-
-@media (max-width: 900px) {
-
-  .nav {
-    flex-direction: column;
-    align-items: center;
-  }
-
   .nav a {
-    position: relative;
-    width: auto;
+    font-size: 16px;
     padding: 12px 0;
-    text-align: center;
   }
 
   .nav a::after {
-    content: "";
-    position: absolute;
     left: 50%;
-    bottom: 4px;
-    width: 0;
-    height: 3px;
-    background: #facc15;
-    border-radius: 2px;
     transform: translateX(-50%);
-    transition: width .3s ease;
-    box-shadow:
-      0 0 16px rgba(250,204,21,.85),
-      0 0 36px rgba(250,204,21,.45);
+    bottom: -4px;
   }
+}
 
-  .nav a.active::after {
-    width: 100%;
+@media (max-width: 560px) {
+  .guests-grid,
+  .episode-grid {
+    grid-template-columns: 1fr;
   }
 }
