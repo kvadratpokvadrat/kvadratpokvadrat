@@ -329,126 +329,134 @@ header .section-divider {
   letter-spacing: .03em;
 }
 /* =====================
-   SLIDER CORE (FIXED)
+   SLIDER CORE – FIX
 ===================== */
 .slider {
   position: relative;
-  overflow-x: hidden;   /* slider radi */
-  overflow-y: visible;  /* hover NE SEČE kartice */
+  overflow: visible; /* 🔥 BITNO – glow se ne seče */
 }
 
-/* =====================
-   TRACK
-===================== */
 .slider-track {
   display: flex;
-  gap: 16px;
-  padding: 24px 16px;   /* VAŽNO – prostor za hover */
+  gap: 32px;
+  padding: 0 16px 32px;
   scroll-behavior: smooth;
 }
 
 /* =====================
-   MOBILE – UVEK SLIDER
+   CARD – UNIFIED
 ===================== */
-@media (max-width: 1023px) {
-  .slider-track {
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-shrink: 0; /* ❌ nema skupljanja */
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 0 0 rgba(0,0,0,0),
+    0 0 28px rgba(250,204,21,.35);
+}
+
+.card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 18px 20px 22px;
+  flex: 1;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.card-meta {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* =====================
+   GUESTS – SLIDER LOGIC
+===================== */
+
+/* DESKTOP > 1440px → GRID */
+@media (min-width: 1441px) {
+  .guests .slider-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    overflow: visible;
+  }
+}
+
+/* ≤ 1440px → SLIDER */
+@media (max-width: 1440px) {
+  .guests .slider-track {
     overflow-x: auto;
-    overflow-y: visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
 
-  .slider-track::-webkit-scrollbar {
-    display: none;
+  .guests .slider-track > .card {
+    width: 320px;
+    scroll-snap-align: center;
   }
 
-  .slider-track > * {
-    flex: 0 0 85%;
+  .guests .slider-track::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* =====================
+   EPISODES – SLIDER LOGIC
+===================== */
+
+/* DESKTOP > 1330px → GRID */
+@media (min-width: 1331px) {
+  .episodes .slider-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    overflow: visible;
+  }
+}
+
+/* ≤ 1330px → SLIDER */
+@media (max-width: 1330px) {
+  .episodes .slider-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .episodes .slider-track > .card {
+    width: 360px;
     scroll-snap-align: center;
   }
 }
 
 /* =====================
-   DESKTOP LOGIKA
+   GLOW FIX
 ===================== */
-@media (min-width: 1024px) {
-
-  /* ✅ AKTIVAN SLIDER */
-  .slider:not(.no-slider) .slider-track {
-    overflow-x: hidden;
-    overflow-y: visible;
-  }
-
-  .slider:not(.no-slider) .slider-track > * {
-    flex: 0 0 calc(33.333% - 16px);
-  }
-
-  /* ❌ NO SLIDER = NORMAL GRID */
-  .slider.no-slider .slider-track {
-    overflow: visible;
-  }
-
-  .slider.no-slider .slider-track > * {
-    flex: 1 1 auto;
-  }
+.is-glow {
+  position: relative;
+  z-index: 2;
+  animation: glow 2.2s infinite;
 }
 
-/* =====================
-   ARROWS
-===================== */
-.slider-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #facc15;
-  color: #000;
-  font-size: 28px;
-  border: none;
-  cursor: pointer;
-}
-
-.slider-arrow.prev { left: 8px; }
-.slider-arrow.next { right: 8px; }
-
-@media (max-width: 1023px) {
-  .slider-arrow {
-    display: none;
-  }
-}
-
-/* =====================
-   DOTS
-===================== */
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin: 12px 0 4px;
-}
-
-.slider-dots button {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #555;
-  border: none;
-  opacity: .5;
-}
-
-.slider-dots button.active {
-  opacity: 1;
-  background: #f5c400;
-}
-
-/* =====================
-   HELPERS
-===================== */
-.hide {
-  display: none !important;
+@keyframes glow {
+  0% { box-shadow: 0 0 0 rgba(255,212,0,0); }
+  50% { box-shadow: 0 0 32px rgba(255,212,0,.45); }
+  100% { box-shadow: 0 0 0 rgba(255,212,0,0); }
 }
 
 
