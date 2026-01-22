@@ -235,3 +235,28 @@ header .section-divider {
   object-fit: contain;
   background: #000;
 }
+/* =====================
+   TEXT CARDS (NON-EPISODE)
+===================== */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.card-content h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.card-content p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+  max-width: none;
+}
+
