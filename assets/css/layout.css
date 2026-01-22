@@ -194,3 +194,76 @@ section {
     grid-template-columns: 1fr;
   }
 }
+/* =====================
+   HAMBURGER (DEFAULT)
+===================== */
+
+.hamburger {
+  display: none; /* ← KLJUČNO */
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  position: relative;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: .3s ease;
+}
+
+.hamburger span:nth-child(1) { top: 13px; }
+.hamburger span:nth-child(2) { top: 20px; }
+.hamburger span:nth-child(3) { top: 27px; }
+/* =====================
+   MOBILE HEADER
+===================== */
+
+@media (max-width: 768px) {
+
+  /* SHOW HAMBURGER */
+  .hamburger {
+    display: block;
+    margin-left: auto;
+  }
+
+  /* NAV → MOBILE DRAWER */
+  .nav {
+    position: fixed;
+    top: 96px;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px 24px 40px;
+
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+
+    transition: .4s cubic-bezier(.4,0,.2,1);
+    border-bottom: 1px solid var(--border);
+    z-index: 4000;
+  }
+
+  .nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* LINKS FULL WIDTH */
+  .nav a,
+  .nav .btn,
+  .nav .badge-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
