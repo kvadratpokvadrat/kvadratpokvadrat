@@ -105,3 +105,31 @@ body{
   transform:none;
   transition:.8s cubic-bezier(.4,0,.2,1);
 }
+section{
+  position: relative;
+  overflow: visible;
+}
+
+.section-flow::before,
+.section-flow::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  width:120%;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,212,0,.55),
+    transparent
+  );
+}
+
+.section-flow::before{
+  top:0;
+}
+
+.section-flow::after{
+  bottom:0;
+}
