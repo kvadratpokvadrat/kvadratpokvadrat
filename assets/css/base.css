@@ -51,7 +51,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.65;
-  padding-top: 96px;
+  padding-top: 0px;
   overflow-x: hidden;
 }
 
@@ -395,6 +395,7 @@ header {
     max-width: 220px;
   }
 }
+
 
 
 
