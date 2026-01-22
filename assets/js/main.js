@@ -10,21 +10,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const nav = document.querySelector(".nav");
   const overlay = document.querySelector(".nav-overlay");
 
-  if (burger && nav) {
+  if (burger && nav && overlay) {
     burger.addEventListener("click", () => {
       const open = nav.classList.toggle("active");
       burger.classList.toggle("active", open);
-      overlay?.classList.toggle("active", open);
+      overlay.classList.toggle("active", open);
       document.body.classList.toggle("nav-open", open);
     });
-  }
 
-  overlay?.addEventListener("click", () => {
-    nav.classList.remove("active");
-    burger.classList.remove("active");
-    overlay.classList.remove("active");
-    document.body.classList.remove("nav-open");
-  });
+    overlay.addEventListener("click", () => {
+      nav.classList.remove("active");
+      burger.classList.remove("active");
+      overlay.classList.remove("active");
+      document.body.classList.remove("nav-open");
+    });
+  }
 
   /* =====================
      DARK MODE
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
   /* =====================
-     SECTION DIVIDERS
+     DIVIDERS
   ===================== */
   const dividerObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -80,9 +80,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!e.isIntersecting) return;
 
       const el = e.target;
-      const target = Number(el.dataset.count);
+      const target = Number(el.dataset.count || 0);
       let current = 0;
-      const step = target / 110;
+      const step = Math.max(target / 100, 1);
 
       function tick() {
         current += step;
@@ -101,61 +101,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.querySelectorAll("[data-count]").forEach(c => counterObserver.observe(c));
 
-});
-
-/* =====================================================
-   GUEST MODAL – FINAL FIX
-===================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-
+  /* =====================
+     GUEST MODAL
+  ===================== */
   const modal = document.getElementById("guestModal");
-  if (!modal) {
-    console.warn("❌ guestModal ne postoji u DOM-u");
-    return;
+
+  if (modal) {
+    const img  = document.getElementById("guestModalImg");
+    const name = document.getElementById("guestModalName");
+    const role = document.getElementById("guestModalRole");
+    const bio  = document.getElementById("guestModalBio");
+    const closeBtn = document.getElementById("closeGuest");
+
+    document.body.addEventListener("click", e => {
+      const card = e.target.closest(".card--guest");
+      if (!card) return;
+
+      img.src = card.dataset.img || "";
+      name.textContent = card.dataset.name || "";
+      role.textContent = card.dataset.role || "";
+      bio.textContent  = card.dataset.bio || "";
+
+      modal.classList.add("active");
+      document.body.classList.add("modal-open");
+    });
+
+    modal.addEventListener("click", e => {
+      if (e.target === modal || e.target === closeBtn) {
+        modal.classList.remove("active");
+        document.body.classList.remove("modal-open");
+      }
+    });
   }
 
-  const img  = document.getElementById("guestModalImg");
-  const name = document.getElementById("guestModalName");
-  const role = document.getElementById("guestModalRole");
-  const bio  = document.getElementById("guestModalBio");
-  const closeBtn = document.getElementById("closeGuest");
-
-  /* =====================
-     OPEN MODAL (DELEGATION)
-  ===================== */
-  document.body.addEventListener("click", e => {
-    const card = e.target.closest(".card--guest");
-    if (!card) return;
-
-    img.src = card.dataset.img || "";
-    name.textContent = card.dataset.name || "";
-    role.textContent = card.dataset.role || "";
-    bio.textContent  = card.dataset.bio || "";
-
-    modal.classList.add("active");
-    document.body.classList.add("modal-open");
-  });
-
-  /* =====================
-     CLOSE MODAL
-  ===================== */
-  modal.addEventListener("click", e => {
-    if (
-      e.target === modal ||
-      e.target === closeBtn
-    ) {
-      modal.classList.remove("active");
-      document.body.classList.remove("modal-open");
-    }
-  });
-
-});
-
-
 });
 
 /* =====================================================
-   YOUTUBE STATS (SUBS / VIEWS / EPISODES)
+   YOUTUBE STATS
 ===================================================== */
 (() => {
 
@@ -169,10 +151,10 @@ document.addEventListener("DOMContentLoaded", () => {
         `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
 
+      if (!ch.items?.length) return;
+
       const stats = ch.items[0].statistics;
       const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
-
-      const subs = Number(stats.subscriberCount || 0);
 
       const pl = await fetch(
         `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
@@ -194,12 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      setCounter("yt-subs", subs);
+      setCounter("yt-subs", Number(stats.subscriberCount || 0));
       setCounter("yt-views", views);
       setCounter("yt-videos", count);
 
     } catch (e) {
-      console.error("YT STATS ERROR:", e);
+      console.error("YT ERROR:", e);
     }
   }
 
@@ -218,22 +200,3 @@ document.addEventListener("DOMContentLoaded", () => {
   loadStats();
 
 })();
-
-.badge-episode {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  background: #facc15;
-  color: #000;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 999px;
-  z-index: 3;
-  box-shadow: 0 0 18px rgba(250,204,21,.7);
-}
-;
-
-
-
-
