@@ -5,310 +5,159 @@
 /* =====================
    HEADER
 ===================== */
-
-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 96px;
-  background: var(--card);
-  backdrop-filter: blur(26px);
-  z-index: 5000;
-
-  /* BITNO */
-  display: block;
+header{
+  position:fixed;
+  inset:0 0 auto 0;
+  height:96px;
+  background:var(--card);
+  backdrop-filter:blur(26px);
+  z-index:5000;
 }
 
-/* INNER – PRAVI LAYOUT */
-.header-inner {
-  max-width: 1200px;
-  height: 100%;
-  margin: 0 auto;
-  padding: 0 56px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* 🔥 OVO TI JE FALILO */
-}
-
-/* DIVIDER U HEADERU */
-header .section-divider {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
+.header-inner{
+  max-width:1200px;
+  height:100%;
+  margin:0 auto;
+  padding:0 56px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 /* =====================
-   NAV – DESKTOP
+   NAV
 ===================== */
-
-.nav {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 28px;
+.nav{
+  display:flex;
+  align-items:center;
+  gap:28px;
 }
 
-.nav a {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  height: 40px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0;
-  height: 2px;
-  background: var(--yellow);
-  transition: .3s ease;
-}
-
-.nav a:hover::after,
-.nav a.active::after {
-  width: 100%;
+.nav a{
+  position:relative;
+  height:40px;
+  display:inline-flex;
+  align-items:center;
+  font-size:14px;
+  font-weight:500;
 }
 
 /* =====================
    SECTIONS
 ===================== */
-
-section {
-  position: relative;
-  padding: 96px 56px;
+section{
+  padding:96px 56px;
+  position:relative;
 }
 
 /* =====================
    HERO
 ===================== */
-
-.hero {
-  min-height: calc(65vh - 96px);
-  padding-top: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.hero{
+  min-height:calc(65vh - 96px);
+  padding-top:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
   background:
     radial-gradient(circle at top, rgba(250,204,21,.22), transparent 45%),
     linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
     url("../images/hero.png") center / cover no-repeat;
-  color: #fff;
-}
-
-.hero-inner {
-  max-width: 900px;
-  padding: 0 24px;
-}
-
-/* =====================
-   GRIDS
-===================== */
-
-.grid,
-.guests-grid,
-.episode-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 32px;
-}
-
-.guests-grid,
-.episode-grid {
-  grid-template-columns: repeat(3, 1fr);
 }
 
 /* =====================
    FOOTER
 ===================== */
-
-.footer {
-  padding: 80px 24px 40px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
+.footer{
+  padding:80px 24px 40px;
+  text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--muted);
 }
 
 /* =====================
-   HAMBURGER
+   HAMBURGER + MOBILE NAV
 ===================== */
-
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  width: 42px;
-  height: 42px;
-  cursor: pointer;
-  position: relative;
-  padding: 0;
+.hamburger{
+  display:none;
+  width:42px;
+  height:42px;
+  background:none;
+  border:none;
+  cursor:pointer;
+  position:relative;
 }
 
-.hamburger span {
-  position: absolute;
-  left: 9px;
-  right: 9px;
-  height: 2px;
-  background: #facc15;
-  border-radius: 2px;
-  transition: .3s ease;
+.hamburger span{
+  position:absolute;
+  left:9px;
+  right:9px;
+  height:2px;
+  background:var(--accent);
+  transition:.3s ease;
 }
 
-.hamburger span:nth-child(1) { top: 13px; }
-.hamburger span:nth-child(2) { top: 20px; }
-.hamburger span:nth-child(3) { top: 27px; }
+.hamburger span:nth-child(1){top:13px}
+.hamburger span:nth-child(2){top:20px}
+.hamburger span:nth-child(3){top:27px}
 
-/* X STATE */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg);
-  top: 20px;
+.hamburger.active span:nth-child(1){
+  transform:rotate(45deg);
+  top:20px;
+}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){
+  transform:rotate(-45deg);
+  top:20px;
 }
 
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
+.nav-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s ease;
+  z-index:3000;
 }
 
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg);
-  top: 20px;
-}
-
-.hamburger:focus,
-.hamburger:active {
-  outline: none;
-  box-shadow: none;
-}
-
-/* =====================
-   OVERLAY
-===================== */
-
-.nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.45);
-  backdrop-filter: blur(2px);
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s ease;
-  z-index: 3000;
-}
-
-.nav-overlay.active {
-  opacity: 1;
-  pointer-events: all;
+.nav-overlay.active{
+  opacity:1;
+  pointer-events:auto;
 }
 
 /* =====================
    RESPONSIVE
 ===================== */
+@media(max-width:768px){
+  .header-inner{padding:0 24px}
+  section{padding:80px 24px}
 
-@media (max-width: 900px) {
-  .guests-grid,
-  .episode-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .hamburger{display:block}
+
+  .nav{
+    position:fixed;
+    top:96px;
+    left:0;
+    right:0;
+    flex-direction:column;
+    background:var(--card);
+    padding:32px 24px 40px;
+    transform:translateY(-120%);
+    opacity:0;
+    pointer-events:none;
+    transition:.4s cubic-bezier(.4,0,.2,1);
+    z-index:4000;
+  }
+
+  .nav.active{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
   }
 }
 
-@media (max-width: 768px) {
-
-  .header-inner {
-    padding: 0 24px;
-  }
-
-  section {
-    padding: 80px 24px;
-  }
-
-  /* SHOW HAMBURGER */
-  .hamburger {
-    display: block;
-    margin-left: auto;
-  }
-
-  /* MOBILE NAV */
-  .nav {
-    position: fixed;
-    top: 96px;
-    left: 0;
-    right: 0;
-    background: var(--card);
-    backdrop-filter: blur(26px);
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 32px 24px 40px;
-
-    transform: translateY(-120%);
-    opacity: 0;
-    pointer-events: none;
-    transition: .4s cubic-bezier(.4,0,.2,1);
-    z-index: 4000;
-  }
-
-  .nav.active {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  /* ⬇⬇⬇ JEDINA IZMENJENA STVAR ⬇⬇⬇ */
-
-  .nav a {
-    position: relative;
-    display: inline-block;
-    font-size: 16px;
-    padding: 0;
-    line-height: 1.2;
-  }
-
-  .nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0;
-    height: 3px;
-    background: var(--yellow);
-    border-radius: 2px;
-    transition: width .25s ease;
-    box-shadow:
-      0 0 14px rgba(250,204,21,.8),
-      0 0 28px rgba(250,204,21,.4);
-  }
-
-  .nav a.active::after {
-    width: 100%;
-  }
-
-  .nav .badge-btn,
-  .nav .btn {
-    margin-top: 12px;
-    padding: 12px 28px;
-  }
-}
-
-@media (max-width: 560px) {
-  .guests-grid,
-  .episode-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =====================
-   SCROLL LOCK
-===================== */
-
-body.nav-open {
-  overflow: hidden;
-  height: 100vh;
+body.nav-open{
+  overflow:hidden;
 }
