@@ -289,16 +289,26 @@ document.addEventListener("DOMContentLoaded", () => {
     desktopMin: 5 // više od 4
   });
 
-  function initSlider(selector, rules) {
-    const slider = document.querySelector(selector);
-    if (!slider) return;
+ function initSlider(selector, rules) {
+  const slider = document.querySelector(selector);
+  if (!slider) return;
 
-    const track = slider.querySelector(".slider-track");
+  const track = slider.querySelector(".slider-track");
+  const prev = slider.querySelector(".prev");
+  const next = slider.querySelector(".next");
+  const dotsWrap = slider.querySelector(".slider-dots");
+
+  /* ⏳ WAIT FOR CARDS (API SAFE) */
+  const waitForCards = setInterval(() => {
     const cards = track.children;
-    const prev = slider.querySelector(".prev");
-    const next = slider.querySelector(".next");
-    const dotsWrap = slider.querySelector(".slider-dots");
 
+    if (!cards.length) return;
+
+    clearInterval(waitForCards);
+    startSlider(cards);
+  }, 100);
+
+  function startSlider(cards) {
     const isMobile = window.matchMedia("(max-width:1023px)").matches;
 
     if (!isMobile && cards.length < rules.desktopMin) {
@@ -306,59 +316,58 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const cardWidth = cards[0].offsetWidth;
+
     /* ---------- DOTS ---------- */
-    const total = cards.length;
     dotsWrap.innerHTML = "";
-    for (let i = 0; i < total; i++) {
+    cards.forEach((_, i) => {
       const dot = document.createElement("button");
       if (i === 0) dot.classList.add("active");
       dotsWrap.appendChild(dot);
 
       dot.addEventListener("click", () => {
-        scrollToIndex(i);
+        track.scrollTo({
+          left: cards[i].offsetLeft,
+          behavior: "smooth"
+        });
       });
-    }
+    });
 
-    function setActiveDot() {
-      const index = Math.round(track.scrollLeft / cards[0].offsetWidth);
+    function updateDots() {
+      const index = Math.round(track.scrollLeft / cardWidth);
       dotsWrap.querySelectorAll("button").forEach((d, i) => {
         d.classList.toggle("active", i === index);
       });
     }
 
-    /* ---------- SCROLL ---------- */
-    function scrollToIndex(i) {
-      track.scrollTo({
-        left: cards[i].offsetLeft,
-        behavior: "smooth"
-      });
-    }
-
+    /* ---------- ARROWS ---------- */
     prev?.addEventListener("click", () => {
-      track.scrollBy({ left: -cards[0].offsetWidth, behavior: "smooth" });
+      track.scrollBy({ left: -cardWidth, behavior: "smooth" });
     });
 
     next?.addEventListener("click", () => {
-      track.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" });
+      track.scrollBy({ left: cardWidth, behavior: "smooth" });
     });
 
     track.addEventListener("scroll", () => {
-      requestAnimationFrame(setActiveDot);
+      requestAnimationFrame(updateDots);
     });
 
     /* ---------- AUTO SCROLL ---------- */
     let auto = setInterval(() => {
-      track.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" });
+      track.scrollBy({ left: cardWidth, behavior: "smooth" });
     }, 4500);
 
     slider.addEventListener("mouseenter", () => clearInterval(auto));
     slider.addEventListener("mouseleave", () => {
       auto = setInterval(() => {
-        track.scrollBy({ left: cards[0].offsetWidth, behavior: "smooth" });
+        track.scrollBy({ left: cardWidth, behavior: "smooth" });
       }, 4500);
     });
   }
+}
 
 });
+
 
 
