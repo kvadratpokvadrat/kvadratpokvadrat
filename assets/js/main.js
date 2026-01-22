@@ -147,4 +147,65 @@ if (modal) {
 }
 
 });
+/* =========================
+   YOUTUBE CHANNEL STATS
+========================= */
+
+(() => {
+  const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org"; // OGRANIČI NA DOMEN
+  const CHANNEL = "@kvadratpokvadrat";
+
+  const CACHE_KEY = "yt_channel_stats";
+  const CACHE_TTL = 60 * 60 * 1000; // 1 sat
+
+  const IDS = {
+    subs: "yt-subs",
+    views: "yt-views",
+    videos: "yt-videos"
+  };
+
+  const now = Date.now();
+  const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+
+  if (cached && now - cached.time < CACHE_TTL) {
+    applyStats(cached.data);
+  } else {
+    fetchStats();
+  }
+
+  function fetchStats() {
+    fetch(
+      `https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=${CHANNEL}&key=${API_KEY}`
+    )
+      .then(res => res.json())
+      .then(data => {
+        if (!data.items || !data.items.length) return;
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ time: Date.now(), data })
+        );
+        applyStats(data);
+      })
+      .catch(err => {
+        console.error("YT API error:", err);
+      });
+  }
+
+  function applyStats(data) {
+    const s = data.items[0].statistics;
+
+    setCount(IDS.subs, s.subscriberCount);
+    setCount(IDS.views, s.viewCount);
+    setCount(IDS.videos, s.videoCount);
+  }
+
+  function setCount(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.dataset.count = value;
+    el.textContent = "0";
+  }
+})();
+
 
