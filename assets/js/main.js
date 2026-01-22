@@ -249,5 +249,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
+requestAnimationFrame(() => {
+  document.querySelectorAll("#yt-episodes .reveal").forEach(el => {
+    el.classList.add("reveal-visible");
+  });
+});
 
 })();
+
