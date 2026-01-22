@@ -104,19 +104,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =====================================================
-   GUEST MODAL – FINAL (NE DIRATI)
+   GUEST MODAL – FINAL FIX
 ===================================================== */
 document.addEventListener("DOMContentLoaded", () => {
 
   const modal = document.getElementById("guestModal");
-  if (!modal) return;
+  if (!modal) {
+    console.warn("❌ guestModal ne postoji u DOM-u");
+    return;
+  }
 
-  const img  = modal.querySelector("#guestModalImg");
-  const name = modal.querySelector("#guestModalName");
-  const role = modal.querySelector("#guestModalRole");
-  const bio  = modal.querySelector("#guestModalBio");
-  const closeBtn = modal.querySelector("#closeGuest");
+  const img  = document.getElementById("guestModalImg");
+  const name = document.getElementById("guestModalName");
+  const role = document.getElementById("guestModalRole");
+  const bio  = document.getElementById("guestModalBio");
+  const closeBtn = document.getElementById("closeGuest");
 
+  /* =====================
+     OPEN MODAL (DELEGATION)
+  ===================== */
   document.body.addEventListener("click", e => {
     const card = e.target.closest(".card--guest");
     if (!card) return;
@@ -130,12 +136,21 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("modal-open");
   });
 
+  /* =====================
+     CLOSE MODAL
+  ===================== */
   modal.addEventListener("click", e => {
-    if (e.target === modal || e.target === closeBtn) {
+    if (
+      e.target === modal ||
+      e.target === closeBtn
+    ) {
       modal.classList.remove("active");
       document.body.classList.remove("modal-open");
     }
   });
+
+});
+
 
 });
 
@@ -218,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
   box-shadow: 0 0 18px rgba(250,204,21,.7);
 }
 ;
+
 
 
 
