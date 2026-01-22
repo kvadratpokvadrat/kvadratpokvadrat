@@ -375,7 +375,7 @@ header .section-divider {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(0,0,0,.6);
+  background: #facc15;
   color: #fff;
   font-size: 28px;
   border: none;
