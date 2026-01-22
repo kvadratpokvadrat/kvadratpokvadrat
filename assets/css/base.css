@@ -164,13 +164,6 @@ header {
   transform: translateY(-2px);
 }
 
-/* =====================
-   SECTIONS (FLOW)
-===================== */
-section {
-  position: relative;
-  padding: 96px 56px;
-}
 
 section:not(.hero)::before {
   content: "";
@@ -368,3 +361,4 @@ section:not(.hero)::before {
   transform: none;
   transition: .9s var(--ease);
 }
+
