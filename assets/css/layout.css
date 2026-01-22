@@ -1,3 +1,31 @@
+/* =========================================================
+   LAYOUT.CSS — FINAL (APPLE-STYLE FLOW)
+========================================================= */
+
+/* =====================
+   HEADER
+===================== */
+
+header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 96px;
+  background: var(--card);
+  backdrop-filter: blur(26px);
+  z-index: 5000;
+}
+
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, calc(100% - 112px));
+  height: 1px;
+  background: rgba(250,204,21,.35);
+}
+
 .header-inner {
   max-width: 1200px;
   height: 100%;
@@ -7,6 +35,7 @@
   align-items: center;
 }
 
+/* LOGO */
 .logo {
   display: flex;
   align-items: center;
@@ -16,6 +45,7 @@
   height: 52px;
 }
 
+/* NAV */
 .nav {
   margin-left: auto;
   display: flex;
@@ -39,7 +69,7 @@
   bottom: -6px;
   width: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--yellow);
   transition: .3s var(--ease);
 }
 
@@ -55,43 +85,44 @@
   align-items: center;
 }
 
+/* =====================
+   SECTIONS + FLOW LINES
+===================== */
 
-/* SECTIONS */
 section {
   position: relative;
   padding: 96px 56px;
 }
 
+/* FLOW LINE */
 section:not(.hero)::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 56px;
-  right: 56px;
-  height: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, calc(100% - 112px));
+  height: 2px;
   background: linear-gradient(
     to right,
     transparent,
-    rgba(250,204,21,.55),
+    rgba(250,204,21,.9),
     transparent
   );
+  opacity: .9;
 }
 
-@media (max-width: 768px) {
-  section { padding: 80px 24px; }
-  section:not(.hero)::before {
-    left: 24px;
-    right: 24px;
-  }
-}
+/* =====================
+   HERO
+===================== */
 
-/* HERO */
 .hero {
   min-height: calc(65vh - 96px);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding-top: 96px;
   background:
     radial-gradient(circle at top, rgba(250,204,21,.22), transparent 45%),
     linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
@@ -100,12 +131,31 @@ section:not(.hero)::before {
   position: relative;
 }
 
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, calc(100% - 112px));
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(250,204,21,.85),
+    transparent
+  );
+}
+
 .hero-inner {
   max-width: 900px;
   padding: 0 24px;
 }
 
-/* GRID */
+/* =====================
+   GRIDS
+===================== */
+
 .grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -114,10 +164,66 @@ section:not(.hero)::before {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-/* FOOTER */
+/* GUESTS GRID */
+.guests-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* EPISODES GRID */
+.episode-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* =====================
+   FOOTER
+===================== */
+
 .footer {
   padding: 80px 24px 40px;
   text-align: center;
   border-top: 1px solid var(--border);
   color: var(--muted);
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+
+@media (max-width: 900px) {
+  .guests-grid,
+  .episode-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+
+  .header-inner {
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 80px 24px;
+  }
+
+  section:not(.hero)::before,
+  header::after,
+  .hero::after {
+    width: calc(100% - 48px);
+  }
+}
+
+@media (max-width: 560px) {
+  .guests-grid,
+  .episode-grid {
+    grid-template-columns: 1fr;
+  }
 }
