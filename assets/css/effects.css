@@ -1,67 +1,91 @@
-/* BUTTON HOVER */
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
+
+.btn,
+.badge-btn {
+  transition: .35s cubic-bezier(.4,0,.2,1);
+}
+
 .btn:hover,
 .badge-btn:hover {
   background: #000;
   color: #fff;
   transform: translateY(-2px);
+  box-shadow:
+    0 0 0 2px rgba(250,204,21,.35),
+    0 10px 30px rgba(0,0,0,.25);
 }
 
-/* CARD HOVER */
+/* =========================================================
+   CARD HOVER (VIDLJIV NA BELOJ)
+========================================================= */
+
+.card {
+  transition: .4s cubic-bezier(.4,0,.2,1);
+}
+
 .card:hover {
   transform: translateY(-10px);
   box-shadow:
     var(--shadow-hover),
-    0 0 28px rgba(250,204,21,.35);
+    0 0 40px rgba(250,204,21,.55),
+    0 0 90px rgba(250,204,21,.35);
 }
 
-/* REVEAL */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-  transition: .9s var(--ease);
-}
-/* BUTTON HOVER */
-.btn:hover,
-.badge-btn:hover {
-  background: #000;
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* CARD HOVER */
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow:
-    var(--shadow-hover),
-    0 0 28px rgba(250,204,21,.35);
-}
-
-/* REVEAL */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-  transition: .9s var(--ease);
-}
-/* GUEST CARD HOVER */
-.guest-card:hover {
+/* GUEST CARD EXTRA GLOW */
+.card--guest:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow:
     var(--shadow-hover),
-    0 0 32px rgba(250,204,21,.4);
+    0 0 48px rgba(250,204,21,.6);
 }
-/* =====================
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition: .9s cubic-bezier(.4,0,.2,1);
+}
+
+/* =========================================================
+   SECTION FLOW LINE (JAKA NA BELOJ)
+========================================================= */
+
+.section-divider {
+  width: 100%;
+  height: 3px;
+  margin: 96px 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #facc15,
+    transparent
+  );
+}
+
+body:not(.dark) .section-divider {
+  box-shadow:
+    0 0 25px rgba(250,204,21,.8),
+    0 0 70px rgba(250,204,21,.5);
+}
+
+body.dark .section-divider {
+  box-shadow:
+    0 0 14px rgba(250,204,21,.35);
+}
+
+/* =========================================================
    GUEST MODAL – SPLIT LAYOUT
-===================== */
+========================================================= */
 
 .guest-modal {
   position: fixed;
@@ -85,10 +109,12 @@
 .guest-modal-content {
   background: #0b0b0b;
   border-radius: 28px;
-  max-width: 820px;
+  max-width: 840px;
   width: 92%;
-  padding: 28px;
-  box-shadow: 0 40px 120px rgba(0,0,0,.9);
+  padding: 30px;
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.9),
+    0 0 60px rgba(250,204,21,.25);
   animation: modalIn .4s ease;
 }
 
@@ -105,15 +131,15 @@
 
 .guest-modal-grid {
   display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 32px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 36px;
   align-items: center;
 }
 
 /* IMAGE */
 .guest-modal-image img {
   width: 100%;
-  height: 340px;
+  height: 360px;
   object-fit: cover;
   border-radius: 22px;
 }
@@ -126,28 +152,30 @@
 #guestModalName {
   font-size: 34px;
   font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.guest-modal-line {
-  display: block;
-  width: 72px;
-  height: 4px;
-  background: var(--yellow);
-  border-radius: 2px;
-  margin: 10px 0 16px;
+  margin-bottom: 4px;
 }
 
 #guestModalRole {
   font-size: 15px;
   color: #9ca3af;
+  margin-bottom: 14px;
+}
+
+/* YELLOW LINE ISPOD IMENA */
+.guest-modal-line {
+  width: 72px;
+  height: 4px;
+  background: #facc15;
+  border-radius: 2px;
   margin-bottom: 18px;
+  box-shadow:
+    0 0 18px rgba(250,204,21,.8);
 }
 
 #guestModalBio {
   font-size: 15px;
-  line-height: 1.65;
-  color: #d1d5db;
+  line-height: 1.7;
+  color: #e5e7eb;
   margin-bottom: 26px;
 }
 
@@ -155,9 +183,7 @@
   padding: 12px 26px;
 }
 
-/* =====================
-   MOBILE
-===================== */
+/* MOBILE */
 @media (max-width: 768px) {
   .guest-modal-grid {
     grid-template-columns: 1fr;
@@ -171,10 +197,15 @@
     margin-left: auto;
     margin-right: auto;
   }
+
+  .guest-modal-image img {
+    height: 280px;
+  }
 }
-/* =====================
-   EPISODES GRID
-===================== */
+
+/* =========================================================
+   EPISODES GRID (3 U REDU)
+========================================================= */
 
 .episode-grid {
   max-width: 1200px;
@@ -187,16 +218,23 @@
 .episode-card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: 22px;
   box-shadow: var(--shadow);
   overflow: hidden;
-  transition: .35s var(--ease);
+  transition: .35s cubic-bezier(.4,0,.2,1);
+}
+
+.episode-card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 40px rgba(250,204,21,.45);
 }
 
 .episode-card img {
   width: 100%;
   height: 200px;
-  object-fit: contain; /* CELO VIDLJIVO */
+  object-fit: contain; /* CELO VIDELJIVO */
   background: #000;
 }
 
@@ -218,4 +256,3 @@
     grid-template-columns: 1fr;
   }
 }
-
