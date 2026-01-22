@@ -251,16 +251,16 @@ modal?.addEventListener("click", e => {
 })();
 
 /* =====================================
-   SMART SLIDERS (FIXED + LOGIC)
+   SMART SLIDERS – FINAL RULESET
 ===================================== */
 document.addEventListener("DOMContentLoaded", () => {
 
   initSlider(".slider--episodes", {
-    desktopMin: 4 // slider tek kad ima 4+
+    desktopMin: 4
   });
 
   initSlider(".slider--guests", {
-    desktopMin: 5 // slider tek kad ima 5+
+    desktopMin: 5
   });
 
   function initSlider(selector, rules) {
@@ -282,12 +282,22 @@ document.addEventListener("DOMContentLoaded", () => {
     function start(cards) {
       const isDesktop = window.matchMedia("(min-width:1024px)").matches;
 
-      // ❌ DESKTOP – nema slidera ako nema dovoljno kartica
+      /* RESET */
+      slider.classList.remove("no-slider");
+      prev?.classList.remove("hide");
+      next?.classList.remove("hide");
+      dotsWrap?.classList.remove("hide");
+
+      /* ❌ DESKTOP – premalo kartica */
       if (isDesktop && cards.length < rules.desktopMin) {
         slider.classList.add("no-slider");
+        prev?.classList.add("hide");
+        next?.classList.add("hide");
+        dotsWrap?.classList.add("hide");
         return;
       }
 
+      /* ✅ MOBILE – uvek slider */
       const cardWidth = cards[0].offsetWidth;
       let index = 0;
 
@@ -297,7 +307,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const dot = document.createElement("button");
         if (i === 0) dot.classList.add("active");
         dotsWrap.appendChild(dot);
-
         dot.addEventListener("click", () => goTo(i));
       });
 
@@ -318,35 +327,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /* ---------- ARROWS ---------- */
       prev?.addEventListener("click", () => {
-        index--;
-        if (index < 0) index = cards.length - 1;
+        index = (index - 1 + cards.length) % cards.length;
         goTo(index);
       });
 
       next?.addEventListener("click", () => {
-        index++;
-        if (index >= cards.length) index = 0;
+        index = (index + 1) % cards.length;
         goTo(index);
       });
 
-      /* ---------- AUTO CINEMATIC LOOP ---------- */
+      /* ---------- AUTO SLIDE ---------- */
       let paused = false;
 
-      function auto() {
-        if (!paused) {
-          index++;
-          if (index >= cards.length) index = 0;
-          goTo(index);
-        }
-      }
+      const auto = () => {
+        if (paused) return;
+        index = (index + 1) % cards.length;
+        goTo(index);
+      };
 
-      let timer = setInterval(auto, 4000);
+      const timer = setInterval(auto, 4500);
 
       slider.addEventListener("mouseenter", () => paused = true);
       slider.addEventListener("mouseleave", () => paused = false);
       slider.addEventListener("touchstart", () => paused = true);
       slider.addEventListener("touchend", () => paused = false);
-
     }
   }
 });
+
