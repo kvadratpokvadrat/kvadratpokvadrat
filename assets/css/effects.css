@@ -329,25 +329,31 @@ header .section-divider {
   letter-spacing: .03em;
 }
 /* =====================
-   SLIDER CORE
+   SLIDER CORE (FIXED)
 ===================== */
 .slider {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;   /* slider radi */
+  overflow-y: visible;  /* hover NE SEČE kartice */
 }
 
-/* TRACK */
+/* =====================
+   TRACK
+===================== */
 .slider-track {
   display: flex;
   gap: 16px;
-  padding: 0 16px 12px;
+  padding: 24px 16px;   /* VAŽNO – prostor za hover */
   scroll-behavior: smooth;
 }
 
-/* MOBILE – uvek slider */
+/* =====================
+   MOBILE – UVEK SLIDER
+===================== */
 @media (max-width: 1023px) {
   .slider-track {
     overflow-x: auto;
+    overflow-y: visible;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
@@ -362,12 +368,15 @@ header .section-divider {
   }
 }
 
-/* DESKTOP – slider SAMO kad je aktivan */
+/* =====================
+   DESKTOP LOGIKA
+===================== */
 @media (min-width: 1024px) {
 
-  /* AKTIVAN SLIDER */
+  /* ✅ AKTIVAN SLIDER */
   .slider:not(.no-slider) .slider-track {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .slider:not(.no-slider) .slider-track > * {
@@ -391,7 +400,7 @@ header .section-divider {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 5;
+  z-index: 10;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -418,7 +427,7 @@ header .section-divider {
   display: flex;
   justify-content: center;
   gap: 6px;
-  margin-top: 10px;
+  margin: 12px 0 4px;
 }
 
 .slider-dots button {
@@ -441,4 +450,5 @@ header .section-divider {
 .hide {
   display: none !important;
 }
+
 
