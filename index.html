@@ -125,6 +125,9 @@
 <!-- =====================
      GUESTS
 ===================== -->
+
+<section class="section">
+
   <div class="section-header">
     <h2>Naši gosti</h2>
     <a href="gosti.html" class="badge-btn">Pogledaj sve</a>
@@ -135,8 +138,9 @@
     <article class="card card--guest reveal"
       data-img="assets/images/host-1.jpg"
       data-name="Holding Inc"
-      data-role="Producer">
-      <img src="assets/images/host-1.jpg" alt="">
+      data-role="Producer"
+      data-bio="Holding Inc je producent sa dugogodišnjim iskustvom u podcast produkciji, digitalnim medijima i razvoju brendova.">
+      <img src="assets/images/host-1.jpg" alt="Holding Inc">
       <div class="card-body">
         <h3 class="card-title">Holding Inc</h3>
         <p class="card-meta">Producer</p>
@@ -146,8 +150,9 @@
     <article class="card card--guest reveal"
       data-img="assets/images/host-2.jpg"
       data-name="Miloš Nedić"
-      data-role="Interviewer">
-      <img src="assets/images/host-2.jpg" alt="">
+      data-role="Interviewer"
+      data-bio="Miloš Nedić je interviewer i preduzetnik fokusiran na marketing, biznis strategiju i lični razvoj.">
+      <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
       <div class="card-body">
         <h3 class="card-title">Miloš Nedić</h3>
         <p class="card-meta">Interviewer</p>
@@ -157,8 +162,9 @@
     <article class="card card--guest reveal"
       data-img="assets/images/host-3.jpg"
       data-name="Luka Stokić"
-      data-role="Host">
-      <img src="assets/images/host-3.jpg" alt="">
+      data-role="Host"
+      data-bio="Luka Stokić je host podcasta koji vodi dubinske razgovore sa ljudima koji pomeraju granice u biznisu i životu.">
+      <img src="assets/images/host-3.jpg" alt="Luka Stokić">
       <div class="card-body">
         <h3 class="card-title">Luka Stokić</h3>
         <p class="card-meta">Host</p>
@@ -166,7 +172,35 @@
     </article>
 
   </div>
+
 </section>
+
+<!-- =====================
+     GUEST MODAL
+===================== -->
+
+<div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+
+    <div class="guest-modal-layout">
+
+      <div class="guest-modal-image">
+        <img id="guestModalImg" src="" alt="">
+      </div>
+
+      <div class="guest-modal-text">
+        <h2 id="guestModalName"></h2>
+        <p id="guestModalRole"></p>
+        <p id="guestModalBio"></p>
+      </div>
+
+    </div>
+
+    <button class="btn" id="closeGuest">Zatvori</button>
+
+  </div>
+</div>
+
 
 
 <!-- =====================
@@ -199,31 +233,10 @@
   © 2026 Kvadrat po Kvadrat
 </footer>
 
-<!-- =====================
-     GUEST MODAL
-===================== -->
-<div class="guest-modal" id="guestModal">
-  <div class="guest-modal-content">
-
-    <button class="guest-close" id="closeGuest">×</button>
-
-    <div class="guest-modal-image">
-      <img id="guestModalImg" src="" alt="">
-    </div>
-
-    <div class="guest-modal-text">
-      <h3 id="guestModalName"></h3>
-      <p id="guestModalRole"></p>
-      <p id="guestModalBio">Miloš nedić je direktor porodične komapanije Zoned koja posluje više od 25 godina</p>
-    </div>
-
-  </div>
-</div>
-
-
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
 
