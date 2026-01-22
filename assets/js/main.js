@@ -106,40 +106,45 @@ document.addEventListener("DOMContentLoaded", function () {
     counterObserver.observe(c);
   });
 
-  /* =====================
-     GUEST MODAL
-  ===================== */
-  var modal = document.getElementById("guestModal");
-  var modalImg = document.getElementById("guestModalImg");
-  var modalName = document.getElementById("guestModalName");
-  var modalRole = document.getElementById("guestModalRole");
-  var modalBio = document.getElementById("guestModalBio");
-  var closeModal = document.getElementById("closeGuest");
+ /* =====================
+   GUEST MODAL
+===================== */
+var modal = document.getElementById("guestModal");
+var modalImg = document.getElementById("guestModalImg");
+var modalName = document.getElementById("guestModalName");
+var modalRole = document.getElementById("guestModalRole");
+var modalBio = document.getElementById("guestModalBio");
+var closeModal = document.getElementById("closeGuest");
 
-  var guestCards = document.querySelectorAll(".guest-card");
+var guestCards = document.querySelectorAll(".card--guest");
 
-  guestCards.forEach(function (card) {
-    card.addEventListener("click", function () {
-      modalImg.src = card.dataset.img;
-      modalName.textContent = card.dataset.name;
-      modalRole.textContent = card.dataset.role;
+guestCards.forEach(function (card) {
+  card.addEventListener("click", function () {
+    modalImg.src = card.dataset.img;
+    modalName.textContent = card.dataset.name;
+    modalRole.textContent = card.dataset.role;
+
+    if (modalBio && card.dataset.bio) {
       modalBio.textContent = card.dataset.bio;
-      modal.classList.add("active");
-    });
+    }
+
+    modal.classList.add("active");
   });
+});
 
-  if (closeModal) {
-    closeModal.addEventListener("click", function () {
+if (closeModal) {
+  closeModal.addEventListener("click", function () {
+    modal.classList.remove("active");
+  });
+}
+
+if (modal) {
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
       modal.classList.remove("active");
-    });
-  }
-
-  if (modal) {
-    modal.addEventListener("click", function (e) {
-      if (e.target === modal) {
-        modal.classList.remove("active");
-      }
-    });
-  }
+    }
+  });
+}
 
 });
+
