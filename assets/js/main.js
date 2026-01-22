@@ -390,6 +390,8 @@ slider.addEventListener("touchend", () => paused = false);
 
 cinematicLoop();
 
+});
+
 
 
 
