@@ -82,6 +82,24 @@ body.dark .section-divider {
     0 0 16px rgba(250,204,21,.35);
 }
 
+/* =====================
+   HEADER – FULL WIDTH OVERRIDE
+===================== */
+header {
+  position: relative;
+}
+
+header .section-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+
 /* =========================================================
    GUEST MODAL – VISUAL ONLY (NO LAYOUT CONFLICT)
 ========================================================= */
