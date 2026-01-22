@@ -12,6 +12,27 @@ document.addEventListener("DOMContentLoaded", function () {
       nav.classList.toggle("active");
     });
   }
+const overlay = document.querySelector(".nav-overlay");
+
+overlay?.addEventListener("click", () => {
+  nav.classList.remove("active");
+  hamburger.classList.remove("active");
+});
+let touchStartY = 0;
+
+nav.addEventListener("touchstart", e => {
+  touchStartY = e.touches[0].clientY;
+});
+
+nav.addEventListener("touchend", e => {
+  const touchEndY = e.changedTouches[0].clientY;
+  const diff = touchStartY - touchEndY;
+
+  if (diff > 80) { // swipe up
+    nav.classList.remove("active");
+    hamburger.classList.remove("active");
+  }
+});
 
   /* =====================
      DARK MODE
@@ -358,6 +379,7 @@ if (modal) {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+
 
 
 
