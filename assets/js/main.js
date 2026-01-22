@@ -59,20 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
   /* =====================
-     DIVIDERS
-  ===================== */
-  const dividerObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("divider-visible");
-        dividerObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.4 });
-
-  document.querySelectorAll(".section-divider").forEach(d => dividerObserver.observe(d));
-
-  /* =====================
      COUNTERS
   ===================== */
   const counterObserver = new IntersectionObserver(entries => {
@@ -102,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-count]").forEach(c => counterObserver.observe(c));
 
   /* =====================
-     GUEST MODAL
+     GUEST MODAL (FIXED)
   ===================== */
   const modal = document.getElementById("guestModal");
 
@@ -113,21 +99,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const bio  = document.getElementById("guestModalBio");
     const closeBtn = document.getElementById("closeGuest");
 
-    document.body.addEventListener("click", e => {
-      const card = e.target.closest(".card--guest");
-      if (!card) return;
+    document.querySelectorAll(".card--guest").forEach(card => {
+      card.addEventListener("click", () => {
+        img.src = card.dataset.img || "";
+        name.textContent = card.dataset.name || "";
+        role.textContent = card.dataset.role || "";
+        bio.textContent  = card.dataset.bio || "";
 
-      img.src = card.dataset.img || "";
-      name.textContent = card.dataset.name || "";
-      role.textContent = card.dataset.role || "";
-      bio.textContent  = card.dataset.bio || "";
+        modal.classList.add("active");
+        document.body.classList.add("modal-open");
+      });
+    });
 
-      modal.classList.add("active");
-      document.body.classList.add("modal-open");
+    closeBtn?.addEventListener("click", () => {
+      modal.classList.remove("active");
+      document.body.classList.remove("modal-open");
     });
 
     modal.addEventListener("click", e => {
-      if (e.target === modal || e.target === closeBtn) {
+      if (e.target === modal) {
         modal.classList.remove("active");
         document.body.classList.remove("modal-open");
       }
@@ -202,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =====================================================
-   YOUTUBE EPISODES + BADGE "NOVA EPIZODA"
+   YOUTUBE EPISODES + BADGE
 ===================================================== */
 (async () => {
 
@@ -212,52 +202,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const grid = document.getElementById("yt-episodes");
   if (!grid) return;
-
-  const LIMIT = document.body.classList.contains("home") ? 3 : 50;
-
-  try {
-    const ch = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
-    ).then(r => r.json());
-
-    const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
-
-    const pl = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=15&playlistId=${uploads}&key=${API_KEY}`
-    ).then(r => r.json());
-
-    const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
-
-    const vids = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
-    ).then(r => r.json());
-
-    grid.innerHTML = "";
-    let shown = 0;
-
-    vids.items.forEach(v => {
-      if (shown >= LIMIT) return;
-      if (parse(v.contentDetails.duration) < MIN) return;
-
-      grid.innerHTML += `
-        <article class="card card--episode reveal">
-          <span class="badge-episode">Nova epizoda</span>
-          <img src="${v.snippet.thumbnails.high.url}">
-          <div class="card-body">
-            <h3>${v.snippet.title}</h3>
-          </div>
-        </article>
-      `;
-      shown++;
-    });
-
-  } catch (e) {
-    console.error("YT EPISODES ERROR:", e);
-  }
-
-  function parse(iso){
-    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-    return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
-  }
-
-})();
