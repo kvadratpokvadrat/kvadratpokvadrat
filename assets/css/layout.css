@@ -267,3 +267,41 @@ section {
     justify-content: center;
   }
 }
+/* =========================================
+   HAMBURGER ACTIVE LINE – MOBILE ONLY
+========================================= */
+
+@media (max-width: 900px) {
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav a {
+    position: relative;
+    width: auto;
+    padding: 12px 0;
+    text-align: center;
+  }
+
+  .nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 0;
+    height: 3px;
+    background: #facc15;
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width .3s ease;
+    box-shadow:
+      0 0 16px rgba(250,204,21,.85),
+      0 0 36px rgba(250,204,21,.45);
+  }
+
+  .nav a.active::after {
+    width: 100%;
+  }
+}
