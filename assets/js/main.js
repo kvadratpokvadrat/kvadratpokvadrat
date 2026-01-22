@@ -1,38 +1,53 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  /* =====================
-     MOBILE NAV
-  ===================== */
-  var burger = document.querySelector(".hamburger");
-  var nav = document.querySelector(".nav");
+/* =====================
+   MOBILE NAV
+===================== */
+var burger = document.querySelector(".hamburger");
+var nav = document.querySelector(".nav");
+var overlay = document.querySelector(".nav-overlay");
 
-  if (burger && nav) {
-    burger.addEventListener("click", function () {
-      burger.classList.toggle("active");
-      nav.classList.toggle("active");
-    });
-  }
-const overlay = document.querySelector(".nav-overlay");
+if (burger && nav) {
+  burger.addEventListener("click", function () {
+    burger.classList.toggle("active");
+    nav.classList.toggle("active");
+    overlay?.classList.toggle("active");
+  });
+}
 
-overlay?.addEventListener("click", () => {
+/* CLOSE ON OVERLAY CLICK */
+overlay?.addEventListener("click", function () {
   nav.classList.remove("active");
-  hamburger.classList.remove("active");
+  burger.classList.remove("active");
+  overlay.classList.remove("active");
 });
+
+/* SWIPE UP TO CLOSE (MOBILE ONLY) */
 let touchStartY = 0;
 
-nav.addEventListener("touchstart", e => {
-  touchStartY = e.touches[0].clientY;
-});
+nav?.addEventListener(
+  "touchstart",
+  function (e) {
+    touchStartY = e.touches[0].clientY;
+  },
+  { passive: true }
+);
 
-nav.addEventListener("touchend", e => {
-  const touchEndY = e.changedTouches[0].clientY;
-  const diff = touchStartY - touchEndY;
+nav?.addEventListener(
+  "touchend",
+  function (e) {
+    const touchEndY = e.changedTouches[0].clientY;
+    const diff = touchStartY - touchEndY;
 
-  if (diff > 80) { // swipe up
-    nav.classList.remove("active");
-    hamburger.classList.remove("active");
-  }
-});
+    if (diff > 80) {
+      nav.classList.remove("active");
+      burger.classList.remove("active");
+      overlay?.classList.remove("active");
+    }
+  },
+  { passive: true }
+);
+
 
   /* =====================
      DARK MODE
@@ -379,6 +394,7 @@ if (modal) {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+
 
 
 
