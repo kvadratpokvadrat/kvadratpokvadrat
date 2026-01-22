@@ -228,3 +228,42 @@ modal?.addEventListener("click", e => {
 
   load();
 })();
+/* =====================
+   GUEST MODAL – FIXED
+===================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const modal = document.getElementById("guestModal");
+  if (!modal) return;
+
+  const img  = modal.querySelector("#guestModalImg");
+  const name = modal.querySelector("#guestModalName");
+  const role = modal.querySelector("#guestModalRole");
+  const bio  = modal.querySelector("#guestModalBio");
+  const closeBtn = modal.querySelector("#closeGuest");
+
+  /* EVENT DELEGATION – radi i kad se DOM menja */
+  document.body.addEventListener("click", e => {
+    const card = e.target.closest(".card--guest");
+    if (!card) return;
+
+    img.src = card.dataset.img || "";
+    name.textContent = card.dataset.name || "";
+    role.textContent = card.dataset.role || "";
+    bio.textContent  = card.dataset.bio || "";
+
+    modal.classList.add("active");
+    document.body.classList.add("modal-open");
+  });
+
+  /* CLOSE */
+  modal.addEventListener("click", e => {
+    if (e.target === modal || e.target === closeBtn) {
+      modal.classList.remove("active");
+      document.body.classList.remove("modal-open");
+    }
+  });
+
+});
+
