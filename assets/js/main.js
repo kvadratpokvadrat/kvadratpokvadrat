@@ -292,7 +292,7 @@ if (modal) {
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 12000;
+  const MIN_SECONDS = 1200;
   const MAX_EPISODES = 3;
 
   const container = document.getElementById("yt-episodes");
@@ -372,6 +372,7 @@ if (modal) {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+
 
 
 
