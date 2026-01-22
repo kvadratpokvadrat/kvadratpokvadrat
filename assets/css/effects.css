@@ -1,6 +1,9 @@
 /* =========================================================
-   ROOT / BASICS
+   EFFECTS.CSS — STARI / REFERENTNI (ZAKLJUČAN)
+   SAFE ZA SVE FUNKCIJE (MODAL / EP / REVEAL)
 ========================================================= */
+
+/* ================= ROOT / BASICS ================= */
 
 :root{
   --bg:#0a0a0a;
@@ -24,9 +27,7 @@ body.modal-open{
   overflow:hidden;
 }
 
-/* =========================================================
-   HEADER – FLOW LINE NA DONJOJ IVICI
-========================================================= */
+/* ================= HEADER FLOW LINE ================= */
 
 .header{
   position:relative;
@@ -40,13 +41,7 @@ body.modal-open{
   right:0;
   bottom:0;
   height:2px;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,200,0,.95),
-    transparent
-  );
+  background:linear-gradient(90deg,transparent,rgba(255,200,0,.95),transparent);
   z-index:5;
 }
 
@@ -57,31 +52,20 @@ body.modal-open{
   right:0;
   bottom:-6px;
   height:16px;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,200,0,.7),
-    transparent
-  );
-
+  background:linear-gradient(90deg,transparent,rgba(255,200,0,.7),transparent);
   filter:blur(14px);
   opacity:.6;
   z-index:4;
 }
 
-/* =========================================================
-   GRID – GLOBAL
-========================================================= */
+/* ================= GRID – GLOBAL ================= */
 
 .cards-grid{
   display:grid;
   gap:32px;
 }
 
-/* =========================================================
-   GUESTS GRID
-========================================================= */
+/* ================= GUESTS GRID ================= */
 
 .guests .cards-grid{
   grid-template-columns:repeat(4,1fr);
@@ -97,9 +81,7 @@ body.modal-open{
   .guests .cards-grid{grid-template-columns:1fr;}
 }
 
-/* =========================================================
-   EPISODES GRID
-========================================================= */
+/* ================= EPISODES GRID ================= */
 
 .episodes .cards-grid{
   grid-template-columns:repeat(3,1fr);
@@ -112,16 +94,15 @@ body.modal-open{
   .episodes .cards-grid{grid-template-columns:1fr;}
 }
 
-/* =========================================================
-   CARD – BASE
-========================================================= */
+/* ================= CARD BASE ================= */
 
 .card{
+  position:relative;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
   box-shadow:var(--shadow);
-  overflow:visible; /* 🔥 glow se NE seče */
+  overflow:visible;
   display:flex;
   flex-direction:column;
   height:100%;
@@ -137,7 +118,7 @@ body.modal-open{
     0 0 48px rgba(250,204,21,.45);
 }
 
-/* VARIJANTE */
+/* ================= CARD VARIJANTE ================= */
 
 .card--guest:hover{
   transform:translateY(-12px) scale(1.02);
@@ -152,9 +133,7 @@ body.modal-open{
     0 0 44px rgba(250,204,21,.5);
 }
 
-/* =========================================================
-   BADGE – NOVA EPIZODA
-========================================================= */
+/* ================= BADGE – NOVA EP ================= */
 
 .badge-new{
   position:absolute;
@@ -165,32 +144,21 @@ body.modal-open{
   font-weight:700;
   letter-spacing:.5px;
   border-radius:999px;
-
   background:rgba(250,204,21,.15);
   color:var(--accent);
   border:1px solid rgba(250,204,21,.6);
-
   box-shadow:0 0 16px rgba(250,204,21,.6);
   z-index:2;
 }
 
-/* =========================================================
-   SECTION DIVIDER – FLOW LINE
-========================================================= */
+/* ================= SECTION DIVIDER ================= */
 
 .section-divider{
   position:relative;
   width:100%;
   height:2px;
   margin:96px 0;
-
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,200,0,.85),
-    transparent
-  );
-
+  background:linear-gradient(90deg,transparent,rgba(255,200,0,.85),transparent);
   opacity:.85;
   pointer-events:none;
 }
@@ -203,15 +171,12 @@ body.modal-open{
   top:50%;
   height:18px;
   transform:translateY(-50%);
-
   background:inherit;
   filter:blur(14px);
   opacity:.55;
 }
 
-/* =========================================================
-   GUEST MODAL – STARI (ISPRAVAN)
-========================================================= */
+/* ================= GUEST MODAL ================= */
 
 .guest-modal{
   position:fixed;
@@ -221,7 +186,6 @@ body.modal-open{
   display:flex;
   align-items:center;
   justify-content:center;
-
   opacity:0;
   pointer-events:none;
   transition:opacity .35s ease;
@@ -240,7 +204,6 @@ body.modal-open{
   background:#0f0f0f;
   border-radius:22px;
   overflow:hidden;
-
   box-shadow:
     0 0 0 1px rgba(255,200,0,.25),
     0 40px 120px rgba(0,0,0,.9);
@@ -277,9 +240,7 @@ body.modal-open{
   line-height:1.6;
 }
 
-/* =========================================================
-   REVEAL (ako koristiš)
-========================================================= */
+/* ================= REVEAL ================= */
 
 .reveal{
   opacity:0;
