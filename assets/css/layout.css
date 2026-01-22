@@ -150,10 +150,11 @@ section {
   display: none;
   background: none;
   border: none;
-  cursor: pointer;
   width: 42px;
   height: 42px;
+  cursor: pointer;
   position: relative;
+  padding: 0;
 }
 
 .hamburger span {
@@ -162,6 +163,7 @@ section {
   right: 9px;
   height: 2px;
   background: var(--yellow);
+  border-radius: 2px;
   transition: .3s ease;
 }
 
@@ -169,6 +171,7 @@ section {
 .hamburger span:nth-child(2) { top: 20px; }
 .hamburger span:nth-child(3) { top: 27px; }
 
+/* X STATE */
 .hamburger.active span:nth-child(1) {
   transform: rotate(45deg);
   top: 20px;
@@ -183,6 +186,12 @@ section {
   top: 20px;
 }
 
+.hamburger:focus,
+.hamburger:active {
+  outline: none;
+  box-shadow: none;
+}
+
 /* =====================
    OVERLAY
 ===================== */
@@ -191,7 +200,7 @@ section {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,.45);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
   transition: .3s ease;
@@ -224,104 +233,13 @@ section {
     padding: 80px 24px;
   }
 
-  .hamburger {
-    display: block;
-    margin-left: auto;
-  }
-
-  /* MOBILE NAV DRAWER */
-  .nav {
-    position: fixed;
-    top: 96px;
-    left: 0;
-    right: 0;
-    background: var(--card);
-    flex-direction: column;
-    gap: 20px;
-    padding: 32px 24px;
-
-    transform: translateY(-120%);
-    opacity: 0;
-    pointer-events: none;
-
-    transition: .4s cubic-bezier(.4,0,.2,1);
-    z-index: 4000;
-  }
-
-  .nav.active {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .nav a {
-    font-size: 16px;
-    padding: 12px 0;
-  }
-
-  .nav a::after {
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -4px;
-  }
-}
-
-@media (max-width: 560px) {
-  .guests-grid,
-  .episode-grid {
-    grid-template-columns: 1fr;
-  }
-}
-/* =========================================================
-   MOBILE HAMBURGER – FINAL FIX (PASTE AT END)
-========================================================= */
-
-/* FORCE HAMBURGER COLOR (NO OUTLINE, NO ORANGE) */
-.hamburger {
-  display: none;
-  background: none;
-  border: none;
-  width: 42px;
-  height: 42px;
-  cursor: pointer;
-  position: relative;
-  padding: 0;
-}
-
-.hamburger span {
-  position: absolute;
-  left: 9px;
-  right: 9px;
-  height: 2px;
-  background: var(--yellow);
-  border-radius: 2px;
-  transition: .3s ease;
-  box-shadow: none;
-}
-
-.hamburger span:nth-child(1) { top: 13px; }
-.hamburger span:nth-child(2) { top: 20px; }
-.hamburger span:nth-child(3) { top: 27px; }
-
-.hamburger:focus,
-.hamburger:active {
-  outline: none;
-  box-shadow: none;
-}
-
-/* =====================
-   MOBILE NAV DRAWER
-===================== */
-
-@media (max-width: 768px) {
-
   /* SHOW HAMBURGER */
   .hamburger {
     display: block;
     margin-left: auto;
   }
 
-  /* NAV CONTAINER */
+  /* MOBILE NAV */
   .nav {
     position: fixed;
     top: 96px;
@@ -331,7 +249,7 @@ section {
     backdrop-filter: blur(26px);
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: 20px;
     padding: 32px 24px 40px;
 
     transform: translateY(-120%);
@@ -347,63 +265,40 @@ section {
     pointer-events: all;
   }
 
-  /* LINKS */
   .nav a {
-    position: relative;
-    display: inline-block;
-    padding-bottom: 6px;
-    font-size: 15px;
+    font-size: 16px;
+    padding: 12px 0;
   }
 
-  /* YELLOW ACTIVE LINE – WIDTH = TEXT */
+  /* UNDERLINE = TEXT WIDTH */
   .nav a::after {
-    content: "";
-    position: absolute;
     left: 50%;
-    bottom: 0;
-    width: 0;
-    height: 3px;
-    background: var(--yellow);
-    border-radius: 2px;
     transform: translateX(-50%);
-    transition: width .25s ease;
+    bottom: -4px;
+    height: 3px;
+    border-radius: 2px;
     box-shadow:
       0 0 14px rgba(250,204,21,.8),
       0 0 28px rgba(250,204,21,.4);
   }
 
-  .nav a.active::after {
-    width: 100%;
-  }
-
-  /* BUTTONS */
   .nav .badge-btn,
   .nav .btn {
-    width: auto;
-    padding: 12px 28px;
     margin-top: 12px;
+    padding: 12px 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .guests-grid,
+  .episode-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 /* =====================
-   OVERLAY + SCROLL LOCK
+   SCROLL LOCK
 ===================== */
-
-.nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.45);
-  backdrop-filter: blur(2px);
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s ease;
-  z-index: 3000;
-}
-
-.nav-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
 
 body.nav-open {
   overflow: hidden;
