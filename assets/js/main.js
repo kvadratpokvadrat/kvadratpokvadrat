@@ -9,9 +9,13 @@ var overlay = document.querySelector(".nav-overlay");
 
 if (burger && nav) {
   burger.addEventListener("click", function () {
-    burger.classList.toggle("active");
-    nav.classList.toggle("active");
-    overlay?.classList.toggle("active");
+    const isOpen = nav.classList.toggle("active");
+
+    burger.classList.toggle("active", isOpen);
+    overlay?.classList.toggle("active", isOpen);
+
+    // 🔒 SCROLL LOCK
+    document.body.classList.toggle("nav-open", isOpen);
   });
 }
 
@@ -20,6 +24,9 @@ overlay?.addEventListener("click", function () {
   nav.classList.remove("active");
   burger.classList.remove("active");
   overlay.classList.remove("active");
+
+  // 🔓 UNLOCK SCROLL
+  document.body.classList.remove("nav-open");
 });
 
 /* SWIPE UP TO CLOSE (MOBILE ONLY) */
@@ -43,10 +50,14 @@ nav?.addEventListener(
       nav.classList.remove("active");
       burger.classList.remove("active");
       overlay?.classList.remove("active");
+
+      // 🔓 UNLOCK SCROLL
+      document.body.classList.remove("nav-open");
     }
   },
   { passive: true }
 );
+
 
 
   /* =====================
@@ -394,6 +405,7 @@ if (modal) {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+
 
 
 
