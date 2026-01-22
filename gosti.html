@@ -51,11 +51,14 @@
 <div class="section-divider"></div>
 
 <!-- =====================
-     GUESTS GRID
+     GUESTS
 ===================== -->
-<section>
+<div class="section-divider"></div>
+<section class="section">
+
   <div class="section-header">
-    <h2>Svi gosti</h2>
+    <h2>Naši gosti</h2>
+    <a href="gosti.html" class="badge-btn">Pogledaj sve</a>
   </div>
 
   <div class="guests-grid">
@@ -63,51 +66,84 @@
     <article class="card card--guest reveal"
       data-img="assets/images/host-1.jpg"
       data-name="Holding Inc"
-      data-role="Producer">
-      <img src="assets/images/host-1.jpg" alt="">
+      data-role="Producer"
+      data-bio="Holding Inc je producent sa dugogodišnjim iskustvom u podcast produkciji, digitalnim medijima i razvoju brendova.">
+      <img src="assets/images/host-1.jpg" alt="Holding Inc">
       <div class="card-body">
-        <h3 class="card-title">Miodrag Zec</h3>
-        <p class="card-meta">Ekonomista</p>
+        <h3 class="card-title">Holding Inc</h3>
+        <p class="card-meta">Producer</p>
       </div>
     </article>
 
     <article class="card card--guest reveal"
       data-img="assets/images/host-2.jpg"
       data-name="Miloš Nedić"
-      data-role="Interviewer">
-      <img src="assets/images/host-2.jpg" alt="">
+      data-role="Interviewer"
+      data-bio="Miloš Nedić je interviewer i preduzetnik fokusiran na marketing, biznis strategiju i lični razvoj.">
+      <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
       <div class="card-body">
         <h3 class="card-title">Miloš Nedić</h3>
-        <p class="card-meta">Investitor</p>
+        <p class="card-meta">Interviewer</p>
       </div>
     </article>
 
     <article class="card card--guest reveal"
       data-img="assets/images/host-3.jpg"
       data-name="Luka Stokić"
-      data-role="Host">
-      <img src="assets/images/host-3.jpg" alt="">
+      data-role="Host"
+      data-bio="Luka Stokić je host podcasta koji vodi dubinske razgovore sa ljudima koji pomeraju granice u biznisu i životu.">
+      <img src="assets/images/host-3.jpg" alt="Luka Stokić">
       <div class="card-body">
         <h3 class="card-title">Luka Stokić</h3>
-        <p class="card-meta">Real estate presenter</p>
+        <p class="card-meta">Host</p>
       </div>
     </article>
-    
+   
     <article class="card card--guest reveal"
       data-img="assets/images/host-4.jpg"
       data-name="Saša Kalaba"
-      data-role="Host">
-      <img src="assets/images/host-4.jpg" alt="">
+      data-role="Host"
+      data-bio="Saša Klaba je vlasni i direktor komapnije Kalman Kop koja se bavi izgradnjom premium objekata sa novi tehnologijama.">
+      <img src="assets/images/host-4.jpg" alt="Saša Kalaba">
       <div class="card-body">
-        <h3 class="card-title">Saša Kalaba</h3>
-        <p class="card-meta">Investitorr</p>
+        <h3 class="card-title">Luka Stokić</h3>
+        <p class="card-meta">Host</p>
       </div>
     </article>
+  </div>
 
-    <!-- DODAJ JOŠ GOSTIJU ISTIM ŠABLONOM -->
+</section>
+<div class="section-divider"></div>
+<!-- =====================
+     GUEST MODAL
+===================== -->
+  <div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+
+    <div class="guest-modal-grid">
+
+      <!-- LEFT: IMAGE -->
+      <div class="guest-modal-image">
+        <img id="guestModalImg" alt="">
+      </div>
+
+      <!-- RIGHT: TEXT -->
+      <div class="guest-modal-text">
+        <h2 id="guestModalName"></h2>
+        <span class="guest-modal-line"></span>
+        <p id="guestModalRole"></p>
+        <p id="guestModalBio"></p>
+        <button class="btn" id="closeGuest">Zatvori</button>
+      </div>
+
+    </div>
 
   </div>
-</section>
+</div>
+
+
+  </div>
+</div>
 
 <!-- =====================
      FOOTER
@@ -142,6 +178,7 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
 
