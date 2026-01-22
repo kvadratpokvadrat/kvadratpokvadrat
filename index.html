@@ -16,37 +16,45 @@
 <!-- =====================
      HEADER
 ===================== -->
-<header>
-  <div class="logo">
-    <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+<header class="header">
+
+  <div class="header-inner">
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+    </div>
+
+    <!-- HAMBURGER -->
+    <button class="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <a href="index.html" class="active">Početna</a>
+      <a href="epizode.html">Epizode</a>
+      <a href="gosti.html">Gosti</a>
+      <a href="o-nama.html">O nama</a>
+      <a href="kontakt.html">Kontakt</a>
+
+      <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
+      <button class="badge-btn" id="themeToggle">Dark</button>
+    </nav>
   </div>
 
-  <!-- HAMBURGER -->
-  <button class="hamburger" aria-label="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+  <!-- ŽUTA LINIJA -->
+  <div class="section-divider"></div>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <a href="index.html" class="active">Početna</a>
-    <a href="epizode.html">Epizode</a>
-    <a href="gosti.html">Gosti</a>
-    <a href="o-nama.html">O nama</a>
-    <a href="kontakt.html">Kontakt</a>
-
-    <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
-    <button class="badge-btn" id="themeToggle">Dark</button>
-  </nav> 
 </header>
+
 
   <div class="nav-overlay"></div>
  
 <!-- =====================
      HERO
 ===================== -->
-   <div class="section-divider"></div>
+
 <section class="hero">
   <div class="hero-inner">
     <h1 class="hero-title">
@@ -230,6 +238,7 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
 
