@@ -178,25 +178,30 @@
 <!-- =====================
      GUEST MODAL
 ===================== -->
-
 <div class="guest-modal" id="guestModal">
   <div class="guest-modal-content">
 
-    <div class="guest-modal-layout">
+    <div class="guest-modal-grid">
 
+      <!-- LEFT: IMAGE -->
       <div class="guest-modal-image">
-        <img id="guestModalImg" src="" alt="">
+        <img id="guestModalImg" alt="">
       </div>
 
+      <!-- RIGHT: TEXT -->
       <div class="guest-modal-text">
         <h2 id="guestModalName"></h2>
+        <span class="guest-modal-line"></span>
         <p id="guestModalRole"></p>
         <p id="guestModalBio"></p>
+        <button class="btn" id="closeGuest">Zatvori</button>
       </div>
 
     </div>
 
-    <button class="btn" id="closeGuest">Zatvori</button>
+  </div>
+</div>
+
 
   </div>
 </div>
@@ -236,6 +241,7 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
 
