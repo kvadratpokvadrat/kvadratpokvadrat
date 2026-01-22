@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KVADRAT PO KVADRAT</title>
 
- <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/effects.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/effects.css">
 </head>
 
 <body class="home">
@@ -17,20 +17,15 @@
      HEADER
 ===================== -->
 <header class="header">
-
   <div class="header-inner">
     <div class="logo">
       <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
     </div>
 
-    <!-- HAMBURGER -->
     <button class="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
 
-    <!-- NAV -->
     <nav class="nav">
       <a href="index.html" class="active">Početna</a>
       <a href="epizode.html">Epizode</a>
@@ -43,28 +38,20 @@
     </nav>
   </div>
 
-  <!-- ŽUTA LINIJA -->
   <div class="section-divider"></div>
-
 </header>
 
+<div class="nav-overlay"></div>
 
-  <div class="nav-overlay"></div>
- 
 <!-- =====================
      HERO
 ===================== -->
-
 <section class="hero">
   <div class="hero-inner">
-    <h1 class="hero-title">
-      KVADRAT <span>PO</span> KVADRAT
-    </h1>
-
+    <h1 class="hero-title">KVADRAT <span>PO</span> KVADRAT</h1>
     <p class="hero-subtitle">
       Podcast o biznisu, ljudima i pričama koje imaju težinu.
     </p>
-
     <div class="hero-actions">
       <a href="epizode.html" class="btn hero-btn">Poslednja epizoda</a>
     </div>
@@ -78,7 +65,6 @@
 ===================== -->
 <section>
   <div class="stats">
-
     <div class="stat">
       <strong id="yt-subs" data-count="0">0</strong>
       <span>Pretplatnika</span>
@@ -93,123 +79,98 @@
       <strong id="yt-videos" data-count="0">0</strong>
       <span>Epizoda</span>
     </div>
-
   </div>
 </section>
 
-
-
-
-<!-- =====================
-     EPISODES
-===================== -->
 <div class="section-divider"></div>
 
+<!-- =====================
+     EPISODES (GRID – 3)
+===================== -->
 <section>
   <div class="section-header">
     <h2>Najnovije epizode</h2>
     <a href="epizode.html" class="badge-btn">Pogledaj sve</a>
   </div>
 
-  <div class="slider slider--episodes">
-    <button class="slider-arrow prev">‹</button>
-
-    <!-- 🔥 OVO JE BITNO -->
-    <div class="slider-track episode-grid" id="yt-episodes">
-      <!-- JS ubacuje episode kartice OVDE -->
-    </div>
-
-    <button class="slider-arrow next">›</button>
-    <div class="slider-dots"></div>
+  <!-- ❌ NEMA SLIDERA -->
+  <div class="episodes-grid" id="yt-episodes">
+    <!-- JS ubacuje TAČNO 3 episode kartice -->
   </div>
 </section>
 
-
-
-
-<!-- =====================
-     GUESTS
-===================== -->
 <div class="section-divider"></div>
 
-<section class="section">
+<!-- =====================
+     GUESTS (GRID – 4)
+===================== -->
+<section>
   <div class="section-header">
     <h2>Naši gosti</h2>
     <a href="gosti.html" class="badge-btn">Pogledaj sve</a>
   </div>
 
-  <div class="slider slider--guests">
-    <button class="slider-arrow prev">‹</button>
+  <!-- ❌ NEMA SLIDERA -->
+  <div class="guests-grid">
 
-    <!-- 🔥 OVO JE KLJUČ -->
-    <div class="slider-track guests-grid">
-      
-      <article class="card card--guest reveal"
-        data-img="assets/images/host-1.jpg"
-        data-name="Miodrag Zec"
-        data-role="Ekonomista"
-        data-bio="Miodrag Zec srpski je ekonomista...">
-        <img src="assets/images/host-1.jpg" alt="Miodrag Zec">
-        <div class="card-body">
-          <h3 class="card-title">Miodrag Zec</h3>
-          <p class="card-meta">Ekonomista</p>
-        </div>
-      </article>
+    <article class="card card--guest reveal"
+      data-img="assets/images/host-1.jpg"
+      data-name="Miodrag Zec"
+      data-role="Ekonomista"
+      data-bio="Miodrag Zec srpski je ekonomista...">
+      <img src="assets/images/host-1.jpg" alt="Miodrag Zec">
+      <div class="card-body">
+        <h3 class="card-title">Miodrag Zec</h3>
+        <p class="card-meta">Ekonomista</p>
+      </div>
+    </article>
 
-      <article class="card card--guest reveal"
-        data-img="assets/images/host-2.jpg"
-        data-name="Miloš Nedić"
-        data-role="Interviewer"
-        data-bio="Miloš Nedić, direktor porodične firme...">
-        <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
-        <div class="card-body">
-          <h3 class="card-title">Miloš Nedić</h3>
-          <p class="card-meta">Investitor</p>
-        </div>
-      </article>
+    <article class="card card--guest reveal"
+      data-img="assets/images/host-2.jpg"
+      data-name="Miloš Nedić"
+      data-role="Investitor"
+      data-bio="Miloš Nedić, direktor porodične firme...">
+      <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
+      <div class="card-body">
+        <h3 class="card-title">Miloš Nedić</h3>
+        <p class="card-meta">Investitor</p>
+      </div>
+    </article>
 
-      <article class="card card--guest reveal"
-        data-img="assets/images/host-3.jpg"
-        data-name="Luka Stokić"
-        data-role="Host"
-        data-bio="Luka Stokić je host podcasta...">
-        <img src="assets/images/host-3.jpg" alt="Luka Stokić">
-        <div class="card-body">
-          <h3 class="card-title">Luka Stokić</h3>
-          <p class="card-meta">Real estate presenter</p>
-        </div>
-      </article>
+    <article class="card card--guest reveal"
+      data-img="assets/images/host-3.jpg"
+      data-name="Luka Stokić"
+      data-role="Real estate presenter"
+      data-bio="Luka Stokić je host podcasta...">
+      <img src="assets/images/host-3.jpg" alt="Luka Stokić">
+      <div class="card-body">
+        <h3 class="card-title">Luka Stokić</h3>
+        <p class="card-meta">Real estate presenter</p>
+      </div>
+    </article>
 
-      <article class="card card--guest reveal"
-        data-img="assets/images/host-4.jpg"
-        data-name="Saša Kalaba"
-        data-role="Investitor"
-        data-bio="Saša Kalaba je vlasnik kompanije...">
-        <img src="assets/images/host-4.jpg" alt="Saša Kalaba">
-        <div class="card-body">
-          <h3 class="card-title">Saša Kalaba</h3>
-          <p class="card-meta">Investitor</p>
-        </div>
-      </article>
+    <article class="card card--guest reveal"
+      data-img="assets/images/host-4.jpg"
+      data-name="Saša Kalaba"
+      data-role="Investitor"
+      data-bio="Saša Kalaba je vlasnik kompanije...">
+      <img src="assets/images/host-4.jpg" alt="Saša Kalaba">
+      <div class="card-body">
+        <h3 class="card-title">Saša Kalaba</h3>
+        <p class="card-meta">Investitor</p>
+      </div>
+    </article>
 
-    </div>
-
-    <button class="slider-arrow next">›</button>
-    <div class="slider-dots"></div>
   </div>
 </section>
 
 <div class="section-divider"></div>
-
-
-
 
 <!-- =====================
      NEWSLETTER
 ===================== -->
 <section>
   <div class="newsletter-inner">
-
     <div class="newsletter-image">
       <img src="assets/images/newsletter.jpg" alt="">
     </div>
@@ -223,7 +184,6 @@
         <button class="btn">Subscribe</button>
       </form>
     </div>
-
   </div>
 </section>
 
@@ -237,27 +197,3 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
