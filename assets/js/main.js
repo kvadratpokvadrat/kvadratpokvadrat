@@ -1,55 +1,35 @@
+/* =====================================================
+   DOM READY
+===================================================== */
 document.addEventListener("DOMContentLoaded", function () {
 
 /* =====================
    MOBILE NAV
 ===================== */
-var burger = document.querySelector(".hamburger");
-var nav = document.querySelector(".nav");
-var overlay = document.querySelector(".nav-overlay");
+const burger = document.querySelector(".hamburger");
+const nav = document.querySelector(".nav");
+const overlay = document.querySelector(".nav-overlay");
 
 if (burger && nav) {
-  burger.addEventListener("click", function () {
-    const isOpen = nav.classList.toggle("active");
-
-    burger.classList.toggle("active", isOpen);
-    overlay?.classList.toggle("active", isOpen);
-
-    // 🔒 SCROLL LOCK
-    document.body.classList.toggle("nav-open", isOpen);
+  burger.addEventListener("click", () => {
+    const open = nav.classList.toggle("active");
+    burger.classList.toggle("active", open);
+    overlay?.classList.toggle("active", open);
+    document.body.classList.toggle("nav-open", open);
   });
 }
 
-/* CLOSE ON OVERLAY CLICK */
-overlay?.addEventListener("click", function () {
+overlay?.addEventListener("click", () => {
   nav.classList.remove("active");
   burger.classList.remove("active");
   overlay.classList.remove("active");
   document.body.classList.remove("nav-open");
 });
 
-/* SWIPE UP TO CLOSE (MOBILE ONLY) */
-let touchStartY = 0;
-
-nav?.addEventListener("touchstart", function (e) {
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-
-nav?.addEventListener("touchend", function (e) {
-  const touchEndY = e.changedTouches[0].clientY;
-  const diff = touchStartY - touchEndY;
-
-  if (diff > 80) {
-    nav.classList.remove("active");
-    burger.classList.remove("active");
-    overlay?.classList.remove("active");
-    document.body.classList.remove("nav-open");
-  }
-}, { passive: true });
-
 /* =====================
    DARK MODE
 ===================== */
-var toggle = document.getElementById("themeToggle");
+const toggle = document.getElementById("themeToggle");
 
 if (toggle) {
   if (localStorage.theme === "dark") {
@@ -57,153 +37,158 @@ if (toggle) {
     toggle.textContent = "Light";
   }
 
-  toggle.addEventListener("click", function () {
-    document.body.classList.toggle("dark");
-    var isDark = document.body.classList.contains("dark");
-    toggle.textContent = isDark ? "Light" : "Dark";
-    localStorage.theme = isDark ? "dark" : "light";
+  toggle.addEventListener("click", () => {
+    const dark = document.body.classList.toggle("dark");
+    toggle.textContent = dark ? "Light" : "Dark";
+    localStorage.theme = dark ? "dark" : "light";
   });
 }
 
 /* =====================
    REVEAL
 ===================== */
-var reveals = document.querySelectorAll(".reveal");
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("reveal-visible");
+        revealObserver.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
 
-var revealObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (entry) {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add("reveal-visible");
-    revealObserver.unobserve(entry.target);
-  });
-}, { threshold: 0.15 });
-
-reveals.forEach(el => revealObserver.observe(el));
-
-/* =====================
-   FLOW DIVIDERS
-===================== */
-var dividers = document.querySelectorAll(".section-divider");
-
-var dividerObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (entry) {
-    if (!entry.isIntersecting) return;
-    entry.target.classList.add("divider-visible");
-    dividerObserver.unobserve(entry.target);
-  });
-}, { threshold: 0.4 });
-
-dividers.forEach(d => dividerObserver.observe(d));
+document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
 /* =====================
-   STATS COUNTER
+   DIVIDERS
 ===================== */
-var counters = document.querySelectorAll("[data-count]");
+const dividerObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("divider-visible");
+        dividerObserver.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.4 }
+);
 
-var counterObserver = new IntersectionObserver(function (entries) {
-  entries.forEach(function (entry) {
-    if (!entry.isIntersecting) return;
+document.querySelectorAll(".section-divider").forEach(d => dividerObserver.observe(d));
 
-    var el = entry.target;
-    var target = Number(el.dataset.count);
-    var current = 0;
-    var duration = 1800;
-    var step = target / (duration / 16);
+/* =====================
+   COUNTERS
+===================== */
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
 
-    function update() {
+    const el = e.target;
+    const target = Number(el.dataset.count);
+    let current = 0;
+    const step = target / 110;
+
+    function tick() {
       current += step;
       if (current < target) {
         el.textContent = Math.floor(current).toLocaleString("sr-RS");
-        requestAnimationFrame(update);
+        requestAnimationFrame(tick);
       } else {
         el.textContent = target.toLocaleString("sr-RS");
       }
     }
 
-    update();
+    tick();
     counterObserver.unobserve(el);
   });
 }, { threshold: 0.6 });
 
-counters.forEach(c => counterObserver.observe(c));
+document.querySelectorAll("[data-count]").forEach(c => counterObserver.observe(c));
 
 /* =====================
    GUEST MODAL
 ===================== */
-var modal = document.getElementById("guestModal");
-var modalImg = document.getElementById("guestModalImg");
-var modalName = document.getElementById("guestModalName");
-var modalRole = document.getElementById("guestModalRole");
-var modalBio = document.getElementById("guestModalBio");
-var closeModal = document.getElementById("closeGuest");
+const modal = document.getElementById("guestModal");
 
 document.querySelectorAll(".card--guest").forEach(card => {
-  card.addEventListener("click", function () {
-    modalImg.src = card.dataset.img;
-    modalName.textContent = card.dataset.name;
-    modalRole.textContent = card.dataset.role;
-    modalBio.textContent = card.dataset.bio || "";
+  card.addEventListener("click", () => {
+    modal.querySelector("#guestModalImg").src = card.dataset.img;
+    modal.querySelector("#guestModalName").textContent = card.dataset.name;
+    modal.querySelector("#guestModalRole").textContent = card.dataset.role;
+    modal.querySelector("#guestModalBio").textContent = card.dataset.bio || "";
     modal.classList.add("active");
   });
 });
 
-closeModal?.addEventListener("click", () => modal.classList.remove("active"));
-
 modal?.addEventListener("click", e => {
-  if (e.target === modal) modal.classList.remove("active");
+  if (e.target === modal || e.target.id === "closeGuest") {
+    modal.classList.remove("active");
+  }
 });
 
 });
 
-/* =========================================
-   YOUTUBE STATS
-========================================= */
+/* =====================================================
+   YOUTUBE STATS (SUBS + VIEWS + EPISODES)
+===================================================== */
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 1800;
+  const MIN_SECONDS = 1800; // 30 min
 
   async function load() {
-    const ch = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
-    ).then(r => r.json());
+    try {
+      /* 1️⃣ CHANNEL STATS (SUBSCRIBERS) */
+      const ch = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      ).then(r => r.json());
 
-    const stats = ch.items[0].statistics;
-    set("yt-subs", stats.subscriberCount);
+      const stats = ch.items[0].statistics;
+      const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
-    const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
+      const subscribers = Number(stats.subscriberCount || 0);
 
-    const pl = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
-    ).then(r => r.json());
+      /* 2️⃣ PLAYLIST ITEMS */
+      const pl = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
+      ).then(r => r.json());
 
-    const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
+      const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
 
-    const vids = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${ids}&key=${API_KEY}`
-    ).then(r => r.json());
+      /* 3️⃣ VIDEO DETAILS */
+      const vids = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${ids}&key=${API_KEY}`
+      ).then(r => r.json());
 
-    let views = 0, videos = 0;
+      let totalViews = 0;
+      let episodeCount = 0;
 
-    vids.items.forEach(v => {
-      const sec = parse(v.contentDetails.duration);
-      if (sec >= MIN_SECONDS) {
-        views += Number(v.statistics.viewCount || 0);
-        videos++;
-      }
-    });
+      vids.items.forEach(v => {
+        const sec = parseDuration(v.contentDetails.duration);
+        if (sec >= MIN_SECONDS) {
+          totalViews += Number(v.statistics.viewCount || 0);
+          episodeCount++;
+        }
+      });
 
-    set("yt-subs", views);
-    set("yt-views", views);
-    set("yt-videos", videos);
+      /* 4️⃣ APPLY TO COUNTERS */
+      setCounter("yt-subs", subscribers);
+      setCounter("yt-views", totalViews);
+      setCounter("yt-videos", episodeCount);
+
+    } catch (e) {
+      console.error("YT STATS ERROR:", e);
+    }
   }
 
-  function parse(iso) {
+  function parseDuration(iso) {
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
 
-  function set(id, val) {
+  function setCounter(id, val) {
     const el = document.getElementById(id);
     if (!el) return;
     el.dataset.count = val;
@@ -213,19 +198,17 @@ modal?.addEventListener("click", e => {
   load();
 })();
 
-/* =========================================
+
+/* =====================================================
    YOUTUBE EPISODES
-========================================= */
+===================================================== */
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 1800;
-  const MAX_EPISODES = 3;
+  const MIN = 1800;
 
-  const container = document.getElementById("yt-episodes");
-  if (!container) return;
-
-  load();
+  const track = document.querySelector(".slider--episodes .slider-track");
+  if (!track) return;
 
   async function load() {
     const ch = await fetch(
@@ -244,156 +227,76 @@ modal?.addEventListener("click", e => {
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
     ).then(r => r.json());
 
-    let i = 0;
-    container.innerHTML = "";
+    track.innerHTML = "";
 
     vids.items
-      .filter(v => parse(v.contentDetails.duration) >= MIN_SECONDS)
-      .slice(0, MAX_EPISODES)
+      .filter(v => parse(v.contentDetails.duration) >= MIN)
       .forEach(v => {
-        i++;
-        container.innerHTML += `
-<a href="https://www.youtube.com/watch?v=${v.id}" target="_blank">
-  <article class="card card--episode">
-    <img src="${v.snippet.thumbnails.high.url}">
-    <div class="card-body">
-      <h3>${v.snippet.title}</h3>
-      <p>Epizoda #${i} • ${format(parse(v.contentDetails.duration))}</p>
-    </div>
-  </article>
-</a>`;
+        track.innerHTML += `
+<article class="card card--episode">
+  <img src="${v.snippet.thumbnails.high.url}">
+  <div class="card-body">
+    <h3>${v.snippet.title}</h3>
+  </div>
+</article>`;
       });
   }
 
-  function parse(iso) {
+  function parse(iso){
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
 
-  function format(sec) {
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    return h ? `${h}h ${m}min` : `${m}min`;
-  }
+  load();
 })();
-/* =====================================
-   SMART SLIDERS (EP + GUESTS)
-===================================== */
+
+/* =====================================================
+   CINEMATIC INFINITE SLIDER (EP + GUESTS)
+===================================================== */
 document.addEventListener("DOMContentLoaded", () => {
 
-  initSlider(".slider--episodes", {
-    desktopMin: 4 // više od 3
-  });
+  initSlider(".slider--episodes");
+  initSlider(".slider--guests");
 
-  initSlider(".slider--guests", {
-    desktopMin: 5 // više od 4
-  });
+  function initSlider(selector) {
+    const slider = document.querySelector(selector);
+    if (!slider) return;
 
- function initSlider(selector, rules) {
-  const slider = document.querySelector(selector);
-  if (!slider) return;
+    const track = slider.querySelector(".slider-track");
+    if (!track) return;
 
-  const track = slider.querySelector(".slider-track");
-  const prev = slider.querySelector(".prev");
-  const next = slider.querySelector(".next");
-  const dotsWrap = slider.querySelector(".slider-dots");
+    const wait = setInterval(() => {
+      const cards = Array.from(track.children);
+      if (!cards.length) return;
 
-  /* ⏳ WAIT FOR CARDS (API SAFE) */
-  const waitForCards = setInterval(() => {
-    const cards = Array.from(track.children);
+      clearInterval(wait);
+      start(cards);
+    }, 100);
 
+    function start(cards) {
+      cards.forEach(c => track.appendChild(c.cloneNode(true)));
 
-    if (!cards.length) return;
+      let pos = 0;
+      let paused = false;
+      const speed = 0.35;
+      const loopWidth = track.scrollWidth / 2;
 
-    clearInterval(waitForCards);
-    startSlider(cards);
-  }, 100);
+      function loop() {
+        if (!paused) {
+          pos -= speed;
+          if (Math.abs(pos) >= loopWidth) pos = 0;
+          track.style.transform = `translate3d(${pos}px,0,0)`;
+        }
+        requestAnimationFrame(loop);
+      }
 
-  function startSlider(cards) {
-    const isMobile = window.matchMedia("(max-width:1023px)").matches;
+      slider.addEventListener("mouseenter", () => paused = true);
+      slider.addEventListener("mouseleave", () => paused = false);
+      slider.addEventListener("touchstart", () => paused = true, { passive:true });
+      slider.addEventListener("touchend", () => paused = false);
 
-    if (!isMobile && cards.length < rules.desktopMin) {
-      slider.classList.add("no-slider");
-      return;
+      loop();
     }
-
-    const cardWidth = cards[0].offsetWidth;
-
-    /* ---------- DOTS ---------- */
-    dotsWrap.innerHTML = "";
-    cards.forEach((_, i) => {
-      const dot = document.createElement("button");
-      if (i === 0) dot.classList.add("active");
-      dotsWrap.appendChild(dot);
-
-      dot.addEventListener("click", () => {
-        track.scrollTo({
-          left: cards[i].offsetLeft,
-          behavior: "smooth"
-        });
-      });
-    });
-
-    function updateDots() {
-      const index = Math.round(track.scrollLeft / cardWidth);
-      dotsWrap.querySelectorAll("button").forEach((d, i) => {
-        d.classList.toggle("active", i === index);
-      });
-    }
-
-    /* ---------- ARROWS ---------- */
-    prev?.addEventListener("click", () => {
-      track.scrollBy({ left: -cardWidth, behavior: "smooth" });
-    });
-
-    next?.addEventListener("click", () => {
-      track.scrollBy({ left: cardWidth, behavior: "smooth" });
-    });
-
-    track.addEventListener("scroll", () => {
-      requestAnimationFrame(updateDots);
-    });
-
-/* ---------- CINEMATIC INFINITE AUTO SCROLL ---------- */
-
-let pos = 0;
-let speed = 0.45; // cinematic
-let paused = false;
-
-// DUPLICIRAJ KARTICE ZA LOOP
-cards.forEach(card => {
-  const clone = card.cloneNode(true);
-  clone.classList.add("clone");
-  track.appendChild(clone);
-});
-
-function cinematicLoop() {
-  if (!paused) {
-    pos -= speed;
-
-    const loopWidth = track.scrollWidth / 2;
-    if (Math.abs(pos) >= loopWidth) {
-      pos = 0;
-    }
-
-    track.style.transform = `translateX(${pos}px)`;
   }
 
-  requestAnimationFrame(cinematicLoop);
-}
-
-// PAUSE NA HOVER / TOUCH
-slider.addEventListener("mouseenter", () => paused = true);
-slider.addEventListener("mouseleave", () => paused = false);
-slider.addEventListener("touchstart", () => paused = true);
-slider.addEventListener("touchend", () => paused = false);
-
-cinematicLoop();
-
 });
-
-
-
-
-
-
