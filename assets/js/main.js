@@ -57,71 +57,47 @@ var revealObserver = new IntersectionObserver(entries => {
 
 reveals.forEach(el => revealObserver.observe(el));
 
-/* =====================
-   STATS COUNTER
-===================== */
-var counters = document.querySelectorAll("[data-count]");
-
-var counterObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-
-    var el = entry.target;
-    var target = Number(el.dataset.count);
-    var current = 0;
-    var step = target / 110;
-
-    function update() {
-      current += step;
-      if (current < target) {
-        el.textContent = Math.floor(current).toLocaleString("sr-RS");
-        requestAnimationFrame(update);
-      } else {
-        el.textContent = target.toLocaleString("sr-RS");
-      }
-    }
-
-    update();
-    counterObserver.unobserve(el);
-  });
-}, { threshold: 0.6 });
-
-counters.forEach(c => counterObserver.observe(c));
-
-});
-
 /* =========================================
-   YOUTUBE EPISODES – INDEX
-   >= 30 MIN
-   + NOVA EPIZODA
-   + HERO LINK
+   YOUTUBE – GLOBAL STATS + EPISODES
 ========================================= */
 
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 1800;
-  const MAX_EPISODES = 3;
-  const NEW_DAYS = 7;
+  const MIN_SECONDS = 1800; // 30 min
 
-  const container = document.getElementById("yt-episodes");
-  const heroBtn = document.querySelector(".hero .btn");
+  const CACHE_KEY = "yt_global_stats";
+  const CACHE_TTL = 6 * 60 * 60 * 1000;
 
-  if (!container) return;
+  const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+  if (cached && Date.now() - cached.time < CACHE_TTL) {
+    applyStats(cached.data);
+    renderEpisodes(cached.data.episodes);
+  } else {
+    loadAll();
+  }
 
-  load();
-
-  async function load() {
+  async function loadAll() {
     try {
-      const ch = await fetch(
-        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      /* =====================
+         CHANNEL STATS
+      ===================== */
+      const channelRes = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
 
+      const stats = channelRes.items[0].statistics;
       const uploads =
-        ch.items[0].contentDetails.relatedPlaylists.uploads;
+        channelRes.items[0].contentDetails.relatedPlaylists.uploads;
 
+      const subscribers = Number(stats.subscriberCount || 0);
+      const totalViews = Number(stats.viewCount || 0);
+
+      /* =====================
+         VIDEOS
+      ===================== */
       const pl = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=15&playlistId=${uploads}&key=${API_KEY}`
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
       ).then(r => r.json());
 
       const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
@@ -130,67 +106,88 @@ counters.forEach(c => counterObserver.observe(c));
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const now = Date.now();
-
       const episodes = vids.items
-        .map(v => {
-          const published = new Date(v.snippet.publishedAt);
-          return {
-            id: v.id,
-            title: v.snippet.title,
-            thumb: v.snippet.thumbnails.high.url,
-            duration: parseDuration(v.contentDetails.duration),
-            published,
-            isNew: (now - published.getTime()) / 86400000 <= NEW_DAYS
-          };
-        })
-        .filter(v => v.duration >= MIN_SECONDS)
-        .sort((a, b) => b.published - a.published)
-        .slice(0, MAX_EPISODES);
+        .map(v => ({
+          id: v.id,
+          title: v.snippet.title,
+          thumb: v.snippet.thumbnails.high.url,
+          seconds: parseDuration(v.contentDetails.duration)
+        }))
+        .filter(v => v.seconds >= MIN_SECONDS)
+        .sort((a, b) => b.seconds - a.seconds);
 
-      /* HERO BUTTON → NAJNOVIJA EPIZODA */
-      if (heroBtn && episodes[0]) {
-        heroBtn.href = `https://www.youtube.com/watch?v=${episodes[0].id}`;
-        heroBtn.target = "_blank";
-      }
+      const data = {
+        subscribers,
+        totalViews,
+        episodeCount: episodes.length,
+        episodes
+      };
 
-      container.innerHTML = "";
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ time: Date.now(), data })
+      );
 
-      episodes.forEach((ep, index) => {
-        const isFirst = index === 0 && ep.isNew;
-
-        container.innerHTML += `
-          <a href="https://www.youtube.com/watch?v=${ep.id}" target="_blank">
-            <article class="card card--episode reveal reveal-visible
-              ${isFirst ? "is-new is-glow" : ""}">
-
-              ${isFirst ? `<span class="episode-badge">Nova epizoda</span>` : ""}
-
-              <img src="${ep.thumb}">
-              <div class="card-body">
-                <h3 class="card-title">${ep.title}</h3>
-                <p class="card-meta">
-                  Epizoda #${episodes.length - index} • ${format(ep.duration)}
-                </p>
-              </div>
-            </article>
-          </a>
-        `;
-      });
+      applyStats(data);
+      renderEpisodes(episodes);
 
     } catch (e) {
-      console.error("YT EPISODES ERROR:", e);
+      console.error("YT ERROR:", e);
     }
   }
 
-  function parseDuration(iso) {
-    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-    return (m[1] || 0) * 3600 + (m[2] || 0) * 60 + (m[3] || 0) * 1;
+  /* =====================
+     APPLY STATS
+  ===================== */
+  function applyStats(d) {
+    set("yt-subs", d.subscribers);
+    set("yt-views", d.totalViews);
+    set("yt-videos", d.episodeCount);
   }
 
-  function format(sec) {
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    return h ? `${h}h ${m}min` : `${m}min`;
+  function set(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.dataset.count = val;
+    el.textContent = "0";
+  }
+
+  /* =====================
+     EPISODES (INDEX)
+  ===================== */
+  function renderEpisodes(list) {
+    const container = document.getElementById("yt-episodes");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    list.slice(0, 3).forEach((v, i) => {
+      container.innerHTML += `
+        <a href="https://www.youtube.com/watch?v=${v.id}" target="_blank">
+          <article class="card card--episode reveal reveal-visible">
+            <img src="${v.thumb}">
+            <div class="card-body">
+              <h3 class="card-title">${v.title}</h3>
+              <p class="card-meta">
+                Epizoda #${list.length - i}
+                <span class="badge badge--new">Nova epizoda</span>
+              </p>
+            </div>
+          </article>
+        </a>
+      `;
+    });
+  }
+
+  /* =====================
+     HELPERS
+  ===================== */
+  function parseDuration(iso) {
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    return (
+      (m[1] || 0) * 3600 +
+      (m[2] || 0) * 60 +
+      (m[3] || 0) * 1
+    );
   }
 })();
