@@ -165,21 +165,6 @@ header {
 }
 
 
-section:not(.hero)::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 56px;
-  right: 56px;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(250,204,21,.55),
-    transparent
-  );
-}
-
 @media (max-width: 768px) {
   section {
     padding: 80px 24px;
@@ -361,4 +346,5 @@ section:not(.hero)::before {
   transform: none;
   transition: .9s var(--ease);
 }
+
 
