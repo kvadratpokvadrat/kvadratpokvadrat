@@ -1,4 +1,6 @@
-/* NAV LINKS */
+/* =====================================================
+   NAV LINKS
+===================================================== */
 .nav a {
   font-size: 14px;
   font-weight: 500;
@@ -15,7 +17,9 @@
   background: var(--accent);
 }
 
-/* BUTTONS */
+/* =====================================================
+   BUTTONS
+===================================================== */
 .btn,
 .badge-btn {
   background: var(--accent);
@@ -29,7 +33,9 @@
   white-space: nowrap;
 }
 
-/* SECTION HEADER */
+/* =====================================================
+   SECTION HEADER
+===================================================== */
 .section-header {
   max-width: 1200px;
   margin: 0 auto 48px;
@@ -38,23 +44,46 @@
   align-items: center;
 }
 
-/* CARD */
+/* =====================================================
+   CARD – JEDINSTVEN SISTEM (FIX)
+===================================================== */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
-  transition: .45s var(--ease);
+
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    transform .45s var(--ease),
+    box-shadow .45s var(--ease);
 }
 
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 28px rgba(250,204,21,.35);
+}
+
+/* IMAGE */
 .card img {
-  height: 220px;
+  width: 100%;
+  height: 240px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
+/* BODY */
 .card-body {
   padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
 }
 
 .card-title {
@@ -67,7 +96,9 @@
   color: var(--muted);
 }
 
-/* STATS */
+/* =====================================================
+   STATS
+===================================================== */
 .stats {
   max-width: 900px;
   margin: 0 auto;
@@ -92,52 +123,9 @@
   text-shadow: 0 0 22px rgba(250,204,21,.35);
 }
 
-/* =====================
-   CARDS – FIXED SYSTEM
-===================== */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow:
-    var(--shadow-hover),
-    0 0 28px rgba(250,204,21,.35);
-}
-
-.card img {
-  width: 100%;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 18px 20px 22px;
-  flex: 1;
-}
-
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.card-meta {
-  font-size: 13px;
-  color: var(--muted);
-}
-
-/* =====================
-   EPISODES GRID
-===================== */
-
+/* =====================================================
+   EPISODES GRID (DESKTOP NO-SLIDER)
+===================================================== */
 .episode-grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -146,29 +134,6 @@
   gap: 32px;
 }
 
-.episode-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: .35s var(--ease);
-}
-
-.episode-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain; /* CELO VIDLJIVO */
-  background: #000;
-}
-
-.episode-card h3 {
-  padding: 16px 18px 20px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .episode-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -181,43 +146,127 @@
   }
 }
 
-/* =====================
-   GUESTS – PORTRAIT
-===================== */
+/* =====================================================
+   GUESTS GRID (DESKTOP NO-SLIDER)
+===================================================== */
 .guests-grid {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
   gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
+/* GUEST IMAGE – PORTRAIT */
 .card--guest img {
   height: 300px;
 }
 
-.card--guest .card-title {
-  font-size: 16px;
-}.episode-badge{
-  position:absolute;
-  top:14px;
-  left:14px;
-  background:#FFD400;
-  color:#000;
-  font-weight:600;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:12px;
+/* =====================================================
+   SLIDER CORE (SAFE – NE SEČE HOVER)
+===================================================== */
+.slider {
+  position: relative;
 }
 
-.is-glow{
-  box-shadow:0 0 0 rgba(255,212,0,0);
-  animation:glow 2.2s infinite;
+.slider-track {
+  display: flex;
+  gap: 32px;
+  padding: 0 16px 40px;
+  scroll-behavior: smooth;
 }
 
-@keyframes glow{
-  0%{ box-shadow:0 0 0 rgba(255,212,0,.0);}
-  50%{ box-shadow:0 0 25px rgba(255,212,0,.45);}
-  100%{ box-shadow:0 0 0 rgba(255,212,0,.0);}
+/* MOBILE – UVEK SLIDER */
+@media (max-width: 1023px) {
+  .slider-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .slider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slider-track > * {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
 }
 
+/* DESKTOP – SAMO KAD JE SLIDER AKTIVAN */
+@media (min-width: 1024px) {
+
+  .slider:not(.no-slider) .slider-track {
+    overflow: hidden;
+  }
+
+  .slider:not(.no-slider) .slider-track > * {
+    flex: 0 0 calc(33.333% - 32px);
+  }
+
+  /* NO SLIDER = GRID */
+  .slider.no-slider .slider-track {
+    overflow: visible;
+  }
+
+  .slider.no-slider .slider-track > * {
+    flex: 1 1 auto;
+  }
+}
+
+/* =====================================================
+   ARROWS
+===================================================== */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #facc15;
+  color: #000;
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+}
+
+.slider-arrow.prev { left: 8px; }
+.slider-arrow.next { right: 8px; }
+
+@media (max-width: 1023px) {
+  .slider-arrow { display: none; }
+}
+
+/* =====================================================
+   DOTS
+===================================================== */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.slider-dots button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #555;
+  border: none;
+  opacity: .5;
+}
+
+.slider-dots button.active {
+  opacity: 1;
+  background: #f5c400;
+}
+
+/* =====================================================
+   HELPERS
+===================================================== */
+.hide {
+  display: none !important;
+}
