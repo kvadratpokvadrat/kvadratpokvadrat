@@ -157,7 +157,7 @@ if (modal) {
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 1200;
+  const MIN_SECONDS = 1800;
 
   const CACHE_KEY = "yt_stats_full";
   const CACHE_TTL = 6 * 60 * 60 * 1000; // 6h
@@ -358,6 +358,7 @@ if (modal) {
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
+
 
 
 
