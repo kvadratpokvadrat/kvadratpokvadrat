@@ -265,21 +265,33 @@ section {
     pointer-events: all;
   }
 
+  /* ⬇⬇⬇ JEDINA IZMENJENA STVAR ⬇⬇⬇ */
+
   .nav a {
+    position: relative;
+    display: inline-block;
     font-size: 16px;
-    padding: 12px 0;
+    padding: 0;
+    line-height: 1.2;
   }
 
-  /* UNDERLINE = TEXT WIDTH */
   .nav a::after {
-    left: 50%;
-    transform: translateX(-50%);
+    content: "";
+    position: absolute;
+    left: 0;
     bottom: -4px;
+    width: 0;
     height: 3px;
+    background: var(--yellow);
     border-radius: 2px;
+    transition: width .25s ease;
     box-shadow:
       0 0 14px rgba(250,204,21,.8),
       0 0 28px rgba(250,204,21,.4);
+  }
+
+  .nav a.active::after {
+    width: 100%;
   }
 
   .nav .badge-btn,
