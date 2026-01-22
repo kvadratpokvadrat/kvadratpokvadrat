@@ -47,36 +47,18 @@ if (toggle) {
 /* =====================
    REVEAL
 ===================== */
-const revealObserver = new IntersectionObserver(
-  entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("reveal-visible");
-        revealObserver.unobserve(e.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add("reveal-visible");
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(".reveal").forEach(el =>
+  revealObserver.observe(el)
 );
-
-document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
-
-/* =====================
-   DIVIDERS
-===================== */
-const dividerObserver = new IntersectionObserver(
-  entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("divider-visible");
-        dividerObserver.unobserve(e.target);
-      }
-    });
-  },
-  { threshold: 0.4 }
-);
-
-document.querySelectorAll(".section-divider").forEach(d => dividerObserver.observe(d));
 
 /* =====================
    COUNTERS
@@ -105,7 +87,9 @@ const counterObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.6 });
 
-document.querySelectorAll("[data-count]").forEach(c => counterObserver.observe(c));
+document.querySelectorAll("[data-count]").forEach(c =>
+  counterObserver.observe(c)
+);
 
 /* =====================
    GUEST MODAL
@@ -131,16 +115,15 @@ modal?.addEventListener("click", e => {
 });
 
 /* =====================================================
-   YOUTUBE STATS (SUBS + VIEWS + EPISODES)
+   YOUTUBE STATS
 ===================================================== */
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 1800; // 30 min
+  const MIN_SECONDS = 1800;
 
   async function load() {
     try {
-      /* 1️⃣ CHANNEL STATS (SUBSCRIBERS) */
       const ch = await fetch(
         `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
@@ -148,38 +131,34 @@ modal?.addEventListener("click", e => {
       const stats = ch.items[0].statistics;
       const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
-      const subscribers = Number(stats.subscriberCount || 0);
+      const subs = Number(stats.subscriberCount || 0);
 
-      /* 2️⃣ PLAYLIST ITEMS */
       const pl = await fetch(
         `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
       ).then(r => r.json());
 
       const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
 
-      /* 3️⃣ VIDEO DETAILS */
       const vids = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=contentDetails,statistics&id=${ids}&key=${API_KEY}`
       ).then(r => r.json());
 
-      let totalViews = 0;
-      let episodeCount = 0;
+      let views = 0;
+      let episodes = 0;
 
       vids.items.forEach(v => {
-        const sec = parseDuration(v.contentDetails.duration);
-        if (sec >= MIN_SECONDS) {
-          totalViews += Number(v.statistics.viewCount || 0);
-          episodeCount++;
+        if (parseDuration(v.contentDetails.duration) >= MIN_SECONDS) {
+          views += Number(v.statistics.viewCount || 0);
+          episodes++;
         }
       });
 
-      /* 4️⃣ APPLY TO COUNTERS */
-      setCounter("yt-subs", subscribers);
-      setCounter("yt-views", totalViews);
-      setCounter("yt-videos", episodeCount);
+      setCounter("yt-subs", subs);
+      setCounter("yt-views", views);
+      setCounter("yt-videos", episodes);
 
     } catch (e) {
-      console.error("YT STATS ERROR:", e);
+      console.error("YT ERROR", e);
     }
   }
 
@@ -198,17 +177,16 @@ modal?.addEventListener("click", e => {
   load();
 })();
 
-
 /* =====================================================
-   YOUTUBE EPISODES
+   INDEX – LAST 3 EPISODES (NO SLIDER)
 ===================================================== */
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
   const MIN = 1800;
 
-  const track = document.querySelector(".slider--episodes .slider-track");
-  if (!track) return;
+  const grid = document.getElementById("yt-episodes");
+  if (!grid) return;
 
   async function load() {
     const ch = await fetch(
@@ -218,7 +196,7 @@ modal?.addEventListener("click", e => {
     const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
     const pl = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=15&playlistId=${uploads}&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=10&playlistId=${uploads}&key=${API_KEY}`
     ).then(r => r.json());
 
     const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
@@ -227,131 +205,26 @@ modal?.addEventListener("click", e => {
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
     ).then(r => r.json());
 
-    track.innerHTML = "";
+    grid.innerHTML = "";
 
     vids.items
       .filter(v => parse(v.contentDetails.duration) >= MIN)
+      .slice(0, 3) // 🔥 TAČNO 3
       .forEach(v => {
-        track.innerHTML += `
-<article class="card card--episode">
-  <img src="${v.snippet.thumbnails.high.url}">
+        grid.innerHTML += `
+<article class="card episode-card reveal">
+  <img src="${v.snippet.thumbnails.high.url}" alt="">
   <div class="card-body">
-    <h3>${v.snippet.title}</h3>
+    <h3 class="card-title">${v.snippet.title}</h3>
   </div>
 </article>`;
       });
   }
 
   function parse(iso){
-    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    const m = iso.match(/PT(?:(\\d+)H)?(?:(\\d+)M)?(?:(\\d+)S)?/);
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
 
   load();
 })();
-
-/* =====================================
-   SMART SLIDERS – FINAL RULESET
-===================================== */
-document.addEventListener("DOMContentLoaded", () => {
-
-  initSlider(".slider--episodes", {
-    desktopMin: 4
-  });
-
-  initSlider(".slider--guests", {
-    desktopMin: 5
-  });
-
-  function initSlider(selector, rules) {
-    const slider = document.querySelector(selector);
-    if (!slider) return;
-
-    const track = slider.querySelector(".slider-track");
-    const prev = slider.querySelector(".prev");
-    const next = slider.querySelector(".next");
-    const dotsWrap = slider.querySelector(".slider-dots");
-
-    const wait = setInterval(() => {
-      const cards = Array.from(track.children);
-      if (!cards.length) return;
-      clearInterval(wait);
-      start(cards);
-    }, 100);
-
-    function start(cards) {
-      const isDesktop = window.matchMedia("(min-width:1024px)").matches;
-
-      /* RESET */
-      slider.classList.remove("no-slider");
-      prev?.classList.remove("hide");
-      next?.classList.remove("hide");
-      dotsWrap?.classList.remove("hide");
-
-      /* ❌ DESKTOP – premalo kartica */
-      if (isDesktop && cards.length < rules.desktopMin) {
-        slider.classList.add("no-slider");
-        prev?.classList.add("hide");
-        next?.classList.add("hide");
-        dotsWrap?.classList.add("hide");
-        return;
-      }
-
-      /* ✅ MOBILE – uvek slider */
-      const cardWidth = cards[0].offsetWidth;
-      let index = 0;
-
-      /* ---------- DOTS ---------- */
-      dotsWrap.innerHTML = "";
-      cards.forEach((_, i) => {
-        const dot = document.createElement("button");
-        if (i === 0) dot.classList.add("active");
-        dotsWrap.appendChild(dot);
-        dot.addEventListener("click", () => goTo(i));
-      });
-
-      function updateDots() {
-        dotsWrap.querySelectorAll("button").forEach((d, i) => {
-          d.classList.toggle("active", i === index);
-        });
-      }
-
-      function goTo(i) {
-        index = i;
-        track.scrollTo({
-          left: cardWidth * index,
-          behavior: "smooth"
-        });
-        updateDots();
-      }
-
-      /* ---------- ARROWS ---------- */
-      prev?.addEventListener("click", () => {
-        index = (index - 1 + cards.length) % cards.length;
-        goTo(index);
-      });
-
-      next?.addEventListener("click", () => {
-        index = (index + 1) % cards.length;
-        goTo(index);
-      });
-
-      /* ---------- AUTO SLIDE ---------- */
-      let paused = false;
-
-      const auto = () => {
-        if (paused) return;
-        index = (index + 1) % cards.length;
-        goTo(index);
-      };
-
-      const timer = setInterval(auto, 4500);
-
-      slider.addEventListener("mouseenter", () => paused = true);
-      slider.addEventListener("mouseleave", () => paused = false);
-      slider.addEventListener("touchstart", () => paused = true);
-      slider.addEventListener("touchend", () => paused = false);
-    }
-  }
-});
-
