@@ -250,53 +250,103 @@ modal?.addEventListener("click", e => {
   load();
 })();
 
-/* =====================================================
-   CINEMATIC INFINITE SLIDER (EP + GUESTS)
-===================================================== */
+/* =====================================
+   SMART SLIDERS (FIXED + LOGIC)
+===================================== */
 document.addEventListener("DOMContentLoaded", () => {
 
-  initSlider(".slider--episodes");
-  initSlider(".slider--guests");
+  initSlider(".slider--episodes", {
+    desktopMin: 4 // slider tek kad ima 4+
+  });
 
-  function initSlider(selector) {
+  initSlider(".slider--guests", {
+    desktopMin: 5 // slider tek kad ima 5+
+  });
+
+  function initSlider(selector, rules) {
     const slider = document.querySelector(selector);
     if (!slider) return;
 
     const track = slider.querySelector(".slider-track");
-    if (!track) return;
+    const prev = slider.querySelector(".prev");
+    const next = slider.querySelector(".next");
+    const dotsWrap = slider.querySelector(".slider-dots");
 
     const wait = setInterval(() => {
       const cards = Array.from(track.children);
       if (!cards.length) return;
-
       clearInterval(wait);
       start(cards);
     }, 100);
 
     function start(cards) {
-      cards.forEach(c => track.appendChild(c.cloneNode(true)));
+      const isDesktop = window.matchMedia("(min-width:1024px)").matches;
 
-      let pos = 0;
-      let paused = false;
-      const speed = 0.35;
-      const loopWidth = track.scrollWidth / 2;
-
-      function loop() {
-        if (!paused) {
-          pos -= speed;
-          if (Math.abs(pos) >= loopWidth) pos = 0;
-          track.style.transform = `translate3d(${pos}px,0,0)`;
-        }
-        requestAnimationFrame(loop);
+      // ❌ DESKTOP – nema slidera ako nema dovoljno kartica
+      if (isDesktop && cards.length < rules.desktopMin) {
+        slider.classList.add("no-slider");
+        return;
       }
+
+      const cardWidth = cards[0].offsetWidth;
+      let index = 0;
+
+      /* ---------- DOTS ---------- */
+      dotsWrap.innerHTML = "";
+      cards.forEach((_, i) => {
+        const dot = document.createElement("button");
+        if (i === 0) dot.classList.add("active");
+        dotsWrap.appendChild(dot);
+
+        dot.addEventListener("click", () => goTo(i));
+      });
+
+      function updateDots() {
+        dotsWrap.querySelectorAll("button").forEach((d, i) => {
+          d.classList.toggle("active", i === index);
+        });
+      }
+
+      function goTo(i) {
+        index = i;
+        track.scrollTo({
+          left: cardWidth * index,
+          behavior: "smooth"
+        });
+        updateDots();
+      }
+
+      /* ---------- ARROWS ---------- */
+      prev?.addEventListener("click", () => {
+        index--;
+        if (index < 0) index = cards.length - 1;
+        goTo(index);
+      });
+
+      next?.addEventListener("click", () => {
+        index++;
+        if (index >= cards.length) index = 0;
+        goTo(index);
+      });
+
+      /* ---------- AUTO CINEMATIC LOOP ---------- */
+      let paused = false;
+
+      function auto() {
+        if (!paused) {
+          index++;
+          if (index >= cards.length) index = 0;
+          goTo(index);
+        }
+      }
+
+      let timer = setInterval(auto, 4000);
 
       slider.addEventListener("mouseenter", () => paused = true);
       slider.addEventListener("mouseleave", () => paused = false);
-      slider.addEventListener("touchstart", () => paused = true, { passive:true });
+      slider.addEventListener("touchstart", () => paused = true);
       slider.addEventListener("touchend", () => paused = false);
 
-      loop();
     }
   }
-
 });
