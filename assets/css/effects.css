@@ -238,27 +238,25 @@ header .section-divider {
 /* =====================
    TEXT CARDS (NON-EPISODE)
 ===================== */
-.card-content {
+.card-content{
+  padding: 28px 28px 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 180px;
+  gap: 12px;
 }
 
-.card-content h3 {
-  font-size: 17px;
-  font-weight: 600;
-  margin-bottom: 14px;
-  color: var(--text);
+.card-content h3{
+  margin: 0 0 6px 0;
+  line-height: 1.25;
 }
 
-.card-content p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--muted);
+
+.card-content p{
   margin: 0;
-  max-width: none;
+  line-height: 1.6;
+  color: rgba(255,255,255,.82);
 }
+
 .package-list {
   margin-top: 18px;
   padding-left: 0;
@@ -271,6 +269,13 @@ header .section-divider {
   padding: 6px 0;
   position: relative;
 }
+.card-content p:not(:first-of-type){
+  padding-left: 6px;
+}
+.card-content{
+  box-sizing: border-box;
+}
+
 
 .package-list li::before {
   content: "•";
