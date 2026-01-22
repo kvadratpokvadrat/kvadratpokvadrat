@@ -300,7 +300,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ⏳ WAIT FOR CARDS (API SAFE) */
   const waitForCards = setInterval(() => {
-    const cards = track.children;
+    const cards = Array.from(track.children);
+
 
     if (!cards.length) return;
 
@@ -368,6 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 });
+
 
 
 
