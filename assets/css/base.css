@@ -355,5 +355,40 @@ header {
   transition: .9s var(--ease);
 }
 
+/* =====================
+   NEWSLETTER – CENTER ON MOBILE & TABLET
+===================== */
+@media (max-width: 1024px) {
+
+  .newsletter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .newsletter-content {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .newsletter form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .newsletter input {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .newsletter button {
+    width: 100%;
+    max-width: 220px;
+  }
+}
+
 
 
