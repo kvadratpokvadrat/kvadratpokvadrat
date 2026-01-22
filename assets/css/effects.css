@@ -85,9 +85,6 @@ body.dark .section-divider {
 /* =====================
    HEADER – FULL WIDTH OVERRIDE
 ===================== */
-header {
-  position: relative;
-}
 
 header .section-divider {
   position: absolute;
