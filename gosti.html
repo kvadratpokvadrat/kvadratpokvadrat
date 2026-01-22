@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Naši gosti | Podcast</title>
+  <title>Naši gosti | Kvadrat po Kvadrat</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/effects.css">
+
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/effects.css">
 </head>
 <body>
 
 <header>
   <div class="logo">
-    <img src="assets/images/logo.png" alt="Podcast logo">
+    <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
   </div>
 
   <nav class="nav">
@@ -26,61 +27,73 @@
     <a href="gosti.html" class="active">Gosti</a>
     <a href="o-nama.html">O nama</a>
     <a href="kontakt.html">Kontakt</a>
-    <a href="postani-sponzor.html" class="btn">Postani sponzor</a>
+    <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
     <button class="badge-btn" id="themeToggle">Dark</button>
-    
   </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <h1>Naši gosti</h1>
-    <p>Lideri, preduzetnici i ljudi koji menjaju igru.</p>
+  <div class="hero-inner">
+    <h1 class="hero-title">Naši gosti</h1>
+    <p class="hero-subtitle">
+      Lideri, preduzetnici i ljudi koji menjaju igru.
+    </p>
   </div>
 </section>
 
-<section>
-  <div class="hosts-grid">
+<div class="section-divider"></div>
 
-    <div class="guest-card"
+<!-- GUESTS -->
+<section>
+
+  <div class="section-header">
+    <h2>Svi gosti</h2>
+  </div>
+
+  <!-- BITNO: guest-grid (NE hosts-grid) -->
+  <div class="guest-grid">
+
+    <article class="guest-card"
       data-name="Holding Inc"
       data-role="Producer"
       data-img="assets/images/host-1.jpg"
-      data-bio="Holding Inc je producent sa dugogodišnjim iskustvom u radu sa digitalnim medijima, podcast produkcijom i razvojem brendova.">
+      data-bio="Holding Inc je producent sa dugogodišnjim iskustvom u radu sa digitalnim medijima i podcast produkcijom.">
       <img src="assets/images/host-1.jpg" alt="Holding Inc">
       <div class="guest-info">
-        <h3>Holding Inc</h3>
-        <p>Producer</p>
+        <strong>Holding Inc</strong>
+        <span>Producer</span>
       </div>
-    </div>
+    </article>
 
-    <div class="guest-card"
+    <article class="guest-card"
       data-name="Miloš Nedić"
       data-role="Interviewer"
       data-img="assets/images/host-2.jpg"
-      data-bio="Miloš Nedić je interviewer i preduzetnik fokusiran na razvoj biznisa, marketing i lični rast.">
+      data-bio="Miloš Nedić je interviewer i preduzetnik fokusiran na razvoj biznisa i marketing.">
       <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
       <div class="guest-info">
-        <h3>Miloš Nedić</h3>
-        <p>Interviewer</p>
+        <strong>Miloš Nedić</strong>
+        <span>Interviewer</span>
       </div>
-    </div>
+    </article>
 
-    <div class="guest-card"
+    <article class="guest-card"
       data-name="Luka Stokić"
       data-role="Host"
       data-img="assets/images/host-3.jpg"
       data-bio="Luka Stokić je host podcasta i kreator sadržaja koji razgovara sa ljudima koji pomeraju granice.">
       <img src="assets/images/host-3.jpg" alt="Luka Stokić">
       <div class="guest-info">
-        <h3>Luka Stokić</h3>
-        <p>Host</p>
+        <strong>Luka Stokić</strong>
+        <span>Host</span>
       </div>
-    </div>
+    </article>
 
   </div>
 </section>
 
+<!-- MODAL -->
 <div class="guest-modal" id="guestModal">
   <div class="guest-modal-content">
     <img id="guestModalImg" src="" alt="">
@@ -98,4 +111,3 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
-
