@@ -94,23 +94,6 @@ section {
   padding: 96px 56px;
 }
 
-/* FLOW LINE */
-section:not(.hero)::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1200px, calc(100% - 112px));
-  height: 2px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(250,204,21,.9),
-    transparent
-  );
-  opacity: .9;
-}
 
 /* =====================
    HERO
