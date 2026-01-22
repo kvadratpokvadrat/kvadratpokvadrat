@@ -336,31 +336,51 @@ header .section-divider {
   overflow: hidden;
 }
 
+/* TRACK */
 .slider-track {
   display: flex;
   gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   padding: 0 16px 12px;
   scroll-behavior: smooth;
 }
 
-.slider-track::-webkit-scrollbar {
-  display: none;
-}
+/* MOBILE – uvek slider */
+@media (max-width: 1023px) {
+  .slider-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
 
-.slider-track > * {
-  flex: 0 0 85%;
-  scroll-snap-align: center;
-}
+  .slider-track::-webkit-scrollbar {
+    display: none;
+  }
 
-/* =====================
-   DESKTOP CARD SIZE
-===================== */
-@media (min-width: 1024px) {
   .slider-track > * {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+}
+
+/* DESKTOP – slider SAMO kad je aktivan */
+@media (min-width: 1024px) {
+
+  /* AKTIVAN SLIDER */
+  .slider:not(.no-slider) .slider-track {
+    overflow: hidden;
+  }
+
+  .slider:not(.no-slider) .slider-track > * {
     flex: 0 0 calc(33.333% - 16px);
+  }
+
+  /* ❌ NO SLIDER = NORMAL GRID */
+  .slider.no-slider .slider-track {
+    overflow: visible;
+  }
+
+  .slider.no-slider .slider-track > * {
+    flex: 1 1 auto;
   }
 }
 
@@ -376,7 +396,7 @@ header .section-divider {
   height: 44px;
   border-radius: 50%;
   background: #facc15;
-  color: #fff;
+  color: #000;
   font-size: 28px;
   border: none;
   cursor: pointer;
@@ -386,7 +406,9 @@ header .section-divider {
 .slider-arrow.next { right: 8px; }
 
 @media (max-width: 1023px) {
-  .slider-arrow { display: none; }
+  .slider-arrow {
+    display: none;
+  }
 }
 
 /* =====================
@@ -412,11 +434,11 @@ header .section-divider {
   opacity: 1;
   background: #f5c400;
 }
-.no-slider .slider-track {
-  overflow: visible;
-  scroll-behavior: auto;
-}
 
+/* =====================
+   HELPERS
+===================== */
 .hide {
   display: none !important;
 }
+
