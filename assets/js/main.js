@@ -204,69 +204,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })();
 
-/* =====================================================
-   INDEX – LAST 3 EPISODES (NO SLIDER)
-===================================================== */
-(() => {
+.badge-episode {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #facc15;
+  color: #000;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  z-index: 3;
+  box-shadow: 0 0 18px rgba(250,204,21,.7);
+}
+;
 
-  const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
-  const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
-  const MIN_SECONDS = 1800;
-
-  const grid = document.getElementById("yt-episodes");
-  if (!grid) return;
-
-  async function loadEpisodes() {
-    try {
-      /* CHANNEL */
-      const ch = await fetch(
-        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
-      ).then(r => r.json());
-
-      const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
-
-      /* PLAYLIST */
-      const pl = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=10&playlistId=${uploads}&key=${API_KEY}`
-      ).then(r => r.json());
-
-      const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
-
-      /* VIDEOS */
-      const vids = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
-      ).then(r => r.json());
-
-      const episodes = vids.items
-        .filter(v => duration(v.contentDetails.duration) >= MIN_SECONDS)
-        .slice(0, 3);
-
-      grid.innerHTML = "";
-
-      episodes.forEach((v, i) => {
-        grid.innerHTML += `
-          <article class="card reveal">
-            ${i === 0 ? `<span class="episode-badge is-glow">NOVA EPIZODA</span>` : ""}
-            <img src="${v.snippet.thumbnails.high.url}" alt="">
-            <div class="card-body">
-              <h3 class="card-title">${v.snippet.title}</h3>
-            </div>
-          </article>
-        `;
-      });
-
-    } catch (err) {
-      console.error("YT EPISODES ERROR:", err);
-    }
-  }
-
-  function duration(iso) {
-    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-    return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
-  }
-
-  loadEpisodes();
-
-})();
 
 
