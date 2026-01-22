@@ -3,24 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>O nama | Kvadrat po Kvadrat</title>
+  <title>O nama</title>
 
-  <!-- FONT -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- CSS -->
-<link rel="stylesheet" href="assets/css/base.css">
+ <link rel="stylesheet" href="assets/css/base.css">
 <link rel="stylesheet" href="assets/css/layout.css">
 <link rel="stylesheet" href="assets/css/components.css">
 <link rel="stylesheet" href="assets/css/effects.css">
 </head>
 
-<body>
+<body class="home">
 
-<!-- ================= HEADER ================= -->
-<header>
+<!-- =====================
+     HEADER
+===================== -->
+<header class="header">
+
+  <div class="header-inner">
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+    </div>
+
+    <!-- HAMBURGER -->
+    <button class="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <a href="index.html" class="active">Početna</a>
+      <a href="epizode.html">Epizode</a>
+      <a href="gosti.html">Gosti</a>
+      <a href="o-nama.html">O nama</a>
+      <a href="kontakt.html">Kontakt</a>
+
+      <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
+      <button class="badge-btn" id="themeToggle">Dark</button>
+    </nav>
+  </div>
+
+  <!-- ŽUTA LINIJA -->
+  <div class="section-divider"></div>
+
+</header>
+
+
+  <div class="nav-overlay"></div>
   <div class="logo">
     <a href="index.html">
       <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
