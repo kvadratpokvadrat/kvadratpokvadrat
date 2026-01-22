@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Epizode | Kvadrat po Kvadrat</title>
 
+  <!-- FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!-- CSS -->
   <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/effects.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/effects.css">
 </head>
 
 <body>
@@ -32,7 +34,6 @@
     <a href="kontakt.html">Kontakt</a>
     <a href="postani-sponzor.html" class="btn">Postani sponzor</a>
     <button class="badge-btn" id="themeToggle">Dark</button>
-    
   </nav>
 </header>
 
@@ -52,7 +53,7 @@
   </div>
 
   <div class="episode-grid" id="episodeGrid">
-    <!-- puni se iz API-ja -->
+    <!-- puni se iz YouTube API-ja -->
   </div>
 </section>
 
@@ -80,15 +81,13 @@
   © 2026 Kvadrat po Kvadrat
 </footer>
 
+<!-- GLOBAL JS -->
 <script src="assets/js/main.js"></script>
 
+<!-- ================================
+     YOUTUBE EPISODES (>= 30 MIN)
+================================ -->
 <script>
-fetch("/api/episodes")<script>
-/* =========================================
-   YOUTUBE EPISODES – ALL
-   ONLY VIDEOS >= 30 MIN
-========================================= */
-
 (() => {
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
@@ -101,7 +100,7 @@ fetch("/api/episodes")<script>
 
   async function loadEpisodes() {
     try {
-      /* 1️⃣ UPLOADS PLAYLIST */
+      // 1️⃣ uploads playlist
       const ch = await fetch(
         `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
@@ -109,14 +108,14 @@ fetch("/api/episodes")<script>
       const uploads =
         ch.items[0].contentDetails.relatedPlaylists.uploads;
 
-      /* 2️⃣ UZMI VIŠE VIDEA (radi filtriranja Shorts) */
+      // 2️⃣ playlist items
       const pl = await fetch(
         `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
+      const ids = pl.items.map(i => i.contentDetails.videoId).join(",");
 
-      /* 3️⃣ VIDEO DETAILS */
+      // 3️⃣ video details
       const vids = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
       ).then(r => r.json());
@@ -126,7 +125,7 @@ fetch("/api/episodes")<script>
 
       vids.items.forEach(v => {
         const seconds = parseDuration(v.contentDetails.duration);
-        if (seconds < MIN_SECONDS) return; // ❌ Shorts
+        if (seconds < MIN_SECONDS) return;
 
         index++;
 
@@ -140,6 +139,7 @@ fetch("/api/episodes")<script>
               </p>
               <a href="https://www.youtube.com/watch?v=${v.id}"
                  target="_blank"
+                 rel="noopener"
                  class="badge-btn">
                 Gledaj epizodu
               </a>
@@ -148,16 +148,15 @@ fetch("/api/episodes")<script>
         `;
       });
 
-    } catch (e) {
-      console.error("YT EPISODES PAGE ERROR:", e);
-      grid.innerHTML =
-        "<p>Epizode trenutno nisu dostupne.</p>";
+    } catch (err) {
+      console.error("YT EPISODES ERROR:", err);
+      grid.innerHTML = "<p>Epizode trenutno nisu dostupne.</p>";
     }
   }
 
   function parseDuration(iso) {
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-    return (m[1] || 0) * 3600 + (m[2] || 0) * 60 + (m[3] || 0) * 1;
+    return (m[1] || 0) * 3600 + (m[2] || 0) * 60 + (m[3] || 0);
   }
 
   function formatDuration(sec) {
@@ -166,29 +165,6 @@ fetch("/api/episodes")<script>
     return h ? `${h}h ${m}min` : `${m}min`;
   }
 })();
-</script>
-
-  .then(res => res.json())
-  .then(data => {
-    const grid = document.getElementById("episodeGrid");
-
-    data.forEach(ep => {
-      grid.innerHTML += `
-        <div class="episode-card">
-          <img src="${ep.thumbnail}" loading="lazy" alt="">
-          <h3>${ep.title}</h3>
-          <p>${ep.description || ""}</p>
-          <a href="${ep.youtube}" target="_blank" class="badge-btn">
-            Gledaj epizodu
-          </a>
-        </div>
-      `;
-    });
-  })
-  .catch(() => {
-    document.getElementById("episodeGrid").innerHTML =
-      "<p>Epizode trenutno nisu dostupne.</p>";
-  });
 </script>
 
 </body>
