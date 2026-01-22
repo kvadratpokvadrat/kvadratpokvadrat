@@ -234,15 +234,34 @@ section {
   }
 
   /* NAV → MOBILE DRAWER */
-  .nav {
-    position: fixed;
-    top: 96px;
-    left: 0;
-    right: 0;
-    background: var(--card);
-    flex-direction: column;
-    gap: 20px;
-    padding: 32px 24px 40px;
+  .nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 2px;
+}
+
+/* ZUTA LINIJA */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: var(--yellow);
+  transform: translateX(-50%);
+  transition: width .3s var(--ease);
+}
+
+/* ACTIVE / HOVER */
+.nav a:hover::after,
+.nav a.active::after {
+  width: 100%;
+}
 
     transform: translateY(-120%);
     opacity: 0;
