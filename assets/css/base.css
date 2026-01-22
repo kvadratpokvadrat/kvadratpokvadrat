@@ -354,41 +354,48 @@ header {
   transform: none;
   transition: .9s var(--ease);
 }
-
 /* =====================
-   NEWSLETTER – CENTER ON MOBILE & TABLET
+   NEWSLETTER – CENTER ON MOBILE & TABLET (FIXED)
 ===================== */
 @media (max-width: 1024px) {
 
-  .newsletter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  /* jedan stupac umesto 2 */
+  .newsletter-inner {
+    grid-template-columns: 1fr;
     text-align: center;
+    padding: 40px 24px;
   }
 
-  .newsletter-content {
-    width: 100%;
-    max-width: 520px;
+  /* naslov + underline u centar */
+  .newsletter-inner h2::after {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .newsletter form {
-    display: flex;
+  /* tekst u centar */
+  .newsletter-inner p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* forma vertikalno i centrirano */
+  .newsletter-form {
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    justify-content: center;
   }
 
-  .newsletter input {
+  .newsletter-form input {
     width: 100%;
     max-width: 360px;
   }
 
-  .newsletter button {
+  .newsletter-form button {
     width: 100%;
     max-width: 220px;
   }
 }
+
 
 
 
