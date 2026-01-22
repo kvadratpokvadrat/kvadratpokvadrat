@@ -162,7 +162,7 @@ section {
   left: 9px;
   right: 9px;
   height: 2px;
-  background: var(--yellow);
+  background: #facc15;
   border-radius: 2px;
   transition: .3s ease;
 }
