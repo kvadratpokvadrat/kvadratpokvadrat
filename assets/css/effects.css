@@ -107,7 +107,7 @@ body{
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,200,0,.9),
+    rgba(255,200,0,.45),
     transparent
   );
   opacity:.9;
