@@ -376,24 +376,7 @@ body{
   filter: contrast(1.05) brightness(.95);
 }
 
-/* ===============================
-   BADGE – NOVA EPIZODA
-================================ */
 
-.badge-new {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: #ffcc00;
-  color: #000;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 999px;
-  letter-spacing: .4px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.45);
-  z-index: 3;
-}
 
 /* ===============================
    NUMERACIJA
