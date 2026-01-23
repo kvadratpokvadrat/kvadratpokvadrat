@@ -229,15 +229,23 @@ document.addEventListener("DOMContentLoaded", () => {
       if (shown >= LIMIT) return;
       if (parse(v.contentDetails.duration) < MIN) return;
 
-      grid.innerHTML += `
-        <article class="card episode-card reveal">
-          <span class="badge-new">Nova epizoda</span>
-          <img src="${v.snippet.thumbnails.high.url}" alt="">
-          <div class="card-body">
-            <h3>${v.snippet.title}</h3>
-          </div>
-        </article>
-      `;
+     const videoUrl = `https://www.youtube.com/watch?v=${v.id}`;
+
+grid.innerHTML += `
+  <article
+    class="card episode-card reveal"
+    role="button"
+    tabindex="0"
+    onclick="window.open('${videoUrl}', '_blank')"
+  >
+    <span class="badge-new">Nova epizoda</span>
+    <img src="${v.snippet.thumbnails.high.url}" alt="">
+    <div class="card-body">
+      <h3>${v.snippet.title}</h3>
+    </div>
+  </article>
+`;
+
       shown++;
     });
 
@@ -256,4 +264,5 @@ requestAnimationFrame(() => {
 });
 
 })();
+
 
