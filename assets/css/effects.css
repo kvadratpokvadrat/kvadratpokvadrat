@@ -1,30 +1,135 @@
-
 /* =====================
-   HEADER FLOW LINE
+   HEADER FLOW LINE (BREATHING)
 ===================== */
 .header{
   position:relative;
 }
-
 
 .header::before{
   content:"";
   position:absolute;
   left:0; right:0; bottom:-6px;
   height:16px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,200,0,.45),
+    transparent
+  );
   filter:blur(14px);
-  background:linear-gradient(90deg,transparent,rgba(255,200,0.4,),transparent);
+  opacity:.8;
+  animation: flowBreath 7s ease-in-out infinite;
 }
 
 /* =====================
-   CARD HOVER FX
+   SECTION DIVIDER – FLOW LINE (BREATHING)
 ===================== */
-.card:hover,
-.episode-card:hover{
-  transform:translateY(-10px);
-  box-shadow:
-    var(--shadow-hover),
-    0 0 48px rgba(250,204,21,.45);
+.section-divider{
+  position:relative;
+  width:100%;
+  height:2px;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,200,0,.45),
+    transparent
+  );
+  opacity:.85;
+  pointer-events:none;
+  animation: flowBreath 6.5s ease-in-out infinite;
+}
+
+.section-divider::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:50%;
+  height:18px;
+  transform:translateY(-50%);
+  background:inherit;
+  filter:blur(14px);
+  opacity:.6;
+}
+
+/* =====================
+   FLOW BREATH KEYFRAMES
+===================== */
+@keyframes flowBreath{
+  0%{
+    opacity:.5;
+    filter:blur(10px);
+  }
+  50%{
+    opacity:1;
+    filter:blur(16px);
+  }
+  100{
+    opacity:.5;
+    filter:blur(10px);
+  }
+}
+
+/* =====================
+   BASE CARD SAFETY
+===================== */
+.card,
+.card--guest,
+.episode-card{
+  position:relative;
+  overflow:hidden;
+}
+
+/* =====================
+   CARD GLOW (SAFE)
+===================== */
+.card::before,
+.card--guest::before,
+.episode-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  background:radial-gradient(
+    circle at 50% 40%,
+    rgba(255,200,80,.35),
+    transparent 65%
+  );
+  opacity:0;
+  transition:opacity .35s ease;
+  pointer-events:none;
+  z-index:0;
+}
+
+.card::after,
+.card--guest::after,
+.episode-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(255,255,255,.08);
+  opacity:0;
+  transition:opacity .35s ease;
+  pointer-events:none;
+  z-index:1;
+}
+
+.card:hover::before,
+.card:hover::after,
+.card--guest:hover::before,
+.card--guest:hover::after,
+.episode-card:hover::before,
+.episode-card:hover::after{
+  opacity:1;
+}
+
+/* =====================
+   CONTENT LAYER FIX
+===================== */
+.card > *,
+.card--guest > *,
+.episode-card > *{
+  position:relative;
+  z-index:2;
 }
 
 /* =====================
@@ -41,75 +146,26 @@
   color:var(--accent);
   border:1px solid rgba(250,204,21,.6);
   box-shadow:0 0 16px rgba(250,204,21,.6);
+  z-index:3;
 }
 
 /* =====================
-   MODAL
-===================== */
-.guest-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.35s ease;
-  z-index:9999;
-}
-
-.guest-modal.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-/* =====================
-   REVEAL
+   REVEAL (STABLE)
 ===================== */
 .reveal{
   opacity:0;
-  transform:translateY(40px);
+  transform:translateY(28px);
+  transition:.8s cubic-bezier(.4,0,.2,1);
 }
 
 .reveal-visible{
   opacity:1;
   transform:none;
-  transition:.8s cubic-bezier(.4,0,.2,1);
-}
-/* ================= SECTION DIVIDER – FLOW LINE ================= */
-
-.section-divider{
-  position:relative;
-  width:100%;
-  height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,200,0,.45),
-    transparent
-  );
-  opacity:.9;
-  pointer-events:none;
-  z-index:2;
 }
 
-.section-divider::after{
-  content:"";
-  position:absolute;
-  left:0;
-  right:0;
-  top:50%;
-  height:18px;
-  transform:translateY(-50%);
-  background:inherit;
-  filter:blur(14px);
-  opacity:.6;
-}
 /* =========================================================
-   GUESTS GRID – FINAL CINEMATIC (FIXED)
+   GUESTS GRID
 ========================================================= */
-
 .guests-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -117,38 +173,26 @@
   margin-top:32px;
 }
 
-@media (max-width:1200px){
+@media(max-width:1200px){
   .guests-grid{grid-template-columns:repeat(2,1fr);}
 }
-@media (max-width:640px){
+@media(max-width:640px){
   .guests-grid{grid-template-columns:1fr;}
 }
 
 /* =====================
-   GUEST CARD
+   GUEST CARD BASE
 ===================== */
 .card--guest{
-  position:relative;
   border-radius:24px;
   background:#0b0b0b;
-  overflow:hidden;
   cursor:pointer;
-  transition:.55s cubic-bezier(.22,.61,.36,1);
   box-shadow:
     0 25px 80px rgba(0,0,0,.65),
     inset 0 0 0 1px rgba(255,255,255,.06);
 }
 
-.card--guest:hover{
-  transform:translateY(-10px) scale(1.03);
-  box-shadow:
-    0 45px 140px rgba(0,0,0,.9),
-    0 0 0 1px var(--accent);
-}
-
-/* =====================
-   IMAGE FIX (NO FACE CUT)
-===================== */
+/* IMAGE */
 .card--guest img{
   width:100%;
   height:340px;
@@ -158,13 +202,8 @@
   filter:contrast(1.05) saturate(1.05);
 }
 
-/* =====================
-   CINEMATIC OVERLAY
-===================== */
+/* OVERLAY */
 .card--guest::after{
-  content:"";
-  position:absolute;
-  inset:0;
   background:
     linear-gradient(
       to top,
@@ -172,327 +211,38 @@
       rgba(0,0,0,.45) 38%,
       rgba(0,0,0,0) 72%
     );
-  pointer-events:none;
 }
 
-/* =====================
-   CARD BODY
-===================== */
+/* BODY */
 .card--guest .card-body{
   position:absolute;
   bottom:0;
   left:0;
   right:0;
   padding:22px;
-  z-index:2;
-}
-
-.card--guest .card-title{
-  font-size:18px;
-  font-weight:700;
-  margin:0 0 6px;
-}
-
-.card--guest .card-meta{
-  font-size:13px;
-  color:var(--accent);
-  letter-spacing:.05em;
-  text-transform:uppercase;
-}
-
-
-
-/* =========================================================
-   GUEST MODAL – PREMIUM FIX
-========================================================= */
-
-.guest-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:blur(10px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.4s ease;
-  z-index:9000;
-}
-
-.guest-modal.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.guest-modal-content{
-  background:linear-gradient(180deg,#0e0e0e,#090909);
-  border-radius:22px;
-  max-width:1000px;
-  width:90%;
-  box-shadow:0 40px 120px rgba(0,0,0,.9);
-  overflow:hidden;
-}
-
-/* GRID */
-.guest-modal-grid{
-  display:grid;
-  grid-template-columns:420px 1fr;
-}
-
-/* IMAGE */
-.guest-modal-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* TEXT SIDE */
-.guest-modal-text{
-  padding:48px;
-  display:flex;
-  flex-direction:column;
-}
-
-.guest-modal-text h3{
-  font-size:28px;
-  font-weight:700;
-  margin-bottom:6px;
-}
-
-.guest-modal-text p{
-  font-size:15px;
-  line-height:1.6;
-  color:var(--muted);
-}
-
-/* ROLE */
-#guestModalRole{
-  font-size:14px;
-  font-weight:600;
-  color:var(--accent);
-  margin-bottom:18px;
-}
-
-/* LINE */
-.guest-modal-line{
-  width:60px;
-  height:3px;
-  background:var(--accent);
-  margin:0 0 24px;
-}
-
-/* BIO */
-#guestModalBio{
-  flex:1;
-  font-size:15px;
-  line-height:1.7;
-  color:#d8d8d8;
-  max-width:520px;
-}
-
-/* CLOSE BUTTON */
-#closeGuest{
-  align-self:FLEX-END;
-  margin-top:32px;
 }
 
 /* =====================
-   MOBILE
+   EPISODE CARD (SAFE)
 ===================== */
-@media(max-width:900px){
-  .guest-modal-grid{
-    grid-template-columns:1fr;
-  }
-
-  .guest-modal-image{
-    height:300px;
-  }
-
-  .guest-modal-text{
-    padding:32px 28px;
-  }
-
-  #closeGuest{
-    width:100%;
-    text-align:center;
-  }
-}
-/* ===============================
-   EPISODE CARD – CINEMATIC
-================================ */
-
-.episode-card {
-  position: relative;
-  background: radial-gradient(circle at top, #141414, #000 70%);
-  border-radius: 28px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .35s ease, box-shadow .35s ease;
+.episode-card{
+  background:radial-gradient(circle at top,#141414,#000 70%);
+  border-radius:28px;
 }
 
-.episode-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  box-shadow: 0 30px 80px rgba(0,0,0,.65);
+.episode-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  filter:contrast(1.05) brightness(.95);
 }
 
-/* ===============================
-   THUMBNAIL
-================================ */
-
-.episode-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-  filter: contrast(1.05) brightness(.95);
+.episode-card .card-body{
+  padding:20px 22px 24px;
 }
 
-/* ===============================
-   EPISODE CARD – CINEMATIC
-================================ */
-
-.episode-card {
-  position: relative;
-  background: radial-gradient(circle at top, #141414, #000 70%);
-  border-radius: 28px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform .35s ease, box-shadow .35s ease;
-}
-
-.episode-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  box-shadow: 0 30px 80px rgba(0,0,0,.65);
-}
-
-/* ===============================
-   THUMBNAIL
-================================ */
-
-.episode-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-  filter: contrast(1.05) brightness(.95);
-}
-
-/* ===============================
-   BADGE – NOVA EPIZODA
-================================ */
-
-.badge-new {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: #ffcc00;
-  color: #000;
-  font-size: 12px;
-  font-weight: 800;
-  padding: 6px 12px;
-  border-radius: 999px;
-  letter-spacing: .4px;
-  box-shadow: 0 6px 18px rgba(0,0,0,.45);
-  z-index: 3;
-}
-
-/* ===============================
-   NUMERACIJA
-================================ */
-
-.episode-number {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  font-size: 14px;
-  font-weight: 900;
-  color: #ffcc00;
-  background: rgba(0,0,0,.6);
-  padding: 6px 10px;
-  border-radius: 999px;
-  z-index: 3;
-}
-
-/* ===============================
-   TRAJANJE
-================================ */
-
-.episode-duration {
-  position: absolute;
-  top: 16px;
-  left: 64px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  background: rgba(0,0,0,.6);
-  padding: 6px 10px;
-  border-radius: 999px;
-  z-index: 3;
-}
-
-/* ===============================
-   BODY
-================================ */
-
-.episode-card .card-body {
-  padding: 20px 22px 24px;
-}
-
-.episode-card h3 {
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.35;
-  color: #fff;
-  margin: 0;
-}
-
-/* ===============================
-   NUMERACIJA
-================================ */
-
-.episode-number {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  font-size: 14px;
-  font-weight: 900;
-  color: #ffcc00;
-  background: rgba(0,0,0,.6);
-  padding: 6px 10px;
-  border-radius: 999px;
-  z-index: 3;
-}
-
-/* ===============================
-   TRAJANJE
-================================ */
-
-.episode-duration {
-  position: absolute;
-  top: 16px;
-  left: 64px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-  background: rgba(0,0,0,.6);
-  padding: 6px 10px;
-  border-radius: 999px;
-  z-index: 3;
-}
-
-/* ===============================
-   BODY
-================================ */
-
-.episode-card .card-body {
-  padding: 20px 22px 24px;
-}
-
-.episode-card h3 {
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.35;
-  color: #fff;
-  margin: 0;
+.episode-card h3{
+  font-size:17px;
+  font-weight:800;
+  line-height:1.35;
 }
