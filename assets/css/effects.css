@@ -64,7 +64,7 @@ header::after{
   position:relative;
   background:var(--card);
   border-radius:var(--radius-lg);
-  overflow:visible; /* glow se ne seče */
+  overflow:HIDDEN; /* glow se ne seče */
   transition:
     transform .45s cubic-bezier(.4,0,.2,1),
     box-shadow .45s cubic-bezier(.4,0,.2,1);
