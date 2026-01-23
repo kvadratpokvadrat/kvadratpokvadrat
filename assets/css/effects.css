@@ -336,7 +336,7 @@ body{
 
 /* CLOSE BUTTON */
 #closeGuest{
-  align-self:flex-start;
+  align-self:FLEX-END;
   margin-top:32px;
 }
 
