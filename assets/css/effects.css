@@ -134,3 +134,181 @@ body{
   filter:blur(14px);
   opacity:.6;
 }
+/* =========================================================
+   GUESTS GRID – FINAL CINEMATIC (FIXED)
+========================================================= */
+
+.guests-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:32px;
+  margin-top:32px;
+}
+
+@media (max-width:1200px){
+  .guests-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:640px){
+  .guests-grid{grid-template-columns:1fr;}
+}
+
+/* =====================
+   GUEST CARD
+===================== */
+.card--guest{
+  position:relative;
+  border-radius:24px;
+  background:#0b0b0b;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.55s cubic-bezier(.22,.61,.36,1);
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.65),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+}
+
+.card--guest:hover{
+  transform:translateY(-10px) scale(1.03);
+  box-shadow:
+    0 45px 140px rgba(0,0,0,.9),
+    0 0 0 1px var(--accent);
+}
+
+/* =====================
+   IMAGE FIX (NO FACE CUT)
+===================== */
+.card--guest img{
+  width:100%;
+  height:340px;
+  object-fit:cover;
+  object-position:center top;
+  display:block;
+  filter:contrast(1.05) saturate(1.05);
+}
+
+/* =====================
+   CINEMATIC OVERLAY
+===================== */
+.card--guest::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.88) 0%,
+      rgba(0,0,0,.45) 38%,
+      rgba(0,0,0,0) 72%
+    );
+  pointer-events:none;
+}
+
+/* =====================
+   CARD BODY
+===================== */
+.card--guest .card-body{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:22px;
+  z-index:2;
+}
+
+.card--guest .card-title{
+  font-size:18px;
+  font-weight:700;
+  margin:0 0 6px;
+}
+
+.card--guest .card-meta{
+  font-size:13px;
+  color:var(--accent);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+/* =====================
+   FEATURED BADGE
+===================== */
+.card--guest::before{
+  content:"Gost";
+  position:absolute;
+  top:14px;
+  left:14px;
+  padding:6px 14px;
+  font-size:11px;
+  font-weight:700;
+  border-radius:999px;
+  background:var(--accent);
+  color:#000;
+  z-index:3;
+}
+
+/* =========================================================
+   GUEST MODAL
+========================================================= */
+
+.guest-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(14px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.guest-modal.active{display:flex;}
+
+.guest-modal-content{
+  width:92%;
+  max-width:920px;
+  background:#0b0b0b;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:0 50px 150px rgba(0,0,0,.95);
+}
+
+.guest-modal-grid{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+}
+
+@media (max-width:768px){
+  .guest-modal-grid{grid-template-columns:1fr;}
+}
+
+/* =====================
+   MODAL IMAGE
+===================== */
+.guest-modal-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* =====================
+   MODAL TEXT
+===================== */
+.guest-modal-text{
+  padding:42px;
+}
+
+.guest-modal-text h3{
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.guest-modal-text p{
+  color:#bbb;
+  line-height:1.7;
+}
+
+.guest-modal-line{
+  width:60px;
+  height:3px;
+  background:var(--accent);
+  margin:18px 0;
+}
