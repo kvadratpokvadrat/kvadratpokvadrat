@@ -198,22 +198,31 @@ body:not(.dark) .episode-duration{
 }
 
 /* =========================================================
-   MODAL (THEME SAFE + FLOW)
+   MODAL (THEME SAFE + FLOW) – FIXED
 ========================================================= */
 .guest-modal{
   position:fixed;
   inset:0;
-  display:flex;
+  display:none;            /* ⬅ KLJUČNO: zatvoren po defaultu */
   align-items:center;
   justify-content:center;
   background:rgba(0,0,0,.75);
   z-index:9999;
 }
 
+/* LIGHT */
 body:not(.dark) .guest-modal{
   background:rgba(255,255,255,.85);
 }
 
+/* AKTIVAN MODAL */
+.guest-modal.active{
+  display:flex;
+}
+
+/* =========================================================
+   MODAL CONTENT
+========================================================= */
 .guest-modal-content{
   position:relative;
   background:var(--card);
@@ -225,9 +234,24 @@ body:not(.dark) .guest-modal{
   box-shadow:
     0 40px 120px rgba(0,0,0,.35),
     0 0 0 1px var(--glow-soft);
+  animation: modalIn .45s var(--ease);
 }
 
-/* flow line u modalu */
+/* cinematic open */
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:scale(.95) translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* =========================================================
+   FLOW LINE (2px – KAKO SI TRAŽIO)
+========================================================= */
 .guest-modal-content::before{
   content:"";
   position:absolute;
@@ -245,7 +269,9 @@ body:not(.dark) .guest-modal{
   animation: flowBreath 4s ease-in-out infinite;
 }
 
-/* modal text */
+/* =========================================================
+   MODAL TEXT
+========================================================= */
 #guestModalRole{
   color:var(--accent);
   font-weight:600;
