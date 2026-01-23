@@ -1,5 +1,14 @@
 /* =========================================================
-   HEADER FLOW LINE – BREATHING (NO BLUR MUD)
+   FLOW VARIABLES (ONLY EFFECTS)
+========================================================= */
+
+:root{
+  --glow: rgba(250,204,21,.55);
+  --glow-soft: rgba(250,204,21,.35);
+}
+
+/* =========================================================
+   HEADER FLOW LINE – BREATHING (SHARP)
 ========================================================= */
 
 .header{
@@ -16,12 +25,12 @@
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,200,0,.7),
+    var(--glow),
     transparent
   );
   box-shadow:
-    0 0 10px rgba(255,200,0,.6),
-    0 0 20px rgba(255,200,0,.35);
+    0 0 6px var(--glow),
+    0 0 14px var(--glow-soft);
   animation: flowBreath 5s ease-in-out infinite;
   pointer-events:none;
 }
@@ -37,30 +46,28 @@
 ========================================================= */
 
 .section-divider{
-  position:relative;
-  height:2px;
+  height:1px;
   width:100%;
-  margin:0px 0;
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,200,0,.55),
+    var(--glow),
     transparent
   );
-  box-shadow:0 0 14px rgba(255,200,0,.45);
+  box-shadow:0 0 12px var(--glow-soft);
   animation: flowBreath 6s ease-in-out infinite;
 }
 
 /* =========================================================
-   GENERIC CARD HOVER GLOW
+   GENERIC CARD GLOW (SAFE)
 ========================================================= */
 
 .card,
 .episode-card,
 .card--guest{
   transition:
-    transform .45s cubic-bezier(.22,.61,.36,1),
-    box-shadow .45s ease;
+    transform .45s var(--ease),
+    box-shadow .45s var(--ease);
 }
 
 .card:hover,
@@ -68,33 +75,13 @@
 .card--guest:hover{
   transform:translateY(-8px);
   box-shadow:
-    0 30px 90px rgba(0,0,0,.65),
-    0 0 0 1px rgba(255,200,0,.55),
-    0 0 40px rgba(255,200,0,.45);
+    var(--shadow-hover),
+    0 0 0 1px var(--glow),
+    0 0 32px var(--glow-soft);
 }
 
 /* =========================================================
-   BADGE – NEW / FEATURED
-========================================================= */
-
-.badge-new{
-  position:absolute;
-  top:14px;
-  right:14px;
-  padding:6px 12px;
-  font-size:12px;
-  font-weight:800;
-  border-radius:999px;
-  background:rgba(255,200,0,.9);
-  color:#000;
-  box-shadow:
-    0 6px 18px rgba(0,0,0,.4),
-    0 0 16px rgba(255,200,0,.55);
-  z-index:5;
-}
-
-/* =========================================================
-   GUESTS GRID
+   GUEST GRID
 ========================================================= */
 
 .guests-grid{
@@ -111,22 +98,19 @@
 }
 
 /* =========================================================
-   GUEST CARD – CINEMATIC
+   GUEST CARD (THEME SAFE)
 ========================================================= */
 
 .card--guest{
   position:relative;
-  border-radius:24px;
-  background:#0b0b0b;
+  border-radius:var(--radius-lg);
+  background:var(--card);
   overflow:hidden;
 }
 
 .card--guest img{
-  width:100%;
   height:340px;
   object-fit:cover;
-  display:block;
-  filter:contrast(1.05) saturate(1.05);
 }
 
 .card--guest::after{
@@ -135,113 +119,67 @@
   inset:0;
   background:linear-gradient(
     to top,
-    rgba(0,0,0,.85),
-    rgba(0,0,0,.25),
-    transparent
+    rgba(0,0,0,.55),
+    transparent 65%
   );
   pointer-events:none;
+}
+
+body:not(.dark) .card--guest::after{
+  background:linear-gradient(
+    to top,
+    rgba(255,255,255,.75),
+    transparent 65%
+  );
 }
 
 .card--guest .card-body{
   position:absolute;
   bottom:0;
-  left:0;
-  right:0;
   padding:22px;
-  z-index:2;
 }
 
 /* =========================================================
-   EPISODE CARD
+   EPISODE CARD (SAFE)
 ========================================================= */
 
 .episode-card{
-  position:relative;
-  border-radius:28px;
+  background:var(--card);
+  border-radius:var(--radius-lg);
   overflow:hidden;
-  background:radial-gradient(circle at top,#141414,#000 70%);
 }
-
-.episode-card img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  display:block;
-}
-
-.episode-card .card-body{
-  padding:22px;
-}
-
-.episode-card h3{
-  font-size:17px;
-  font-weight:800;
-  line-height:1.35;
-}
-
-/* =========================================================
-   EPISODE META
-========================================================= */
 
 .episode-number,
 .episode-duration{
-  position:absolute;
-  top:14px;
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:800;
-  background:rgba(0,0,0,.65);
+  background:rgba(0,0,0,.55);
   color:#fff;
-  z-index:4;
 }
 
-.episode-number{left:14px;color:#ffcc00;}
-.episode-duration{left:64px;}
+body:not(.dark) .episode-number,
+body:not(.dark) .episode-duration{
+  background:rgba(255,255,255,.85);
+  color:#111;
+}
 
 /* =========================================================
-   MODAL OVERLAY
+   MODAL (FULLY THEME DRIVEN)
 ========================================================= */
 
 .guest-modal{
-  position:fixed;
-  inset:0;
   background:rgba(0,0,0,.75);
-  backdrop-filter:blur(4px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  pointer-events:none;
-  transition:.4s ease;
-  z-index:9000;
 }
 
-.guest-modal.active{
-  opacity:1;
-  pointer-events:auto;
+body:not(.dark) .guest-modal{
+  background:rgba(255,255,255,.85);
 }
-
-/* =========================================================
-   MODAL CONTENT
-========================================================= */
 
 .guest-modal-content{
-  position:relative;
-  background:#0a0a0a;
-  border-radius:24px;
-  max-width:1000px;
-  width:92%;
-  overflow:hidden;
+  background:var(--card);
+  color:var(--text);
+  border-radius:var(--radius-lg);
   box-shadow:
-    0 40px 120px rgba(0,0,0,.9),
-    0 0 0 1px rgba(255,200,0,.45);
-  animation: modalIn .45s ease forwards;
-}
-
-@keyframes modalIn{
-  from{transform:scale(.95);opacity:0}
-  to{transform:scale(1);opacity:1}
+    0 40px 120px rgba(0,0,0,.35),
+    0 0 0 1px var(--glow-soft);
 }
 
 /* FLOW LINE TOP */
@@ -255,275 +193,19 @@
   background:linear-gradient(
     90deg,
     transparent,
-    rgba(255,200,0,.7),
+    var(--glow),
     transparent
   );
-  box-shadow:0 0 16px rgba(255,200,0,.7);
+  box-shadow:0 0 14px var(--glow);
   animation: flowBreath 4s ease-in-out infinite;
-}
-
-/* =========================================================
-   MODAL GRID
-========================================================= */
-
-.guest-modal-grid{
-  display:grid;
-  grid-template-columns:420px 1fr;
-}
-
-@media(max-width:900px){
-  .guest-modal-grid{grid-template-columns:1fr;}
-}
-
-/* IMAGE */
-
-.guest-modal-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
 }
 
 /* TEXT */
 
-.guest-modal-text{
-  padding:48px;
-}
-
-.guest-modal-text h3{
-  font-size:28px;
-  margin-bottom:6px;
-}
-
 #guestModalRole{
-  font-size:14px;
-  font-weight:700;
-  margin-bottom:20px;
-  color:#ffcc00;
+  color:var(--accent);
 }
 
 #guestModalBio{
-  line-height:1.7;
-  color:#ddd;
-}
-
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
-
-#closeGuest{
-  margin-top:32px;
-  align-self:flex-end;
-}
-/* =========================================================
-   LIGHT MODE – FULL FIX (CARDS + MODAL + EPISODES)
-========================================================= */
-
-/* =====================
-   GUEST CARDS – LIGHT
-===================== */
-
-body.light .card--guest{
-  background:#ffffff;
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.12),
-    inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-body.light .card--guest::after{
-  background:
-    linear-gradient(
-      to top,
-      rgba(255,255,255,.92) 0%,
-      rgba(255,255,255,.6) 40%,
-      rgba(255,255,255,0) 75%
-    );
-}
-
-body.light .card--guest .card-title{
-  color:#111;
-}
-
-body.light .card--guest .card-meta{
-  color:#b58900;
-}
-
-/* Hover glow – light */
-body.light .card--guest:hover{
-  transform:translateY(-8px) scale(1.03);
-  box-shadow:
-    0 28px 70px rgba(0,0,0,.2),
-    0 0 0 1px rgba(255,200,0,.8),
-    0 0 30px rgba(255,200,0,.5);
-}
-
-/* =====================
-   EPISODE CARDS – LIGHT
-===================== */
-
-body.light .episode-card{
-  background:radial-gradient(circle at top, #ffffff, #f2f2f2 70%);
-  box-shadow:
-    0 14px 40px rgba(0,0,0,.12),
-    inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-body.light .episode-card h3{
-  color:#111;
-}
-
-body.light .episode-card:hover{
-  box-shadow:
-    0 26px 70px rgba(0,0,0,.18),
-    0 0 28px rgba(255,200,0,.35);
-}
-
-/* badges readable */
-body.light .episode-number,
-body.light .episode-duration{
-  background:rgba(255,255,255,.85);
-  color:#111;
-}
-
-/* =====================
-   MODAL – LIGHT VERSION
-===================== */
-
-body.light .guest-modal{
-  background:rgba(255,255,255,.85);
-}
-
-body.light .guest-modal-content{
-  background:linear-gradient(180deg,#ffffff,#f4f4f4);
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.25),
-    inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-body.light .guest-modal-text h3{
-  color:#111;
-}
-
-body.light #guestModalRole{
-  color:#b58900;
-}
-
-body.light #guestModalBio{
-  color:#333;
-}
-
-/* divider inside modal */
-body.light .guest-modal-line{
-  background:#ffcc00;
-}
-
-/* =====================
-   FLOW LINES – LIGHT
-===================== */
-
-body.light .section-divider{
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,200,0,.8),
-    transparent
-  );
-}
-
-body.light .section-divider::after{
-  filter:blur(10px);
-  opacity:.5;
-}
-/* =========================================================
-   LIGHT MODE FORCE OVERRIDES (ANTI-BUG)
-   Pokriva: body.light | html.light | data-theme="light"
-========================================================= */
-
-body.light,
-html.light,
-body[data-theme="light"],
-html[data-theme="light"]{
-  --_light-active:1;
-}
-
-/* =====================
-   GUEST CARDS – LIGHT
-===================== */
-
-body.light .card--guest,
-html.light .card--guest,
-body[data-theme="light"] .card--guest,
-html[data-theme="light"] .card--guest{
-  background:#ffffff !important;
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.12),
-    inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-body.light .card--guest::after,
-html.light .card--guest::after,
-body[data-theme="light"] .card--guest::after,
-html[data-theme="light"] .card--guest::after{
-  background:
-    linear-gradient(
-      to top,
-      rgba(255,255,255,.95),
-      rgba(255,255,255,.6),
-      transparent
-    ) !important;
-}
-
-body.light .card--guest .card-title,
-html.light .card--guest .card-title,
-body[data-theme="light"] .card--guest .card-title{
-  color:#111 !important;
-}
-
-body.light .card--guest .card-meta,
-html.light .card--guest .card-meta,
-body[data-theme="light"] .card--guest .card-meta{
-  color:#b58900 !important;
-}
-
-/* =====================
-   EPISODE CARDS – LIGHT
-===================== */
-
-body.light .episode-card,
-html.light .episode-card,
-body[data-theme="light"] .episode-card{
-  background:radial-gradient(circle at top,#fff,#f2f2f2 70%) !important;
-  box-shadow:
-    0 14px 40px rgba(0,0,0,.12),
-    inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-body.light .episode-card h3,
-html.light .episode-card h3,
-body[data-theme="light"] .episode-card h3{
-  color:#111 !important;
-}
-
-/* =====================
-   MODAL – LIGHT
-===================== */
-
-body.light .guest-modal,
-html.light .guest-modal,
-body[data-theme="light"] .guest-modal{
-  background:rgba(255,255,255,.85) !important;
-}
-
-body.light .guest-modal-content,
-html.light .guest-modal-content,
-body[data-theme="light"] .guest-modal-content{
-  background:linear-gradient(180deg,#fff,#f4f4f4) !important;
-  box-shadow:
-    0 40px 100px rgba(0,0,0,.25),
-    inset 0 0 0 1px rgba(0,0,0,.08);
-}
-
-body.light #guestModalBio,
-html.light #guestModalBio,
-body[data-theme="light"] #guestModalBio{
-  color:#333 !important;
+  color:var(--muted);
 }
