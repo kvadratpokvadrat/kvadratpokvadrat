@@ -38,9 +38,9 @@
 
 .section-divider{
   position:relative;
-  height:1px;
+  height:2px;
   width:100%;
-  margin:64px 0;
+  margin:0px 0;
   background:linear-gradient(
     90deg,
     transparent,
@@ -432,4 +432,98 @@ body.light .section-divider{
 body.light .section-divider::after{
   filter:blur(10px);
   opacity:.5;
+}
+/* =========================================================
+   LIGHT MODE FORCE OVERRIDES (ANTI-BUG)
+   Pokriva: body.light | html.light | data-theme="light"
+========================================================= */
+
+body.light,
+html.light,
+body[data-theme="light"],
+html[data-theme="light"]{
+  --_light-active:1;
+}
+
+/* =====================
+   GUEST CARDS – LIGHT
+===================== */
+
+body.light .card--guest,
+html.light .card--guest,
+body[data-theme="light"] .card--guest,
+html[data-theme="light"] .card--guest{
+  background:#ffffff !important;
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.12),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+}
+
+body.light .card--guest::after,
+html.light .card--guest::after,
+body[data-theme="light"] .card--guest::after,
+html[data-theme="light"] .card--guest::after{
+  background:
+    linear-gradient(
+      to top,
+      rgba(255,255,255,.95),
+      rgba(255,255,255,.6),
+      transparent
+    ) !important;
+}
+
+body.light .card--guest .card-title,
+html.light .card--guest .card-title,
+body[data-theme="light"] .card--guest .card-title{
+  color:#111 !important;
+}
+
+body.light .card--guest .card-meta,
+html.light .card--guest .card-meta,
+body[data-theme="light"] .card--guest .card-meta{
+  color:#b58900 !important;
+}
+
+/* =====================
+   EPISODE CARDS – LIGHT
+===================== */
+
+body.light .episode-card,
+html.light .episode-card,
+body[data-theme="light"] .episode-card{
+  background:radial-gradient(circle at top,#fff,#f2f2f2 70%) !important;
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.12),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+}
+
+body.light .episode-card h3,
+html.light .episode-card h3,
+body[data-theme="light"] .episode-card h3{
+  color:#111 !important;
+}
+
+/* =====================
+   MODAL – LIGHT
+===================== */
+
+body.light .guest-modal,
+html.light .guest-modal,
+body[data-theme="light"] .guest-modal{
+  background:rgba(255,255,255,.85) !important;
+}
+
+body.light .guest-modal-content,
+html.light .guest-modal-content,
+body[data-theme="light"] .guest-modal-content{
+  background:linear-gradient(180deg,#fff,#f4f4f4) !important;
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.25),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+}
+
+body.light #guestModalBio,
+html.light #guestModalBio,
+body[data-theme="light"] #guestModalBio{
+  color:#333 !important;
 }
