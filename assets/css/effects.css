@@ -34,7 +34,7 @@ body{
   left:0; right:0; bottom:-6px;
   height:16px;
   filter:blur(14px);
-  background:linear-gradient(90deg,transparent,rgba(255,200,0,),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,200,0.4,),transparent);
 }
 
 /* =====================
