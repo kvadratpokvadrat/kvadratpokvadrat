@@ -48,8 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-});
-
+}
 
   /* =====================
      REVEAL
@@ -287,6 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 })();
+
 
 
 
