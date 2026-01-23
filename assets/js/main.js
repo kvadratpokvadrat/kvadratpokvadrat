@@ -26,23 +26,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =====================
-     DARK MODE
-  ===================== */
-  const toggle = document.getElementById("themeToggle");
+/* =====================
+   DARK MODE (FIXED)
+===================== */
+const toggle = document.getElementById("themeToggle");
 
-  if (toggle) {
-    if (localStorage.theme === "dark") {
-      document.body.classList.add("dark");
-      toggle.textContent = "Light";
-    }
+if (toggle) {
 
-    toggle.addEventListener("click", () => {
-      const dark = document.body.classList.toggle("dark");
-      toggle.textContent = dark ? "Light" : "Dark";
-      localStorage.theme = dark ? "dark" : "light";
-    });
+  // default = LIGHT
+  if (localStorage.theme === "dark") {
+    document.body.classList.add("dark");
+    toggle.textContent = "Light";
+  } else {
+    document.body.classList.remove("dark");
+    toggle.textContent = "Dark";
   }
+
+  toggle.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+
+    localStorage.theme = isDark ? "dark" : "light";
+    toggle.textContent = isDark ? "Light" : "Dark";
+  });
+}
+
 
   /* =====================
      REVEAL
@@ -280,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 })();
+
 
 
 
