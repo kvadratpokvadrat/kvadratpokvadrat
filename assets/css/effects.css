@@ -228,22 +228,7 @@ body{
   text-transform:uppercase;
 }
 
-/* =====================
-   FEATURED BADGE
-===================== */
-.card--guest::before{
-  content:"Gost";
-  position:absolute;
-  top:14px;
-  left:14px;
-  padding:6px 14px;
-  font-size:11px;
-  font-weight:700;
-  border-radius:999px;
-  background:var(--accent);
-  color:#000;
-  z-index:3;
-}
+
 
 /* =========================================================
    GUEST MODAL – PREMIUM FIX
