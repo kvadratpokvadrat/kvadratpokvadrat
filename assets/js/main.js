@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.textContent = nowDark ? "Light" : "Dark";
   });
 
-}
 
   /* =====================
      REVEAL
@@ -285,6 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 })();
+
 
 
 
