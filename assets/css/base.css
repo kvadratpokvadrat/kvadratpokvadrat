@@ -1,426 +1,158 @@
 /* =========================================================
-   KVADRAT PO KVADRAT — GLOBAL MASTER CSS
-   ONE STYLE • ALL PAGES • CONSISTENT UI
+   EFFECTS.CSS — VISUAL LAYER ONLY
+   kompatibilno sa base.css (light/dark)
 ========================================================= */
 
 /* =====================
-   DESIGN SYSTEM
+   GLOBAL EFFECT TOKENS
 ===================== */
-:root {
-  --bg: #f4f5f7;
-  --card: rgba(255,255,255,.92);
-  --text: #0b0b0b;
-  --muted: #6b7280;
-  --accent: #facc15;
-  --border: rgba(0,0,0,.08);
-
-  --radius-sm: 14px;
-  --radius: 22px;
-  --radius-lg: 36px;
-
-  --shadow: 0 18px 45px rgba(0,0,0,.08);
-  --shadow-hover: 0 32px 90px rgba(0,0,0,.18);
-
-  --ease: cubic-bezier(.4,0,.2,1);
-}
-
-/* DARK MODE */
-body.dark {
-  --bg: #0b0b0b;
-  --card: rgba(18,18,18,.92);
-  --text: #f9fafb;
-  --muted: #9ca3af;
-  --border: rgba(255,255,255,.14);
+:root{
+  --accent-yellow: #ffd400;
+  --accent-yellow-soft: rgba(255, 212, 0, 0.35);
+  --accent-yellow-glow: rgba(255, 212, 0, 0, 0.6);
 }
 
 /* =====================
-   RESET / BASE
+   FLOW LINES (DIŠU)
 ===================== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.flow-line{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  padding-top: 0px;
-  overflow-x: hidden;
+.flow-line::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 40%,
+      var(--accent-yellow) 50%,
+      transparent 60%
+    );
+  opacity: .6;
+  filter: none;
+  animation: flowBreath 4s ease-in-out infinite;
 }
 
-img {
-  width: 100%;
-  display: block;
+@keyframes flowBreath{
+  0%   { opacity: .35; }
+  50%  { opacity: .8; }
+  100% { opacity: .35; }
 }
 
-a {
+/* =====================
+   CARD GLOW (GLOBAL)
+===================== */
+.card,
+.episode-card,
+.guest-card,
+.sponsor-card{
+  position: relative;
+  isolation: isolate;
+}
+
+.card::after,
+.episode-card::after,
+.guest-card::after,
+.sponsor-card::after{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius: inherit;
+  pointer-events:none;
+  opacity:0;
+  transition: opacity .4s ease;
+  box-shadow:
+    0 0 0 1px var(--accent-yellow),
+    0 0 25px var(--accent-yellow-soft),
+    0 0 60px rgba(255,212,0,.15);
+}
+
+.card:hover::after,
+.episode-card:hover::after,
+.guest-card:hover::after,
+.sponsor-card:hover::after{
+  opacity:1;
+}
+
+/* =====================
+   EPISODE CARD DETAILS
+===================== */
+.episode-card .badge,
+.episode-card .episode-badge{
+  background: var(--accent-yellow);
+  color:#000;
+  font-weight:600;
+  box-shadow:
+    0 0 12px rgba(255,212,0,.6);
+}
+
+/* tekst unutar epizoda – ne diramo boju */
+.episode-card p,
+.episode-card h3,
+.episode-card span{
   color: inherit;
-  text-decoration: none;
 }
 
 /* =====================
-   TYPOGRAPHY (GLOBAL)
+   GUEST CARD (HOVER GLOW)
 ===================== */
-h1, h2, h3 {
-  font-weight: 700;
-  letter-spacing: -0.04em;
-}
-
-h1 {
-  font-size: clamp(2.6rem, 6vw, 4.4rem);
-  line-height: 1.05;
-}
-
-h2 {
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  position: relative;
-  padding-bottom: 12px;
-}
-
-h2::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 42%;
-  height: 3px;
-  background: var(--accent);
-  border-radius: 999px;
-}
-
-p {
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 62ch;
-}
-
-/* =====================
-   HEADER / NAV
-===================== */
-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 96px;
-  padding: 0 56px;
-  display: flex;
-  align-items: center;
-  background: var(--card);
-  backdrop-filter: blur(26px);
-  box-shadow: 0 8px 30px rgba(0,0,0,.06);
-  z-index: 5000;
-}
-
-.logo img { height: 52px; }
-
-.nav {
-  margin-left: auto;
-  display: flex;
-  gap: 26px;
-}
-
-.nav a {
-  font-size: 14px;
-  font-weight: 500;
-  position: relative;
-}
-
-.nav a.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 100%;
-  height: 2px;
-  background: var(--accent);
-}
-
-/* =====================
-   BUTTONS (GLOBAL)
-===================== */
-.btn,
-.badge-btn {
-  background: var(--accent);
-  color: #000;
-  border: none;
-  border-radius: 999px;
-  padding: 12px 28px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: .35s var(--ease);
-  white-space: nowrap;
-}
-
-.btn:hover,
-.badge-btn:hover {
-  background: #000;
-  color: #fff;
+.guest-card:hover{
   transform: translateY(-2px);
 }
 
-
-@media (max-width: 768px) {
-  section {
-    padding: 80px 24px;
-  }
-
-  section:not(.hero)::before {
-    left: 24px;
-    right: 24px;
-  }
+/* =====================
+   MODAL EFFECTS
+===================== */
+.guest-modal{
+  backdrop-filter: blur(6px);
 }
 
-/* =====================
-   HERO (IDENTICAL EVERYWHERE)
-===================== */
-.hero {
-  min-height: calc(65vh - 96px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background:
-    radial-gradient(circle at top, rgba(250,204,21,.22), transparent 45%),
-    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
-    url("../images/hero.png") center / cover no-repeat;
-  color: #fff;
+.guest-modal-content{
   position: relative;
 }
 
-.hero-inner {
-  max-width: 900px;
-  padding: 0 24px;
-}
-
-.hero-title span { color: var(--accent); }
-
-.hero-subtitle {
-  margin: 26px auto 42px;
-  font-size: 1.1rem;
-  color: rgba(255,255,255,.85);
-  max-width: 640px;
-}
-
-/* =====================
-   SECTION HEADER
-===================== */
-.section-header {
-  max-width: 1200px;
-  margin: 0 auto 48px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* =====================
-   GRIDS (GLOBAL)
-===================== */
-.grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-/* =====================
-   CARD (ONE STYLE)
-===================== */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-  transition: .45s var(--ease);
-}
-
-.card:hover {
-  transform: translateY(-10px);
+.guest-modal-content::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: inherit;
+  pointer-events:none;
   box-shadow:
-    var(--shadow-hover),
-    0 0 28px rgba(250,204,21,.35);
-}
-
-.card img {
-  height: 220px;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 18px 20px 22px;
-}
-
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.card-meta {
-  font-size: 13px;
-  color: var(--muted);
+    0 0 0 1px var(--accent-yellow),
+    0 0 40px rgba(255,212,0,.25);
 }
 
 /* =====================
-   STATS / COUNTER
+   BUTTON / BADGE EFFECT
 ===================== */
-.stats {
-  max-width: 900px;
-  margin: 0 auto;
-  display: grid;
-  gap: 32px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.badge-btn,
+.button-accent{
+  position: relative;
+  box-shadow:
+    0 0 0 1px var(--accent-yellow),
+    0 0 20px rgba(255,212,0,.35);
 }
 
-.stat {
-  padding: 36px 32px;
-  text-align: center;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-
-.stat strong {
-  font-size: 2.4rem;
-  display: block;
-  margin-bottom: 8px;
-  text-shadow: 0 0 22px rgba(250,204,21,.35);
+.badge-btn:hover,
+.button-accent:hover{
+  box-shadow:
+    0 0 0 1px var(--accent-yellow),
+    0 0 35px rgba(255,212,0,.7);
 }
 
 /* =====================
-   NEWSLETTER (SAME EVERYWHERE)
+   SUBTLE GLOW ANIMATION
 ===================== */
-.newsletter-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 56px;
-  box-shadow: var(--shadow);
-  display: grid;
-  gap: 56px;
-  grid-template-columns: 1fr 1fr;
+@keyframes softGlow{
+  0%{ box-shadow:0 0 15px rgba(255,212,0,.25); }
+  50%{ box-shadow:0 0 35px rgba(255,212,0,.55); }
+  100%{ box-shadow:0 0 15px rgba(255,212,0,.25); }
 }
 
-.newsletter-form {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+.glow-breath{
+  animation: softGlow 3.5s ease-in-out infinite;
 }
-
-.newsletter-form input {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-}
-/* =====================
-   NEWSLETTER – HIDE IMAGE ON MOBILE & TABLET
-===================== */
-@media (max-width: 1024px) {
-  .newsletter-image {
-    display: none;
-  }
-}
-
-/* =====================
-   FOOTER
-===================== */
-.footer {
-  padding: 80px 24px 40px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-}
-
-/* =====================
-   REVEAL EFFECT (GLOBAL)
-===================== */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-  transition: .9s var(--ease);
-}
-/* =====================
-   NEWSLETTER – CENTER ON MOBILE & TABLET (FIXED)
-===================== */
-@media (max-width: 1024px) {
-
-  /* jedan stupac umesto 2 */
-  .newsletter-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 40px 24px;
-  }
-
-  /* naslov + underline u centar */
-  .newsletter-inner h2::after {
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  /* tekst u centar */
-  .newsletter-inner p {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* forma vertikalno i centrirano */
-  .newsletter-form {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .newsletter-form input {
-    width: 100%;
-    max-width: 360px;
-  }
-
-  .newsletter-form button {
-    width: 100%;
-    max-width: 220px;
-  }
-}
-
-/* =====================
-   HEADER INNER – FIX
-===================== */
-.header-inner{
-  width:100%;
-  max-width:1200px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-}
-
-/* LOGO */
-.logo{
-  flex-shrink:0;
-}
-
-/* NAV FIX */
-.nav{
-  margin-left:auto;   /* ⬅ ovo sada radi KAKO TREBA */
-  display:flex;
-  align-items:center;
-  gap:26px;
-}
-
-
-
-
-
