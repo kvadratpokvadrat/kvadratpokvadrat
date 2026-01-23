@@ -1,28 +1,28 @@
 /* =========================================================
-   KVADRAT PO KVADRAT — EFFECTS CSS (FINAL)
-   ONLY FX • GLOW • FLOW • BADGES • MODAL
-   BASE.CSS OSTAJЕ NEDIRNUT
+   KVADRAT PO KVADRAT — EFFECTS.CSS (FINAL)
+   GLOW • FLOW • CARDS • BADGES • MODAL
+   THEME SAFE (LIGHT / DARK)
 ========================================================= */
 
 /* =====================
-   FLOW / GLOW VARS (SAFE)
+   EFFECT VARIABLES (NE DIRAJ BASE)
 ===================== */
 :root{
-  --glow: rgba(250,204,21,.55);
-  --glow-soft: rgba(250,204,21,.35);
+  --glow-main: rgba(250,204,21,.75);
+  --glow-soft: rgba(250,204,21,.45);
 }
 
 /* =====================
    FLOW BREATH
 ===================== */
 @keyframes flowBreath{
-  0%{opacity:.35}
+  0%{opacity:.4}
   50%{opacity:1}
-  100%{opacity:.35}
+  100%{opacity:.4}
 }
 
 /* =========================================================
-   HEADER FLOW LINE (2px)
+   HEADER FLOW LINE (UVEK VIDLJIVA)
 ========================================================= */
 header{
   position:relative;
@@ -35,108 +35,65 @@ header::after{
   right:6%;
   bottom:0;
   height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--glow),
-    transparent
-  );
+  background:linear-gradient(90deg,transparent,var(--glow-main),transparent);
   box-shadow:
-    0 0 6px var(--glow),
-    0 0 16px var(--glow-soft);
+    0 0 18px var(--glow-main),
+    0 0 60px var(--glow-soft);
   animation:flowBreath 5s ease-in-out infinite;
   pointer-events:none;
 }
 
 /* =========================================================
-   SECTION FLOW DIVIDER
+   SECTION DIVIDER
 ========================================================= */
 .section-divider{
-  height:2px;
-  width:100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--glow),
-    transparent
-  );
-  box-shadow:0 0 14px var(--glow-soft);
+  height:3px;
+  background:linear-gradient(to right,transparent,var(--glow-main),transparent);
+  box-shadow:
+    0 0 26px var(--glow-main),
+    0 0 90px var(--glow-soft);
   animation:flowBreath 6s ease-in-out infinite;
 }
 
 /* =========================================================
-   GLOBAL CARD HOVER (YELLOW ONLY)
+   GLOBAL CARD CORE (FORMA SE NE RASPADA)
 ========================================================= */
 .card,
-.episode-card,
-.card--guest{
-  transition:
-    transform .45s var(--ease),
-    box-shadow .45s var(--ease);
-}
-
-.card:hover,
-.episode-card:hover,
-.card--guest:hover{
-  transform:translateY(-8px);
-  box-shadow:
-    var(--shadow-hover),
-    0 0 0 1px var(--glow),
-    0 0 36px var(--glow-soft);
-}
-
-/* =========================================================
-   BADGES (NEW / EP / FEATURED)
-========================================================= */
-.badge{
-  position:absolute;
-  top:14px;
-  left:14px;
-  background:var(--accent);
-  color:#000;
-  font-size:11px;
-  font-weight:700;
-  padding:6px 12px;
-  border-radius:999px;
-  z-index:5;
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,.2),
-    0 0 18px var(--glow-soft);
-}
-
-/* =========================================================
-   GUEST GRID
-========================================================= */
-.guests-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:32px;
-}
-
-@media(max-width:1200px){
-  .guests-grid{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:640px){
-  .guests-grid{grid-template-columns:1fr;}
-}
-
-/* =========================================================
-   GUEST CARD (TEXT ALWAYS READABLE)
-========================================================= */
-.card--guest{
+.card--guest,
+.episode-card{
   position:relative;
   background:var(--card);
   border-radius:var(--radius-lg);
-  overflow:hidden;
+  overflow:visible; /* glow se ne seče */
+  transition:
+    transform .45s cubic-bezier(.4,0,.2,1),
+    box-shadow .45s cubic-bezier(.4,0,.2,1);
 }
 
+/* =========================================================
+   HOVER – JAK NA OBE TEME
+========================================================= */
+.card:hover,
+.card--guest:hover,
+.episode-card:hover{
+  transform:translateY(-10px);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 48px var(--glow-main),
+    0 0 100px var(--glow-soft);
+}
+
+/* =========================================================
+   GUEST CARD (BEZ BELOG OVERLAYA)
+========================================================= */
 .card--guest img{
-  width:100%;
   height:340px;
+  width:100%;
   object-fit:cover;
+  border-radius:inherit;
 }
 
-/* DARK OVERLAY — SAME FOR BOTH THEMES */
+/* SAMO TAMNI FILM — NEMA BELOG */
 .card--guest::after{
   content:"";
   position:absolute;
@@ -144,71 +101,98 @@ header::after{
   background:linear-gradient(
     to top,
     rgba(0,0,0,.65),
-    transparent 70%
+    transparent 65%
   );
   pointer-events:none;
-  z-index:1;
 }
 
-/* TEXT — ALWAYS WHITE */
 .card--guest .card-body{
   position:absolute;
   bottom:0;
   padding:22px;
-  color:#fff;
-  z-index:2;
-}
-
-/* =========================================================
-   EPISODE CARD
-========================================================= */
-.episode-card{
-  position:relative;
-  background:var(--card);
-  border-radius:var(--radius-lg);
-  overflow:hidden;
-}
-
-.episode-card .card-body{
   color:var(--text);
 }
 
-/* EP NUMBER / TIME */
+/* =========================================================
+   TEXT – UVEK ČITLJIV
+========================================================= */
+.card-title,
+.card--guest h3,
+.episode-card h3{
+  color:var(--text);
+}
+
+.card-meta,
+.muted,
+#guestModalBio{
+  color:var(--muted);
+}
+
+/* =========================================================
+   BADGES (NEW / FEATURED / EPISODE)
+========================================================= */
+.badge,
+.badge-new{
+  position:absolute;
+  top:16px;
+  left:16px;
+  background:var(--accent);
+  color:#000;
+  font-size:11px;
+  font-weight:800;
+  padding:6px 12px;
+  border-radius:999px;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,.25),
+    0 0 26px var(--glow-main);
+  z-index:5;
+}
+
+/* =========================================================
+   FEATURED CARD (PREMIUM)
+========================================================= */
+.card.featured{
+  border:2px solid var(--glow-main);
+  box-shadow:
+    0 0 0 1px var(--glow-soft),
+    0 40px 120px rgba(0,0,0,.8),
+    0 0 120px var(--glow-soft);
+}
+
+.card.featured::after{
+  content:"Najpopularnije";
+  position:absolute;
+  top:18px;
+  right:18px;
+  background:var(--accent);
+  color:#000;
+  font-size:11px;
+  font-weight:800;
+  padding:6px 14px;
+  border-radius:999px;
+}
+
+/* =========================================================
+   EPISODE BADGES
+========================================================= */
 .episode-number,
 .episode-duration{
-  position:absolute;
-  top:14px;
+  background:rgba(0,0,0,.65);
+  color:#fff;
   padding:6px 10px;
+  border-radius:999px;
   font-size:11px;
   font-weight:600;
-  border-radius:999px;
-  background:rgba(0,0,0,.6);
-  color:#fff;
-  z-index:4;
 }
 
-.episode-number{left:14px;}
-.episode-duration{right:14px;}
-
-/* =========================================================
-   SPONSOR / CTA CARDS (POSTANI SPONZOR)
-========================================================= */
-.card--sponsor{
-  background:var(--card);
-  color:var(--text);
-  border-radius:var(--radius-lg);
-  position:relative;
-}
-
-.card--sponsor:hover{
-  box-shadow:
-    var(--shadow-hover),
-    0 0 0 1px var(--glow),
-    0 0 32px var(--glow-soft);
+body:not(.dark) .episode-number,
+body:not(.dark) .episode-duration{
+  background:rgba(255,255,255,.95);
+  color:#000;
 }
 
 /* =========================================================
-   MODAL (THEME SAFE – CLOSED BY DEFAULT)
+   MODAL (FIXED – NE OTVARA SE SAM)
 ========================================================= */
 .guest-modal{
   position:fixed;
@@ -217,46 +201,41 @@ header::after{
   align-items:center;
   justify-content:center;
   background:rgba(0,0,0,.75);
+  backdrop-filter:blur(14px);
   z-index:9999;
-}
-
-body:not(.dark) .guest-modal{
-  background:rgba(255,255,255,.85);
 }
 
 .guest-modal.active{
   display:flex;
 }
 
+body:not(.dark) .guest-modal{
+  background:rgba(255,255,255,.85);
+}
+
 /* =========================================================
    MODAL CONTENT
 ========================================================= */
 .guest-modal-content{
-  position:relative;
   background:var(--card);
   color:var(--text);
-  border-radius:var(--radius-lg);
-  max-width:720px;
+  border-radius:28px;
   width:92%;
+  max-width:840px;
   padding:36px;
   box-shadow:
-    0 40px 120px rgba(0,0,0,.35),
-    0 0 0 1px var(--glow-soft);
-  animation:modalIn .45s var(--ease);
+    0 40px 140px rgba(0,0,0,.85),
+    0 0 80px var(--glow-soft);
+  animation:modalIn .45s cubic-bezier(.4,0,.2,1);
+  position:relative;
 }
 
 @keyframes modalIn{
-  from{
-    opacity:0;
-    transform:scale(.95) translateY(10px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+  from{opacity:0;transform:scale(.96) translateY(20px)}
+  to{opacity:1;transform:none}
 }
 
-/* MODAL FLOW LINE (2px) */
+/* FLOW LINE U MODALU */
 .guest-modal-content::before{
   content:"";
   position:absolute;
@@ -264,22 +243,31 @@ body:not(.dark) .guest-modal{
   left:14%;
   right:14%;
   height:2px;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    var(--glow),
-    transparent
-  );
-  box-shadow:0 0 16px var(--glow);
+  background:linear-gradient(90deg,transparent,var(--glow-main),transparent);
+  box-shadow:0 0 22px var(--glow-main);
   animation:flowBreath 4s ease-in-out infinite;
 }
 
-/* MODAL TEXT */
-#guestModalRole{
-  color:var(--accent);
-  font-weight:600;
+/* =========================================================
+   MODAL IMAGE
+========================================================= */
+.guest-modal-image img{
+  width:100%;
+  height:360px;
+  object-fit:cover;
+  border-radius:22px;
 }
 
-#guestModalBio{
-  color:var(--muted);
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+#closeGuest{
+  background:var(--accent);
+  color:#000;
+  border:none;
+  border-radius:999px;
+  padding:12px 26px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 0 30px var(--glow-main);
 }
