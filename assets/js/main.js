@@ -26,29 +26,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-/* =====================
-   DARK MODE (FIXED)
-===================== */
-const toggle = document.getElementById("themeToggle");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (toggle) {
+  const toggle = document.getElementById("themeToggle");
+  if (!toggle) return;
 
-  // default = LIGHT
-  if (localStorage.theme === "dark") {
-    document.body.classList.add("dark");
-    toggle.textContent = "Light";
-  } else {
-    document.body.classList.remove("dark");
-    toggle.textContent = "Dark";
-  }
+  const isDark = localStorage.theme === "dark";
+  document.body.classList.toggle("dark", isDark);
+  toggle.textContent = isDark ? "Light" : "Dark";
 
   toggle.addEventListener("click", () => {
-    const isDark = document.body.classList.toggle("dark");
-
-    localStorage.theme = isDark ? "dark" : "light";
-    toggle.textContent = isDark ? "Light" : "Dark";
+    const nowDark = document.body.classList.toggle("dark");
+    localStorage.theme = nowDark ? "dark" : "light";
+    toggle.textContent = nowDark ? "Light" : "Dark";
   });
-}
+
+});
 
 
   /* =====================
@@ -287,6 +280,7 @@ if (toggle) {
   }
 
 })();
+
 
 
 
