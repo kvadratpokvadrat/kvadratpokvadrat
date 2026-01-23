@@ -26,20 +26,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+/* =====================
+   DARK / LIGHT Mode (WORKING)
+===================== */
 document.addEventListener("DOMContentLoaded", () => {
-
   const toggle = document.getElementById("themeToggle");
-  if (!toggle) return;
+  if (!toggle) return; // ako nema dugmeta, prekini
 
-  const isDark = localStorage.theme === "dark";
+  // inicijalno stanje
+  const saved = localStorage.getItem("theme");
+  const isDark = saved === "dark";
+
   document.body.classList.toggle("dark", isDark);
   toggle.textContent = isDark ? "Light" : "Dark";
 
+  // klik
   toggle.addEventListener("click", () => {
     const nowDark = document.body.classList.toggle("dark");
-    localStorage.theme = nowDark ? "dark" : "light";
+    localStorage.setItem("theme", nowDark ? "dark" : "light");
     toggle.textContent = nowDark ? "Light" : "Dark";
   });
+});
 
 });
 
@@ -280,6 +287,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 })();
+
 
 
 
