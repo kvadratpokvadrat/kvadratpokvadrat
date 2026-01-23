@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>O nama</title>
 
- <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/effects.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/effects.css">
 </head>
 
-<body class="home">
+<body>
 
 <!-- =====================
      HEADER
 ===================== -->
 <header class="header">
-
   <div class="header-inner">
+
     <div class="logo">
       <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
     </div>
@@ -32,22 +32,23 @@
 
     <!-- NAV -->
     <nav class="nav">
-      <a href="index.html" class="active">Početna</a>
+      <a href="index.html">Početna</a>
       <a href="epizode.html">Epizode</a>
       <a href="gosti.html">Gosti</a>
-      <a href="o-nama.html">O nama</a>
+      <a href="o-nama.html" class="active">O nama</a>
       <a href="kontakt.html">Kontakt</a>
 
       <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
       <button class="badge-btn" id="themeToggle">Dark</button>
     </nav>
-  </div>
 
+  </div>
+</header>
 
 <!-- ================= HERO ================= -->
 <section class="hero hero-small">
   <div class="hero-content reveal">
-    <h1>O NAMA</h1>
+    <h1>O nama</h1>
     <p>Zašto postoji Kvadrat po Kvadrat</p>
   </div>
 </section>
@@ -57,6 +58,7 @@
 <!-- ================= ABOUT INTRO ================= -->
 <section>
   <div class="newsletter-inner reveal">
+
     <div class="newsletter-content">
       <h2>Ideja iza podcasta</h2>
       <p>
@@ -71,6 +73,7 @@
     </div>
 
     <img src="assets/images/about-1.jpg" loading="lazy" alt="O nama">
+
   </div>
 </section>
 
@@ -116,7 +119,6 @@
   </div>
 </section>
 
-
 <div class="section-divider"></div>
 
 <!-- ================= TEAM ================= -->
@@ -155,16 +157,8 @@
 </section>
 
 <div class="section-divider"></div>
-</div>
 
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- =====================
-     NEWSLETTER
-===================== -->
+<!-- ================= NEWSLETTER ================= -->
 <section>
   <div class="newsletter-inner">
 
@@ -177,7 +171,7 @@
       <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Vaš email">
+        <input type="email" placeholder="Vaš email" required>
         <button class="btn">Subscribe</button>
       </form>
     </div>
