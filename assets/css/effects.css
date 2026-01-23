@@ -1,19 +1,19 @@
 /* =========================================================
    KVADRAT PO KVADRAT — EFFECTS CSS (FINAL)
    ONLY FX • GLOW • FLOW • BADGES • MODAL
-   BASE.CSS OSTAVLJA TEME (LIGHT / DARK)
+   BASE.CSS OSTAJЕ NEDIRNUT
 ========================================================= */
 
 /* =====================
-   FLOW VARIABLES (NE DIRAJ TEME)
+   FLOW / GLOW VARS (SAFE)
 ===================== */
 :root{
-  --glow: rgba(250,204,21,.75);
-  --glow-soft: rgba(250,204,21,.45);
+  --glow: rgba(250,204,21,.55);
+  --glow-soft: rgba(250,204,21,.35);
 }
 
 /* =====================
-   FLOW BREATHING
+   FLOW BREATH
 ===================== */
 @keyframes flowBreath{
   0%{opacity:.35}
@@ -22,7 +22,7 @@
 }
 
 /* =========================================================
-   HEADER FLOW LINE (2px, OŠTRO, DIŠE)
+   HEADER FLOW LINE (2px)
 ========================================================= */
 header{
   position:relative;
@@ -42,8 +42,8 @@ header::after{
     transparent
   );
   box-shadow:
-    0 0 8px var(--glow),
-    0 0 18px var(--glow-soft);
+    0 0 6px var(--glow),
+    0 0 16px var(--glow-soft);
   animation:flowBreath 5s ease-in-out infinite;
   pointer-events:none;
 }
@@ -60,24 +60,24 @@ header::after{
     var(--glow),
     transparent
   );
-  box-shadow:0 0 16px var(--glow-soft);
+  box-shadow:0 0 14px var(--glow-soft);
   animation:flowBreath 6s ease-in-out infinite;
 }
 
 /* =========================================================
-   GLOBAL HOVER GLOW (ŽUTO – OBE TEME)
+   GLOBAL CARD HOVER (YELLOW ONLY)
 ========================================================= */
 .card,
-.card--guest,
-.episode-card{
+.episode-card,
+.card--guest{
   transition:
     transform .45s var(--ease),
     box-shadow .45s var(--ease);
 }
 
 .card:hover,
-.card--guest:hover,
-.episode-card:hover{
+.episode-card:hover,
+.card--guest:hover{
   transform:translateY(-8px);
   box-shadow:
     var(--shadow-hover),
@@ -86,21 +86,21 @@ header::after{
 }
 
 /* =========================================================
-   BADGE (NEW / EPISODE / FEATURED)
+   BADGES (NEW / EP / FEATURED)
 ========================================================= */
 .badge{
   position:absolute;
   top:14px;
   left:14px;
-  padding:6px 14px;
-  font-size:11px;
-  font-weight:800;
-  border-radius:999px;
   background:var(--accent);
   color:#000;
-  z-index:6;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 12px;
+  border-radius:999px;
+  z-index:5;
   box-shadow:
-    0 6px 18px rgba(0,0,0,.25),
+    0 0 0 1px rgba(0,0,0,.2),
     0 0 18px var(--glow-soft);
 }
 
@@ -121,7 +121,7 @@ header::after{
 }
 
 /* =========================================================
-   GUEST CARD (FIXED – NEMA BELIH VELOVA)
+   GUEST CARD (TEXT ALWAYS READABLE)
 ========================================================= */
 .card--guest{
   position:relative;
@@ -131,34 +131,32 @@ header::after{
 }
 
 .card--guest img{
-  height:340px;
   width:100%;
+  height:340px;
   object-fit:cover;
 }
 
-/* OVERLAY SAMO U DARK MODE */
-body.dark .card--guest::after{
+/* DARK OVERLAY — SAME FOR BOTH THEMES */
+.card--guest::after{
   content:"";
   position:absolute;
   inset:0;
   background:linear-gradient(
     to top,
-    rgba(0,0,0,.55),
-    transparent 65%
+    rgba(0,0,0,.65),
+    transparent 70%
   );
   pointer-events:none;
+  z-index:1;
 }
 
-/* U LIGHT MODE – NEMA OVERLAYA */
-body:not(.dark) .card--guest::after{
-  display:none;
-}
-
+/* TEXT — ALWAYS WHITE */
 .card--guest .card-body{
   position:absolute;
   bottom:0;
   padding:22px;
-  color:var(--text);
+  color:#fff;
+  z-index:2;
 }
 
 /* =========================================================
@@ -175,31 +173,42 @@ body:not(.dark) .card--guest::after{
   color:var(--text);
 }
 
-/* episode meta badges */
+/* EP NUMBER / TIME */
 .episode-number,
 .episode-duration{
   position:absolute;
   top:14px;
   padding:6px 10px;
   font-size:11px;
-  font-weight:700;
+  font-weight:600;
   border-radius:999px;
-  background:rgba(0,0,0,.65);
+  background:rgba(0,0,0,.6);
   color:#fff;
-  z-index:5;
+  z-index:4;
 }
 
 .episode-number{left:14px;}
 .episode-duration{right:14px;}
 
-body:not(.dark) .episode-number,
-body:not(.dark) .episode-duration{
-  background:rgba(255,255,255,.9);
-  color:#111;
+/* =========================================================
+   SPONSOR / CTA CARDS (POSTANI SPONZOR)
+========================================================= */
+.card--sponsor{
+  background:var(--card);
+  color:var(--text);
+  border-radius:var(--radius-lg);
+  position:relative;
+}
+
+.card--sponsor:hover{
+  box-shadow:
+    var(--shadow-hover),
+    0 0 0 1px var(--glow),
+    0 0 32px var(--glow-soft);
 }
 
 /* =========================================================
-   MODAL (NE OTVARA SE SAM)
+   MODAL (THEME SAFE – CLOSED BY DEFAULT)
 ========================================================= */
 .guest-modal{
   position:fixed;
@@ -220,49 +229,34 @@ body:not(.dark) .guest-modal{
 }
 
 /* =========================================================
-   MODAL CONTENT (SLIKA + TEKST – NE FULLSCREEN)
+   MODAL CONTENT
 ========================================================= */
 .guest-modal-content{
   position:relative;
-  max-width:960px;
-  width:92%;
   background:var(--card);
   color:var(--text);
   border-radius:var(--radius-lg);
-  overflow:hidden;
-  display:grid;
-  grid-template-columns:420px 1fr;
+  max-width:720px;
+  width:92%;
+  padding:36px;
   box-shadow:
     0 40px 120px rgba(0,0,0,.35),
     0 0 0 1px var(--glow-soft);
   animation:modalIn .45s var(--ease);
 }
 
-@media(max-width:900px){
-  .guest-modal-content{
-    grid-template-columns:1fr;
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:scale(.95) translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:none;
   }
 }
 
-/* modal image */
-.guest-modal-image img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-/* modal text */
-.guest-modal-text{
-  padding:48px;
-}
-
-/* cinematic open */
-@keyframes modalIn{
-  from{opacity:0;transform:scale(.95) translateY(10px)}
-  to{opacity:1;transform:none}
-}
-
-/* FLOW LINE U MODALU (2px) */
+/* MODAL FLOW LINE (2px) */
 .guest-modal-content::before{
   content:"";
   position:absolute;
@@ -276,14 +270,14 @@ body:not(.dark) .guest-modal{
     var(--glow),
     transparent
   );
-  box-shadow:0 0 18px var(--glow);
+  box-shadow:0 0 16px var(--glow);
   animation:flowBreath 4s ease-in-out infinite;
 }
 
-/* modal text colors */
+/* MODAL TEXT */
 #guestModalRole{
   color:var(--accent);
-  font-weight:700;
+  font-weight:600;
 }
 
 #guestModalBio{
