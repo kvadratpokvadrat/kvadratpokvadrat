@@ -314,3 +314,122 @@
   margin-top:32px;
   align-self:flex-end;
 }
+/* =========================================================
+   LIGHT MODE – FULL FIX (CARDS + MODAL + EPISODES)
+========================================================= */
+
+/* =====================
+   GUEST CARDS – LIGHT
+===================== */
+
+body.light .card--guest{
+  background:#ffffff;
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.12),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+}
+
+body.light .card--guest::after{
+  background:
+    linear-gradient(
+      to top,
+      rgba(255,255,255,.92) 0%,
+      rgba(255,255,255,.6) 40%,
+      rgba(255,255,255,0) 75%
+    );
+}
+
+body.light .card--guest .card-title{
+  color:#111;
+}
+
+body.light .card--guest .card-meta{
+  color:#b58900;
+}
+
+/* Hover glow – light */
+body.light .card--guest:hover{
+  transform:translateY(-8px) scale(1.03);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,.2),
+    0 0 0 1px rgba(255,200,0,.8),
+    0 0 30px rgba(255,200,0,.5);
+}
+
+/* =====================
+   EPISODE CARDS – LIGHT
+===================== */
+
+body.light .episode-card{
+  background:radial-gradient(circle at top, #ffffff, #f2f2f2 70%);
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.12),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+}
+
+body.light .episode-card h3{
+  color:#111;
+}
+
+body.light .episode-card:hover{
+  box-shadow:
+    0 26px 70px rgba(0,0,0,.18),
+    0 0 28px rgba(255,200,0,.35);
+}
+
+/* badges readable */
+body.light .episode-number,
+body.light .episode-duration{
+  background:rgba(255,255,255,.85);
+  color:#111;
+}
+
+/* =====================
+   MODAL – LIGHT VERSION
+===================== */
+
+body.light .guest-modal{
+  background:rgba(255,255,255,.85);
+}
+
+body.light .guest-modal-content{
+  background:linear-gradient(180deg,#ffffff,#f4f4f4);
+  box-shadow:
+    0 40px 100px rgba(0,0,0,.25),
+    inset 0 0 0 1px rgba(0,0,0,.08);
+}
+
+body.light .guest-modal-text h3{
+  color:#111;
+}
+
+body.light #guestModalRole{
+  color:#b58900;
+}
+
+body.light #guestModalBio{
+  color:#333;
+}
+
+/* divider inside modal */
+body.light .guest-modal-line{
+  background:#ffcc00;
+}
+
+/* =====================
+   FLOW LINES – LIGHT
+===================== */
+
+body.light .section-divider{
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,200,0,.8),
+    transparent
+  );
+}
+
+body.light .section-divider::after{
+  filter:blur(10px);
+  opacity:.5;
+}
