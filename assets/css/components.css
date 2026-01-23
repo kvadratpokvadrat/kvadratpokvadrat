@@ -110,3 +110,51 @@
 @media(max-width:560px){
   .episode-grid{grid-template-columns:1fr}
 }
+/* =====================
+   CARD – FINAL OVERRIDE (MASTER)
+===================== */
+.card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6),
+    0 0 0 1px rgba(255,200,0,.08);
+  overflow:visible; /* ⬅ KLJUČ */
+  transition:
+    transform .45s cubic-bezier(.4,0,.2,1),
+    box-shadow .45s cubic-bezier(.4,0,.2,1);
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.9),
+    0 0 48px rgba(250,204,21,.45);
+}
+/* =====================
+   FEATURED / SPONSOR CARD
+===================== */
+.card.featured{
+  border:2px solid rgba(250,204,21,.85);
+  box-shadow:
+    0 0 0 1px rgba(250,204,21,.35),
+    0 30px 100px rgba(0,0,0,.9),
+    0 0 80px rgba(250,204,21,.45);
+}
+
+.card.featured::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:inherit;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(250,204,21,.35),
+    transparent
+  );
+  opacity:.6;
+  pointer-events:none;
+}
