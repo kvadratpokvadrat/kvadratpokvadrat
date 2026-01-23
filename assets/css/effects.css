@@ -93,18 +93,7 @@ header::after{
   border-radius:inherit;
 }
 
-/* SAMO TAMNI FILM — NEMA BELOG */
-.card--guest::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    to top,
-    rgba(0,0,0,.65),
-    transparent 65%
-  );
-  pointer-events:none;
-}
+
 
 .card--guest .card-body{
   position:absolute;
