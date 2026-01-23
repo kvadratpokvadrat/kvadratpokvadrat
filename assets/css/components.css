@@ -1,5 +1,5 @@
 /* =========================================================
-   COMPONENTS.CSS — FINAL (NO CONFLICTS)
+   COMPONENTS.CSS — POSTANI SPONZOR (HTML MATCH)
 ========================================================= */
 
 /* =====================
@@ -12,74 +12,104 @@
   border:none;
   border-radius:999px;
   padding:12px 28px;
-  font-weight:600;
+  font-weight:700;
   cursor:pointer;
   white-space:nowrap;
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.btn:hover,
+.badge-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(250,204,21,.35);
 }
 
 /* =====================
-   CARD – MASTER SYSTEM
+   GRID (koristiš episode-grid svuda)
+===================== */
+.episode-grid{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  gap:32px;
+  grid-template-columns:repeat(3,1fr);
+}
+
+/* =====================
+   CARD – MASTER (MOCNE KAO PRE)
 ===================== */
 .card{
   position:relative;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
+  background:linear-gradient(180deg,#151515,#0c0c0c);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
   box-shadow:
-    0 20px 60px rgba(0,0,0,.6),
-    0 0 0 1px rgba(255,200,0,.08);
-  overflow:visible; /* KLJUČ ZA GLOW */
-  display:flex;
-  flex-direction:column;
-  height:100%;
+    0 25px 80px rgba(0,0,0,.75),
+    inset 0 0 0 1px rgba(255,200,0,.08);
+  overflow:visible;
   transition:
     transform .45s cubic-bezier(.4,0,.2,1),
     box-shadow .45s cubic-bezier(.4,0,.2,1);
 }
 
 .card:hover{
-  transform:translateY(-10px);
+  transform:translateY(-12px);
   box-shadow:
-    0 30px 90px rgba(0,0,0,.9),
-    0 0 48px rgba(250,204,21,.45);
-}
-
-/* IMAGE */
-.card img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-  display:block;
-  background:#000;
-  border-top-left-radius:18px;
-  border-top-right-radius:18px;
-}
-
-/* BODY */
-.card-body{
-  padding:18px 20px 22px;
-  flex:1;
-}
-
-.card-title{
-  font-size:15px;
-  font-weight:600;
-}
-
-.card-meta{
-  font-size:13px;
-  color:var(--muted);
+    0 40px 120px rgba(0,0,0,.95),
+    0 0 60px rgba(250,204,21,.45);
 }
 
 /* =====================
-   FEATURED / SPONSOR CARD
+   CARD CONTENT (BITNO!)
+===================== */
+.card-content{
+  padding:28px 26px 32px;
+}
+
+.card-content h3{
+  margin:0 0 8px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.card-content p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+/* =====================
+   LISTE (SPONZOR PAKETI)
+===================== */
+.package-list{
+  margin:18px 0 0;
+  padding:0;
+  list-style:none;
+}
+
+.package-list li{
+  padding-left:18px;
+  margin:10px 0;
+  position:relative;
+  font-size:14px;
+}
+
+.package-list li::before{
+  content:"✦";
+  position:absolute;
+  left:0;
+  color:var(--accent);
+}
+
+/* =====================
+   FEATURED / EXCLUSIVE CARD
 ===================== */
 .card.featured{
-  border:2px solid rgba(250,204,21,.85);
+  border:2px solid rgba(250,204,21,.9);
   box-shadow:
     0 0 0 1px rgba(250,204,21,.35),
-    0 30px 100px rgba(0,0,0,.9),
-    0 0 80px rgba(250,204,21,.45);
+    0 40px 140px rgba(0,0,0,.95),
+    0 0 100px rgba(250,204,21,.55);
 }
 
 .card.featured::before{
@@ -90,82 +120,24 @@
   background:linear-gradient(
     120deg,
     transparent,
-    rgba(250,204,21,.35),
+    rgba(250,204,21,.45),
     transparent
   );
-  opacity:.6;
+  opacity:.8;
   pointer-events:none;
-}
-
-/* =====================
-   EPISODES
-===================== */
-.episode-grid{
-  max-width:1200px;
-  margin:0 auto;
-  display:grid;
-  gap:32px;
-  grid-template-columns:repeat(3,1fr);
-}
-
-.episode-card{
-  background:linear-gradient(
-    180deg,
-    #121212 0%,
-    #0b0b0b 100%
-  );
-}
-
-.episode-card img{
-  height:220px;
-  object-fit:cover;
-}
-
-.episode-card h3{
-  font-size:15px;
-  font-weight:600;
-  line-height:1.4;
-}
-
-/* BADGE */
-.episode-card .badge-new{
-  position:absolute;
-  top:14px;
-  left:14px;
-  padding:6px 14px;
-  font-size:12px;
-  font-weight:700;
-  border-radius:999px;
-  background:rgba(250,204,21,.15);
-  color:#facc15;
-  border:1px solid rgba(250,204,21,.7);
-  box-shadow:
-    0 0 18px rgba(250,204,21,.65),
-    0 0 36px rgba(250,204,21,.35);
-  z-index:3;
-}
-
-/* =====================
-   GUESTS
-===================== */
-.guests-grid{
-  max-width:1200px;
-  margin:0 auto;
-  display:grid;
-  gap:32px;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-}
-
-.card--guest img{
-  height:320px;
 }
 
 /* =====================
    RESPONSIVE
 ===================== */
 @media(max-width:900px){
-  .episode-grid{grid-template-columns:repeat(2,1fr)}
+  .episode-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
+
 @media(max-width:560px){
-  .episode-grid{grid-template-columns:1fr}
+  .episode-grid{
+    grid-template-columns:1fr;
+  }
 }
