@@ -1,19 +1,20 @@
 /* =========================================================
-   KVADRAT PO KVADRAT — EFFECTS CSS (FINAL)
-   GLOW • FLOW • CARDS • BADGES • MODAL
+   KVADRAT PO KVADRAT — EFFECTS.CSS (FINAL • COMPLETE)
+   FX • GLOW • FLOW • CARDS • BADGES • MODALS
 ========================================================= */
 
-/* =========================================================
-   VARIABLES (ONLY EFFECTS – SAFE)
-========================================================= */
+/* =====================
+   GLOW VARIABLES (GLOBAL)
+===================== */
 :root{
-  --glow: rgba(250,204,21,.7);
-  --glow-soft: rgba(250,204,21,.45);
+  --glow-yellow: rgba(250,204,21,.75);
+  --glow-yellow-soft: rgba(250,204,21,.45);
+  --glow-yellow-hard: rgba(250,204,21,.95);
 }
 
-/* =========================================================
+/* =====================
    FLOW ANIMATION
-========================================================= */
+===================== */
 @keyframes flowBreath{
   0%{opacity:.35}
   50%{opacity:1}
@@ -21,7 +22,7 @@
 }
 
 /* =========================================================
-   HEADER FLOW LINE (2px)
+   HEADER FLOW LINE (2px – ALWAYS VISIBLE)
 ========================================================= */
 header{
   position:relative;
@@ -30,113 +31,135 @@ header{
 header::after{
   content:"";
   position:absolute;
-  left:6%;
-  right:6%;
+  left:5%;
+  right:5%;
   bottom:0;
   height:2px;
-  background:linear-gradient(90deg, transparent, var(--glow), transparent);
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--glow-yellow-hard),
+    transparent
+  );
   box-shadow:
-    0 0 8px var(--glow),
-    0 0 18px var(--glow-soft);
+    0 0 12px var(--glow-yellow),
+    0 0 30px var(--glow-yellow-soft);
   animation:flowBreath 5s ease-in-out infinite;
   pointer-events:none;
 }
 
 /* =========================================================
-   SECTION DIVIDER
+   SECTION FLOW DIVIDER
 ========================================================= */
 .section-divider{
-  width:100%;
   height:2px;
-  background:linear-gradient(90deg, transparent, var(--glow), transparent);
-  box-shadow:0 0 18px var(--glow-soft);
+  width:100%;
+  margin:80px 0;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--glow-yellow-hard),
+    transparent
+  );
+  box-shadow:
+    0 0 16px var(--glow-yellow),
+    0 0 40px var(--glow-yellow-soft);
   animation:flowBreath 6s ease-in-out infinite;
 }
 
 /* =========================================================
-   GLOBAL CARD GLOW (HOVER ONLY)
+   UNIVERSAL CARD BASE (ALL CARDS)
 ========================================================= */
 .card,
 .episode-card,
 .card--guest{
+  position:relative;
+  border-radius:22px;
+  overflow:hidden;
   transition:
-    transform .45s var(--ease),
-    box-shadow .45s var(--ease);
+    transform .45s cubic-bezier(.4,0,.2,1),
+    box-shadow .45s cubic-bezier(.4,0,.2,1);
 }
 
 .card:hover,
 .episode-card:hover,
 .card--guest:hover{
-  transform:translateY(-8px);
+  transform:translateY(-10px);
   box-shadow:
-    var(--shadow-hover),
-    0 0 0 1px var(--glow),
-    0 0 42px var(--glow-soft);
+    0 40px 120px rgba(0,0,0,.85),
+    0 0 0 1px var(--glow-yellow-hard),
+    0 0 70px var(--glow-yellow-soft);
 }
 
 /* =========================================================
-   BADGES (BASE)
+   BADGE – GLOBAL (NEW / FEATURED / PREMIUM)
 ========================================================= */
-.badge{
+.badge,
+.badge-new{
   position:absolute;
-  top:14px;
-  left:14px;
+  top:16px;
+  left:16px;
   background:var(--accent);
   color:#000;
   font-size:11px;
-  font-weight:800;
-  letter-spacing:.04em;
+  font-weight:900;
   padding:6px 14px;
   border-radius:999px;
   z-index:5;
+  letter-spacing:.6px;
   box-shadow:
-    0 0 0 1px rgba(0,0,0,.2),
-    0 0 22px var(--glow-soft);
-}
-
-/* NEW badge */
-.badge--new{
-  animation:newPulse 3s ease-in-out infinite;
-}
-
-@keyframes newPulse{
-  0%{box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 18px var(--glow-soft);}
-  50%{box-shadow:0 0 0 1px rgba(0,0,0,.35),0 0 38px var(--glow);}
-  100%{box-shadow:0 0 0 1px rgba(0,0,0,.2),0 0 18px var(--glow-soft);}
+    0 0 18px var(--glow-yellow);
 }
 
 /* =========================================================
-   GUEST GRID
+   EPISODE CARD
 ========================================================= */
-.guests-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:32px;
+.episode-card{
+  background:var(--card);
 }
 
-@media(max-width:1200px){
-  .guests-grid{grid-template-columns:repeat(2,1fr);}
+.episode-card .card-body{
+  padding:22px;
+  color:var(--text);
 }
-@media(max-width:640px){
-  .guests-grid{grid-template-columns:1fr;}
+
+/* episode badges */
+.episode-number,
+.episode-duration{
+  position:absolute;
+  top:14px;
+  background:rgba(0,0,0,.7);
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+  padding:6px 10px;
+  border-radius:999px;
+  box-shadow:0 0 14px rgba(0,0,0,.4);
+}
+
+.episode-number{left:14px;}
+.episode-duration{right:14px;}
+
+body:not(.dark) .episode-number,
+body:not(.dark) .episode-duration{
+  background:rgba(255,255,255,.95);
+  color:#111;
 }
 
 /* =========================================================
-   GUEST CARD (TEXT ALWAYS READABLE)
+   GUEST CARD
 ========================================================= */
 .card--guest{
-  position:relative;
   background:var(--card);
-  border-radius:var(--radius-lg);
-  overflow:hidden;
 }
 
 .card--guest img{
+  width:100%;
   height:340px;
   object-fit:cover;
 }
 
-/* TAMNI OVERLAY – ISTI NA OBE TEME (NEMA BELOG GHOSTA) */
+/* overlay – ALWAYS readable */
 .card--guest::after{
   content:"";
   position:absolute;
@@ -149,53 +172,105 @@ header::after{
   pointer-events:none;
 }
 
+body:not(.dark) .card--guest::after{
+  background:linear-gradient(
+    to top,
+    rgba(255,255,255,.85),
+    transparent 65%
+  );
+}
+
 .card--guest .card-body{
   position:absolute;
   bottom:0;
   padding:22px;
-  color:#fff;                 /* ⬅ UVEK ČITLJIVO */
+  color:#000;
+  z-index:2;
 }
 
-.card--guest .card-title{
+body.dark .card--guest .card-body{
   color:#fff;
 }
 
-.card--guest .card-meta{
-  color:rgba(255,255,255,.85);
-}
-
 /* =========================================================
-   EPISODE CARD
+   SPONSOR / PACKAGE CARD
 ========================================================= */
-.episode-card{
+.card .card-content{
+  padding:28px 26px 32px;
+}
+
+.card .card-content h3{
+  margin:0 0 8px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.card .card-content p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.55;
+}
+
+/* package list */
+.package-list{
+  margin:18px 0 0;
+  padding:0;
+  list-style:none;
+}
+
+.package-list li{
+  margin:10px 0;
+  padding-left:18px;
   position:relative;
-  background:var(--card);
-  border-radius:var(--radius-lg);
-  overflow:hidden;
 }
 
-.episode-card .card-body{
-  color:var(--text);
-}
-
-/* number / duration */
-.episode-number,
-.episode-duration{
+.package-list li::before{
+  content:"✦";
   position:absolute;
-  top:14px;
-  padding:6px 12px;
-  font-size:11px;
-  font-weight:700;
-  border-radius:999px;
-  background:rgba(0,0,0,.6);
-  color:#fff;
+  left:0;
+  color:var(--accent);
 }
-
-.episode-number{left:14px;}
-.episode-duration{right:14px;}
 
 /* =========================================================
-   MODAL (CLOSED BY DEFAULT)
+   FEATURED / PREMIUM CARD
+========================================================= */
+.card.featured{
+  border:2px solid var(--accent);
+  box-shadow:
+    0 40px 140px rgba(0,0,0,.9),
+    0 0 0 1px var(--glow-yellow-hard),
+    0 0 80px var(--glow-yellow-soft);
+}
+
+.card.featured::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(250,204,21,.35),
+    transparent
+  );
+  pointer-events:none;
+}
+
+.card.featured::after{
+  content:"PREMIUM";
+  position:absolute;
+  top:16px;
+  right:16px;
+  background:var(--accent);
+  color:#000;
+  font-size:11px;
+  font-weight:900;
+  padding:6px 14px;
+  border-radius:999px;
+  box-shadow:0 0 22px var(--glow-yellow);
+}
+
+/* =========================================================
+   MODAL – GUEST
 ========================================================= */
 .guest-modal{
   position:fixed;
@@ -203,102 +278,87 @@ header::after{
   display:none;
   align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.8);
   z-index:9999;
+}
+
+body:not(.dark) .guest-modal{
+  background:rgba(255,255,255,.9);
 }
 
 .guest-modal.active{
   display:flex;
 }
 
-/* =========================================================
-   MODAL CONTENT (CENTERED, NOT FULLSCREEN IMAGE)
-========================================================= */
+/* modal box */
 .guest-modal-content{
   position:relative;
   background:var(--card);
   color:var(--text);
-  border-radius:var(--radius-lg);
+  border-radius:22px;
   max-width:760px;
   width:92%;
-  overflow:hidden;
+  padding:36px;
   box-shadow:
-    0 40px 140px rgba(0,0,0,.45),
-    0 0 0 1px var(--glow-soft);
-  animation:modalIn .45s var(--ease);
+    0 40px 140px rgba(0,0,0,.85),
+    0 0 0 1px var(--glow-yellow-hard);
+  animation:modalIn .45s cubic-bezier(.4,0,.2,1);
 }
 
 @keyframes modalIn{
-  from{opacity:0;transform:scale(.95) translateY(10px);}
-  to{opacity:1;transform:none;}
+  from{opacity:0;transform:scale(.95)}
+  to{opacity:1;transform:none}
 }
 
-/* FLOW LINE */
+/* flow line in modal */
 .guest-modal-content::before{
   content:"";
   position:absolute;
   top:0;
-  left:14%;
-  right:14%;
+  left:15%;
+  right:15%;
   height:2px;
-  background:linear-gradient(90deg,transparent,var(--glow),transparent);
-  box-shadow:0 0 18px var(--glow);
-  animation:flowBreath 4s ease-in-out infinite;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--glow-yellow-hard),
+    transparent
+  );
+  box-shadow:0 0 20px var(--glow-yellow);
 }
 
-/* =========================================================
-   MODAL IMAGE
-========================================================= */
+/* modal image */
 .guest-modal-content img{
   width:100%;
-  height:280px;
+  max-height:320px;
   object-fit:cover;
+  border-radius:14px;
+  margin-bottom:22px;
 }
 
-/* =========================================================
-   MODAL BODY
-========================================================= */
-.guest-modal-body{
-  padding:32px;
-}
-
-#guestModalName{
-  font-size:22px;
-  font-weight:700;
-}
-
+/* modal text */
 #guestModalRole{
-  margin-top:6px;
   color:var(--accent);
-  font-weight:600;
+  font-weight:700;
+  margin-bottom:8px;
 }
 
 #guestModalBio{
-  margin-top:14px;
   color:var(--muted);
   line-height:1.6;
 }
 
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
+/* close button */
 .guest-modal-close{
   position:absolute;
-  top:14px;
-  right:14px;
-  width:42px;
-  height:42px;
-  border-radius:50%;
+  top:16px;
+  right:16px;
   background:var(--accent);
   color:#000;
-  font-size:20px;
-  font-weight:800;
   border:none;
+  padding:8px 14px;
+  border-radius:999px;
+  font-weight:800;
   cursor:pointer;
-  box-shadow:0 0 22px var(--glow-soft);
-  transition:transform .25s ease;
-}
-
-.guest-modal-close:hover{
-  transform:scale(1.1);
+  box-shadow:0 0 18px var(--glow-yellow);
 }
