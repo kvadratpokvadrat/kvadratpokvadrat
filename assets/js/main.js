@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =====================================================
-   YOUTUBE EPISODES + BADGE
+   YOUTUBE EPISODES – FINAL LOGIC
 ===================================================== */
 (async () => {
 
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("yt-episodes");
   if (!grid) return;
 
-  const LIMIT = grid.dataset.limit ? Number(grid.dataset.limit) : 3;
+  const LIMIT = Number(grid.dataset.limit || 3);
 
   try {
     const ch = await fetch(
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
     const pl = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=15&playlistId=${uploads}&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=20&playlistId=${uploads}&key=${API_KEY}`
     ).then(r => r.json());
 
     const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
@@ -222,31 +222,46 @@ document.addEventListener("DOMContentLoaded", () => {
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
     ).then(r => r.json());
 
+    // ✅ filtriraj duge epizode
+    let episodes = vids.items.filter(v =>
+      parse(v.contentDetails.duration) >= MIN
+    );
+
+    // ✅ OKRENI REDOSLED (NAJSTARIJA → NAJNOVIJA)
+    episodes.reverse();
+
+    // ✅ limit
+    episodes = episodes.slice(0, LIMIT);
+
     grid.innerHTML = "";
-    let shown = 0;
 
-    vids.items.forEach(v => {
-      if (shown >= LIMIT) return;
-      if (parse(v.contentDetails.duration) < MIN) return;
+    episodes.forEach((v, i) => {
+      const duration = format(parse(v.contentDetails.duration));
+      const number = i + 1;
+      const isNew = i === episodes.length - 1;
 
-     const videoUrl = `https://www.youtube.com/watch?v=${v.id}`;
+      const url = `https://www.youtube.com/watch?v=${v.id}`;
 
-grid.innerHTML += `
-  <article
-    class="card episode-card reveal"
-    role="button"
-    tabindex="0"
-    onclick="window.open('${videoUrl}', '_blank')"
-  >
-    <span class="badge-new">Nova epizoda</span>
-    <img src="${v.snippet.thumbnails.high.url}" alt="">
-    <div class="card-body">
-      <h3>${v.snippet.title}</h3>
-    </div>
-  </article>
-`;
+      grid.innerHTML += `
+        <article class="card episode-card reveal"
+          onclick="window.open('${url}','_blank')">
 
-      shown++;
+          ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
+
+          <span class="episode-number">#${number}</span>
+          <span class="episode-duration">${duration}</span>
+
+          <img src="${v.snippet.thumbnails.high.url}" alt="">
+          <div class="card-body">
+            <h3>${v.snippet.title}</h3>
+          </div>
+        </article>
+      `;
+    });
+
+    requestAnimationFrame(() => {
+      document.querySelectorAll("#yt-episodes .reveal")
+        .forEach(el => el.classList.add("reveal-visible"));
     });
 
   } catch (e) {
@@ -257,12 +272,15 @@ grid.innerHTML += `
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
-requestAnimationFrame(() => {
-  document.querySelectorAll("#yt-episodes .reveal").forEach(el => {
-    el.classList.add("reveal-visible");
-  });
-});
+
+  function format(sec){
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${s.toString().padStart(2,"0")}`;
+  }
 
 })();
+
+
 
 
