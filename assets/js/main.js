@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("theme", nowDark ? "dark" : "light");
     toggle.textContent = nowDark ? "Light" : "Dark";
   });
-});
 
 }
 
@@ -286,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 })();
+
 
 
 
