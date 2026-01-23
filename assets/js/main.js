@@ -1,5 +1,5 @@
 /* =====================================================
-   DOM READY
+   DOM READY – GLOBAL
 ===================================================== */
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -26,27 +26,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-/* =====================
-   DARK / LIGHT Mode (WORKING)
-===================== */
-document.addEventListener("DOMContentLoaded", () => {
+  /* =====================
+     DARK MODE (WORKING)
+  ===================== */
   const toggle = document.getElementById("themeToggle");
-  if (!toggle) return; // ako nema dugmeta, prekini
 
-  // inicijalno stanje
-  const saved = localStorage.getItem("theme");
-  const isDark = saved === "dark";
+  if (toggle) {
+    const saved = localStorage.getItem("theme");
+    const isDark = saved === "dark";
 
-  document.body.classList.toggle("dark", isDark);
-  toggle.textContent = isDark ? "Light" : "Dark";
+    document.body.classList.toggle("dark", isDark);
+    toggle.textContent = isDark ? "Light" : "Dark";
 
-  // klik
-  toggle.addEventListener("click", () => {
-    const nowDark = document.body.classList.toggle("dark");
-    localStorage.setItem("theme", nowDark ? "dark" : "light");
-    toggle.textContent = nowDark ? "Light" : "Dark";
-  });
-
+    toggle.addEventListener("click", () => {
+      const nowDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", nowDark ? "dark" : "light");
+      toggle.textContent = nowDark ? "Light" : "Dark";
+    });
+  }
 
   /* =====================
      REVEAL
@@ -60,7 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+  document.querySelectorAll(".reveal")
+    .forEach(el => revealObserver.observe(el));
 
   /* =====================
      COUNTERS
@@ -89,10 +87,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, { threshold: 0.6 });
 
-  document.querySelectorAll("[data-count]").forEach(c => counterObserver.observe(c));
+  document.querySelectorAll("[data-count]")
+    .forEach(c => counterObserver.observe(c));
 
   /* =====================
-     GUEST MODAL (FIXED)
+     GUEST MODAL
   ===================== */
   const modal = document.getElementById("guestModal");
 
@@ -115,17 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    closeBtn?.addEventListener("click", () => {
-      modal.classList.remove("active");
-      document.body.classList.remove("modal-open");
+    closeBtn?.addEventListener("click", close);
+    modal.addEventListener("click", e => {
+      if (e.target === modal) close();
     });
 
-    modal.addEventListener("click", e => {
-      if (e.target === modal) {
-        modal.classList.remove("active");
-        document.body.classList.remove("modal-open");
-      }
-    });
+    function close() {
+      modal.classList.remove("active");
+      document.body.classList.remove("modal-open");
+    }
   }
 
 });
@@ -196,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =====================================================
-   YOUTUBE EPISODES – FINAL LOGIC
+   YOUTUBE EPISODES – FINAL
 ===================================================== */
 (async () => {
 
@@ -226,15 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
     ).then(r => r.json());
 
-    // ✅ filtriraj duge epizode
     let episodes = vids.items.filter(v =>
       parse(v.contentDetails.duration) >= MIN
     );
 
-    // ✅ OKRENI REDOSLED (NAJSTARIJA → NAJNOVIJA)
+    // ⬅ najstarija → najnovija
     episodes.reverse();
-
-    // ✅ limit
     episodes = episodes.slice(0, LIMIT);
 
     grid.innerHTML = "";
@@ -244,14 +238,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const number = i + 1;
       const isNew = i === episodes.length - 1;
 
-      const url = `https://www.youtube.com/watch?v=${v.id}`;
-
       grid.innerHTML += `
         <article class="card episode-card reveal"
-          onclick="window.open('${url}','_blank')">
+          onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')">
 
           ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
-
           <span class="episode-number">#${number}</span>
           <span class="episode-duration">${duration}</span>
 
@@ -284,13 +275,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
 })();
-
-
-
-
-
-
-
-
-
-
