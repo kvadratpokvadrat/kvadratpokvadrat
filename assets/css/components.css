@@ -144,41 +144,6 @@
 }
 
 
-/* =========================================================
-   BADGES (POSITION ONLY)
-========================================================= */
-
-.badge,
-.badge-new,
-.episode-number,
-.episode-duration {
-  position: absolute;
-  z-index: 5;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: #000;
-}
-
-/* badge positions */
-.badge,
-.badge-new {
-  top: 16px;
-  left: 16px;
-}
-
-.episode-number {
-  top: 14px;
-  left: 14px;
-}
-
-.episode-duration {
-  top: 14px;
-  right: 14px;
-}
-
 
 /* =========================================================
    GUEST CARD TEXT OVER IMAGE
