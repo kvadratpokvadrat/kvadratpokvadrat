@@ -160,13 +160,7 @@
   );
 }
 
-body:not(.dark) .card--guest .card-body {
-  background: linear-gradient(
-    to top,
-    rgba(255,255,255,.75),
-    transparent
-  );
-}
+
 
 
 /* =========================================================
