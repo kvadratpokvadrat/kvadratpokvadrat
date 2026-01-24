@@ -102,14 +102,21 @@ header::after{
   color:var(--text);
 }
 
-/* =========================================================
-   TEXT – UVEK ČITLJIV
-========================================================= */
-.card-title,
-.card--guest h3,
+/* EPISODE / DARK SECTIONS */
 .episode-card h3{
-  color:var(--text);
+  color: var(--text);
 }
+
+/* GUEST / HOST CARDS – BELA POZADINA */
+.card--guest .card-title{
+  color: #000;
+}
+
+/* META TEKST */
+.card--guest .card-meta{
+  color: #555;
+}
+
 
 .card-meta,
 .muted,
