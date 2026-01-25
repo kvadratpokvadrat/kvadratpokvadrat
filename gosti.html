@@ -3,63 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gosti</title>
+  <title>Gosti | Kvadrat po Kvadrat</title>
 
- <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/layout.css">
-<link rel="stylesheet" href="assets/css/components.css">
-<link rel="stylesheet" href="assets/css/effects.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/effects.css">
 </head>
 
-<body class="home">
+<body>
+
+<!-- =====================
+     HEADER
+===================== -->
+<header class="header">
+  <div class="header-inner">
+
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+    </div>
+
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav">
+      <a href="index.html">Početna</a>
+      <a href="epizode.html">Epizode</a>
+      <a href="gosti.html" class="active">Gosti</a>
+      <a href="o-nama.html">O nama</a>
+      <a href="kontakt.html">Kontakt</a>
+
+      <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
+      <button class="badge-btn" id="themeToggle">Dark</button>
+    </nav>
+
+  </div>
+</header>
+
+<div class="nav-overlay"></div>
+
+<!-- =====================
+     DIVIDER
+===================== -->
+<div class="section-divider"></div>
 
 <!-- =====================
      GUESTS
 ===================== -->
-<div class="section-divider"></div>
-
 <section class="section">
   <div class="section-header">
     <h2>Naši gosti</h2>
   </div>
 
-  <!-- JS puni ovo -->
+  <!-- JS puni kartice -->
   <div class="guests-grid" id="guestsGrid"></div>
 </section>
 
 <div class="section-divider"></div>
 
 <!-- =====================
-     GUEST MODAL
-===================== -->
-<div class="guest-modal" id="guestModal">
-  <div class="guest-modal-content">
-
-    <div class="guest-modal-grid">
-
-      <div class="guest-modal-image">
-        <img id="guestModalImg" alt="">
-      </div>
-
-      <div class="guest-modal-text">
-        <h2 id="guestModalName"></h2>
-        <span class="guest-modal-line"></span>
-        <p id="guestModalRole"></p>
-        <p id="guestModalBio"></p>
-
-        <button class="btn" id="closeGuest">Zatvori</button>
-      </div>
-
-    </div>
-
-  </div>
-</div>
-</div>
-</div>
-<!-- =====================
      NEWSLETTER
 ===================== -->
-<section>
+<section class="newsletter">
   <div class="newsletter-inner">
 
     <div class="newsletter-image">
@@ -71,13 +77,16 @@
       <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
       <form class="newsletter-form">
-        <input type="email" placeholder="Vaš email">
+        <input type="email" placeholder="Vaš email" required>
         <button class="btn">Subscribe</button>
       </form>
     </div>
 
   </div>
 </section>
+
+<div class="section-divider"></div>
+
 <!-- =====================
      FOOTER
 ===================== -->
@@ -86,40 +95,35 @@
 </footer>
 
 <!-- =====================
-     GUEST MODAL
+     GUEST MODAL (JEDAN!)
 ===================== -->
 <div class="guest-modal" id="guestModal">
   <div class="guest-modal-content">
 
     <button class="guest-close" id="closeGuest">×</button>
 
-    <div class="guest-modal-image">
-      <img id="guestModalImg" src="" alt="">
-    </div>
+    <div class="guest-modal-grid">
 
-    <div class="guest-modal-text">
-      <h3 id="guestModalName"></h3>
-      <p id="guestModalRole"></p>
-      <p id="guestModalBio"></p>
-    </div>
+      <div class="guest-modal-image">
+        <img id="guestModalImg" src="" alt="">
+      </div>
 
+      <div class="guest-modal-text">
+        <h3 id="guestModalName"></h3>
+        <span class="guest-modal-line"></span>
+        <p id="guestModalRole"></p>
+        <p id="guestModalBio"></p>
+      </div>
+
+    </div>
   </div>
 </div>
 
-
-
+<!-- =====================
+     JS
+===================== -->
 <script src="assets/js/main.js"></script>
+<script src="assets/js/guests.js"></script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
