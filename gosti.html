@@ -14,145 +14,39 @@
 <body class="home">
 
 <!-- =====================
-     HEADER
-===================== -->
-<header class="header">
-
-  <div class="header-inner">
-    <div class="logo">
-      <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
-    </div>
-
-    <!-- HAMBURGER -->
-    <button class="hamburger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-    <!-- NAV -->
-    <nav class="nav">
-      <a href="index.html">Početna</a>
-      <a href="epizode.html">Epizode</a>
-      <a href="gosti.html" class="active">Gosti</a>
-      <a href="o-nama.html">O nama</a>
-      <a href="kontakt.html">Kontakt</a>
-
-      <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
-      <button class="badge-btn" id="themeToggle">Dark</button>
-    </nav>
-  </div>
-
-
-
-</header>
-
-
-  <div class="nav-overlay"></div>
-
-<!-- =====================
-     HERO
-===================== -->
-<section class="hero">
-  <div class="hero-inner">
-    <h1 class="hero-title">
-      Naši <span>Gosti</span> 
-    </h1>
-
-    <p class="hero-subtitle">
-     Lideri, preduzetnici i ljudi koji menjaju igru.
-    </p>
-
-    <div class="hero-actions">
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- =====================
      GUESTS
 ===================== -->
 <div class="section-divider"></div>
-<section class="section">
 
+<section class="section">
   <div class="section-header">
     <h2>Naši gosti</h2>
-   
   </div>
 
-  <div class="guests-grid">
-
-    <article class="card card--guest reveal"
-      data-img="assets/images/host-1.jpg"
-      data-name="Holding Inc"
-      data-role="Producer"
-      data-bio="Holding Inc je producent sa dugogodišnjim iskustvom u podcast produkciji, digitalnim medijima i razvoju brendova.">
-      <img src="assets/images/host-1.jpg" alt="Holding Inc">
-      <div class="card-body">
-        <h3 class="card-title">Holding Inc</h3>
-        <p class="card-meta">Producer</p>
-      </div>
-    </article>
-
-    <article class="card card--guest reveal"
-      data-img="assets/images/host-2.jpg"
-      data-name="Miloš Nedić"
-      data-role="Interviewer"
-      data-bio="Miloš Nedić je interviewer i preduzetnik fokusiran na marketing, biznis strategiju i lični razvoj.">
-      <img src="assets/images/host-2.jpg" alt="Miloš Nedić">
-      <div class="card-body">
-        <h3 class="card-title">Miloš Nedić</h3>
-        <p class="card-meta">Interviewer</p>
-      </div>
-    </article>
-
-    <article class="card card--guest reveal"
-      data-img="assets/images/host-3.jpg"
-      data-name="Luka Stokić"
-      data-role="Host"
-      data-bio="Luka Stokić je host podcasta koji vodi dubinske razgovore sa ljudima koji pomeraju granice u biznisu i životu.">
-      <img src="assets/images/host-3.jpg" alt="Luka Stokić">
-      <div class="card-body">
-        <h3 class="card-title">Luka Stokić</h3>
-        <p class="card-meta">Host</p>
-      </div>
-    </article>
-   
-    <article class="card card--guest reveal"
-      data-img="assets/images/host-4.jpg"
-      data-name="Saša Kalaba"
-      data-role="Host"
-      data-bio="Saša Klaba je vlasni i direktor komapnije Kalman Kop koja se bavi izgradnjom premium objekata sa novi tehnologijama.">
-      <img src="assets/images/host-4.jpg" alt="Saša Kalaba">
-      <div class="card-body">
-        <h3 class="card-title">Luka Stokić</h3>
-        <p class="card-meta">Host</p>
-      </div>
-    </article>
-  </div>
-
+  <!-- JS puni ovo -->
+  <div class="guests-grid" id="guestsGrid"></div>
 </section>
+
 <div class="section-divider"></div>
+
 <!-- =====================
      GUEST MODAL
 ===================== -->
-  <div class="guest-modal" id="guestModal">
+<div class="guest-modal" id="guestModal">
   <div class="guest-modal-content">
 
     <div class="guest-modal-grid">
 
-      <!-- LEFT: IMAGE -->
       <div class="guest-modal-image">
         <img id="guestModalImg" alt="">
       </div>
 
-      <!-- RIGHT: TEXT -->
       <div class="guest-modal-text">
         <h2 id="guestModalName"></h2>
         <span class="guest-modal-line"></span>
         <p id="guestModalRole"></p>
         <p id="guestModalBio"></p>
+
         <button class="btn" id="closeGuest">Zatvori</button>
       </div>
 
@@ -160,9 +54,7 @@
 
   </div>
 </div>
-
-
-  </div>
+</div>
 </div>
 <!-- =====================
      NEWSLETTER
@@ -219,6 +111,7 @@
 <script src="assets/js/main.js"></script>
 </body>
 </html>
+
 
 
 
