@@ -61,3 +61,9 @@ modal.addEventListener("click", e => {
 });
 
 loadGuests();
+requestAnimationFrame(() => {
+  document
+    .querySelectorAll("#guestsGrid .reveal")
+    .forEach(el => el.classList.add("reveal-visible"));
+});
+
