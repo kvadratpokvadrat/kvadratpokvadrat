@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =====================
-     REVEAL (SCROLL ANIM)
+     REVEAL (JAČI + STABILAN)
   ===================== */
-  const revealObserver = new IntersectionObserver(entries => {
+  window.revealObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add("reveal-visible");
@@ -56,38 +56,35 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll(".reveal")
-    .forEach(el => revealObserver.observe(el));
+  document.querySelectorAll(".reveal").forEach(el => {
+    el.classList.remove("reveal-visible");
+    revealObserver.observe(el);
+  });
 
   /* =====================
-     COUNTERS (ANIM)
+     COUNTERS – ODMAH RADE
   ===================== */
-  const counterObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
+  window.animateCounter = function(el){
+    const target = Number(el.dataset.count || 0);
+    let current = 0;
+    const step = Math.max(target / 80, 1);
 
-      const el = e.target;
-      const target = Number(el.dataset.count || 0);
-      let current = 0;
-      const step = Math.max(target / 100, 1);
-
-      function tick() {
-        current += step;
-        if (current < target) {
-          el.textContent = Math.floor(current).toLocaleString("sr-RS");
-          requestAnimationFrame(tick);
-        } else {
-          el.textContent = target.toLocaleString("sr-RS");
-        }
+    function tick(){
+      current += step;
+      if(current < target){
+        el.textContent = Math.floor(current).toLocaleString("sr-RS");
+        requestAnimationFrame(tick);
+      } else {
+        el.textContent = target.toLocaleString("sr-RS");
       }
+    }
+    tick();
+  };
 
-      tick();
-      counterObserver.unobserve(el);
-    });
-  }, { threshold: 0.6 });
+  document.querySelectorAll("[data-count]").forEach(el => {
+    animateCounter(el);
+  });
 
-  document.querySelectorAll("[data-count]")
-    .forEach(c => counterObserver.observe(c));
 });
 
 /* =====================================================
@@ -101,6 +98,7 @@ function setCounter(id, val) {
   if (prev === val && el.textContent !== "0") return;
 
   el.dataset.count = val;
+  animateCounter(el);
 }
 
 /* =====================================================
@@ -112,13 +110,11 @@ function setCounter(id, val) {
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
   const MIN_SECONDS = 1800;
 
-  async function loadStats() {
+  async function loadStats(){
     try {
       const ch = await fetch(
         `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
-
-      if (!ch.items?.length) return;
 
       const stats = ch.items[0].statistics;
       const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
@@ -143,17 +139,22 @@ function setCounter(id, val) {
         }
       });
 
-      setCounter("yt-subs", Number(stats.subscriberCount || 0));
+      setCounter("yt-subs", stats.subscriberCount);
       setCounter("yt-views", views);
       setCounter("yt-videos", count);
 
-    } catch (e) {
-      console.error("YT STATS ERROR:", e);
+    } catch(e){
+      console.error(e);
     }
   }
 
+  function parseISO(iso){
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+    return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
+  }
+
   loadStats();
-  setInterval(loadStats, 5 * 60 * 1000);
+  setInterval(loadStats, 300000);
 
 })();
 
@@ -170,10 +171,10 @@ function setCounter(id, val) {
   if (!grid) return;
 
   const isHome =
-    window.location.pathname.endsWith("index.html") ||
-    window.location.pathname === "/";
+    location.pathname.endsWith("index.html") ||
+    location.pathname === "/";
 
-  async function loadEpisodes() {
+  async function loadEpisodes(){
     try {
       const ch = await fetch(
         `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
@@ -193,64 +194,43 @@ function setCounter(id, val) {
 
       let episodes = vids.items
         .filter(v => parseISO(v.contentDetails.duration) >= MIN)
-        .sort((a, b) =>
-          new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
-        );
+        .sort((a,b)=> new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
 
-      if (isHome) episodes = episodes.slice(0, 3);
+      if(isHome) episodes = episodes.slice(0,3);
 
       grid.innerHTML = "";
 
-      episodes.forEach((v, i) => {
-        const isNew = i === 0;
-        const duration = formatDuration(parseISO(v.contentDetails.duration));
-
-        grid.innerHTML += `
-          <article class="card episode-card reveal"
-            onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')">
-
-            ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
+      episodes.forEach((v,i)=>{
+        const duration = formatTime(parseISO(v.contentDetails.duration));
+        grid.insertAdjacentHTML("beforeend", `
+          <article class="card episode-card reveal">
+            ${i===0?`<span class="badge-new">Nova epizoda</span>`:""}
             <span class="episode-duration">${duration}</span>
-
-            <img src="${v.snippet.thumbnails.high.url}" alt="">
-            <div class="card-body">
-              <h3>${v.snippet.title}</h3>
-            </div>
+            <img src="${v.snippet.thumbnails.high.url}">
+            <div class="card-body"><h3>${v.snippet.title}</h3></div>
           </article>
-        `;
+        `);
       });
 
-      requestAnimationFrame(() => {
-        document.querySelectorAll("#yt-episodes .reveal")
-          .forEach(el => el.classList.add("reveal-visible"));
-      });
+      document.querySelectorAll("#yt-episodes .reveal")
+        .forEach(el => revealObserver.observe(el));
 
-    } catch (e) {
-      console.error("YT EPISODES ERROR:", e);
+    } catch(e){
+      console.error(e);
     }
   }
 
-  /* =====================
-     ISO → SEKUNDE
-  ===================== */
   function parseISO(iso){
-    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-    return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
+    const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
+    return (m[1]||0)*3600 + (m[2]||0)*60;
   }
 
-  /* =====================
-     FORMAT: SATI + MINUTI (FIX)
-  ===================== */
-  function formatDuration(sec){
-    const totalMinutes = Math.floor(sec / 60);
-    const h = Math.floor(totalMinutes / 60);
-    const m = totalMinutes % 60;
-
-    if (h > 0) return `${h} h ${m} min`;
-    return `${m} min`;
+  function formatTime(sec){
+    const h = Math.floor(sec/3600);
+    const m = Math.floor((sec%3600)/60);
+    return h>0 ? `${h} h ${m} min` : `${m} min`;
   }
 
   loadEpisodes();
-  setInterval(loadEpisodes, 5 * 60 * 1000);
 
 })();
