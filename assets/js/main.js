@@ -26,25 +26,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-   /* =====================
-   DARK MODE (WORKING)
-===================== */
-const toggle = document.getElementById("themeToggle");
+  /* =====================
+     DARK MODE
+  ===================== */
+  const toggle = document.getElementById("themeToggle");
+  if (toggle) {
+    const saved = localStorage.getItem("theme");
+    const isDark = saved === "dark";
 
-if (toggle) {
-  const saved = localStorage.getItem("theme");
-  const isDark = saved === "dark";
+    document.body.classList.toggle("dark", isDark);
+    toggle.textContent = isDark ? "Light" : "Dark";
 
-  document.body.classList.toggle("dark", isDark);
-  toggle.textContent = isDark ? "Light" : "Dark";
-
-  toggle.addEventListener("click", () => {
-    const nowDark = document.body.classList.toggle("dark");
-    localStorage.setItem("theme", nowDark ? "dark" : "light");
-    toggle.textContent = nowDark ? "Light" : "Dark";
-  });
-}
-
+    toggle.addEventListener("click", () => {
+      const nowDark = document.body.classList.toggle("dark");
+      localStorage.setItem("theme", nowDark ? "dark" : "light");
+      toggle.textContent = nowDark ? "Light" : "Dark";
+    });
+  }
 
   /* =====================
      REVEAL
@@ -90,46 +88,10 @@ if (toggle) {
 
   document.querySelectorAll("[data-count]")
     .forEach(c => counterObserver.observe(c));
-
-  /* =====================
-     GUEST MODAL
-  ===================== */
-  const modal = document.getElementById("guestModal");
-
-  if (modal) {
-    const img  = document.getElementById("guestModalImg");
-    const name = document.getElementById("guestModalName");
-    const role = document.getElementById("guestModalRole");
-    const bio  = document.getElementById("guestModalBio");
-    const closeBtn = document.getElementById("closeGuest");
-
-    document.querySelectorAll(".card--guest").forEach(card => {
-      card.addEventListener("click", () => {
-        img.src = card.dataset.img || "";
-        name.textContent = card.dataset.name || "";
-        role.textContent = card.dataset.role || "";
-        bio.textContent  = card.dataset.bio || "";
-
-        modal.classList.add("active");
-        document.body.classList.add("modal-open");
-      });
-    });
-
-    closeBtn?.addEventListener("click", close);
-    modal.addEventListener("click", e => {
-      if (e.target === modal) close();
-    });
-
-    function close() {
-      modal.classList.remove("active");
-      document.body.classList.remove("modal-open");
-    }
-  }
-
 });
 
 /* =====================================================
-   YOUTUBE STATS
+   YOUTUBE STATS (REFRESH 5 MIN)
 ===================================================== */
 (() => {
 
@@ -162,41 +124,42 @@ if (toggle) {
       let count = 0;
 
       vids.items.forEach(v => {
-        if (parseDuration(v.contentDetails.duration) >= MIN_SECONDS) {
+        if (parse(v.contentDetails.duration) >= MIN_SECONDS) {
           views += Number(v.statistics.viewCount || 0);
           count++;
         }
       });
 
-      setCounter("yt-subs", Number(stats.subscriberCount || 0));
-      setCounter("yt-views", views);
-      setCounter("yt-videos", count);
+      set("yt-subs", stats.subscriberCount);
+      set("yt-views", views);
+      set("yt-videos", count);
 
     } catch (e) {
-      console.error("YT ERROR:", e);
+      console.error("YT STATS ERROR:", e);
     }
   }
 
-  function setCounter(id, val) {
+  function set(id, val) {
     const el = document.getElementById(id);
     if (!el) return;
     el.dataset.count = val;
     el.textContent = "0";
   }
 
-  function parseDuration(iso) {
+  function parse(iso) {
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
 
   loadStats();
+  setInterval(loadStats, 5 * 60 * 1000);
 
 })();
 
 /* =====================================================
-   YOUTUBE EPISODES – FINAL
+   YOUTUBE EPISODES (INDEX = 3, EPIZODE = SVE)
 ===================================================== */
-(async () => {
+(() => {
 
   const API_KEY = "AIzaSyBfv24f4W3lmgCrmUTJBkJ3wIhc6Tm6org";
   const CHANNEL_ID = "UC5iFsgK01i-3xozxhFju7gg";
@@ -205,63 +168,66 @@ if (toggle) {
   const grid = document.getElementById("yt-episodes");
   if (!grid) return;
 
-  const LIMIT = Number(grid.dataset.limit || 3);
+  const isHome =
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname === "/";
 
-  try {
-    const ch = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
-    ).then(r => r.json());
+  async function loadEpisodes() {
+    try {
+      const ch = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
+      ).then(r => r.json());
 
-    const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
+      const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
-    const pl = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=20&playlistId=${uploads}&key=${API_KEY}`
-    ).then(r => r.json());
+      const pl = await fetch(
+        `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
+      ).then(r => r.json());
 
-    const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
+      const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
 
-    const vids = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
-    ).then(r => r.json());
+      const vids = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
+      ).then(r => r.json());
 
-    let episodes = vids.items.filter(v =>
-      parse(v.contentDetails.duration) >= MIN
-    );
+      let episodes = vids.items
+        .filter(v => parse(v.contentDetails.duration) >= MIN)
+        // NAJNOVIJA PRVA
+        .sort((a, b) =>
+          new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
+        );
 
-    // ⬅ najstarija → najnovija
-    episodes.reverse();
-    episodes = episodes.slice(0, LIMIT);
+      if (isHome) episodes = episodes.slice(0, 3);
 
-    grid.innerHTML = "";
+      grid.innerHTML = "";
 
-    episodes.forEach((v, i) => {
-      const duration = format(parse(v.contentDetails.duration));
-      const number = i + 1;
-      const isNew = i === episodes.length - 1;
+      episodes.forEach((v, i) => {
+        const isNew = i === 0;
+        const duration = format(parse(v.contentDetails.duration));
 
-      grid.innerHTML += `
-        <article class="card episode-card reveal"
-          onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')">
+        grid.innerHTML += `
+          <article class="card episode-card reveal"
+            onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')">
 
-          ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
-          <span class="episode-number">#${number}</span>
-          <span class="episode-duration">${duration}</span>
+            ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
+            <span class="episode-duration">${duration}</span>
 
-          <img src="${v.snippet.thumbnails.high.url}" alt="">
-          <div class="card-body">
-            <h3>${v.snippet.title}</h3>
-          </div>
-        </article>
-      `;
-    });
+            <img src="${v.snippet.thumbnails.high.url}" alt="">
+            <div class="card-body">
+              <h3>${v.snippet.title}</h3>
+            </div>
+          </article>
+        `;
+      });
 
-    requestAnimationFrame(() => {
-      document.querySelectorAll("#yt-episodes .reveal")
-        .forEach(el => el.classList.add("reveal-visible"));
-    });
+      requestAnimationFrame(() => {
+        document.querySelectorAll("#yt-episodes .reveal")
+          .forEach(el => el.classList.add("reveal-visible"));
+      });
 
-  } catch (e) {
-    console.error("YT EPISODES ERROR:", e);
+    } catch (e) {
+      console.error("YT EPISODES ERROR:", e);
+    }
   }
 
   function parse(iso){
@@ -275,8 +241,7 @@ if (toggle) {
     return `${m}:${s.toString().padStart(2,"0")}`;
   }
 
+  loadEpisodes();
+  setInterval(loadEpisodes, 5 * 60 * 1000);
+
 })();
-
-
-
-
