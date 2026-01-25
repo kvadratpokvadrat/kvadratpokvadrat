@@ -91,6 +91,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =====================================================
+   SET COUNTER – TVOJ (UBACEN, NEDIRAN)
+===================================================== */
+function setCounter(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const prev = Number(el.dataset.count || 0);
+
+  // ako je već inicijalizovan – samo update bez resetovanja
+  if (prev === val && el.textContent !== "0") return;
+
+  el.dataset.count = val;
+}
+
+/* =====================================================
    YOUTUBE STATS (REFRESH 5 MIN)
 ===================================================== */
 (() => {
@@ -130,20 +145,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
 
-      set("yt-subs", stats.subscriberCount);
-      set("yt-views", views);
-      set("yt-videos", count);
+      setCounter("yt-subs", Number(stats.subscriberCount || 0));
+      setCounter("yt-views", views);
+      setCounter("yt-videos", count);
 
     } catch (e) {
       console.error("YT STATS ERROR:", e);
     }
-  }
-
-  function set(id, val) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.dataset.count = val;
-    el.textContent = "0";
   }
 
   function parse(iso) {
@@ -192,7 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let episodes = vids.items
         .filter(v => parse(v.contentDetails.duration) >= MIN)
-        // NAJNOVIJA PRVA
         .sort((a, b) =>
           new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
         );
@@ -235,18 +242,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
 
+  /* =====================
+     FORMAT: SATI + MINUTI
+  ===================== */
   function format(sec){
-  const h = Math.floor(sec / 3600);
-  const m = Math.floor((sec % 3600) / 60);
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
 
-  return h > 0
-    ? `${h}:${m.toString().padStart(2,"0")}`
-    : `${m} min`;
-}
-
+    return h > 0
+      ? `${h} h ${m} min`
+      : `${m} min`;
+  }
 
   loadEpisodes();
   setInterval(loadEpisodes, 5 * 60 * 1000);
 
 })();
-
