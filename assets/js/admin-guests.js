@@ -1,8 +1,8 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
 const supabase = createClient(
-  "https://TVOJ_PROJECT_ID.supabase.co",
-  "PUBLIC_ANON_KEY"
+  "https://qwqohgpzsbrsfekkqctq.supabase.co",
+  "sb_publishable_8q1nuH711miG6jzJlyuQqw_l7Wna1-f"
 );
 
 const form = document.getElementById("guestForm");
