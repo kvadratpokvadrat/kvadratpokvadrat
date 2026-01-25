@@ -45,31 +45,50 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =====================
-     REVEAL
+     REVEAL (JAČI – ODOZDO)
   ===================== */
-  const revealObserver = new IntersectionObserver(entries => {
+  window.revealObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add("reveal-visible");
-        revealObserver.unobserve(e.target);
+        window.revealObserver.unobserve(e.target);
       }
     });
   }, { threshold: 0.15 });
 
-  document.querySelectorAll(".reveal")
-    .forEach(el => revealObserver.observe(el));
+  function observeReveals() {
+    document.querySelectorAll(".reveal:not(.reveal-visible)")
+      .forEach(el => window.revealObserver.observe(el));
+  }
+
+  observeReveals();
+
+  /* FORCE REVEAL NA REFRESH */
+  function forceReveal() {
+    document.querySelectorAll(".reveal").forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.85) {
+        el.classList.add("reveal-visible");
+        window.revealObserver.unobserve(el);
+      }
+    });
+  }
+
+  window.addEventListener("load", forceReveal);
 
   /* =====================
-     COUNTERS
+     COUNTERS (FIX ZA 0)
   ===================== */
-  const counterObserver = new IntersectionObserver(entries => {
+  window.counterObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
 
       const el = e.target;
       const target = Number(el.dataset.count || 0);
+      if (!target) return;
+
       let current = 0;
-      const step = Math.max(target / 100, 1);
+      const step = Math.max(target / 120, 1);
 
       function tick() {
         current += step;
@@ -82,27 +101,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       tick();
-      counterObserver.unobserve(el);
+      window.counterObserver.unobserve(el);
     });
   }, { threshold: 0.6 });
 
-  document.querySelectorAll("[data-count]")
-    .forEach(c => counterObserver.observe(c));
+  function observeCounters() {
+    document.querySelectorAll("[data-count]")
+      .forEach(el => window.counterObserver.observe(el));
+  }
+
+  observeCounters();
 });
 
 /* =====================================================
-   SET COUNTER – TVOJ (UBACEN, NEDIRAN)
+   SET COUNTER – TVOJ (POJAČAN, ALI LOGIKA ISTA)
 ===================================================== */
 function setCounter(id, val) {
   const el = document.getElementById(id);
   if (!el) return;
 
   const prev = Number(el.dataset.count || 0);
-
-  // ako je već inicijalizovan – samo update bez resetovanja
   if (prev === val && el.textContent !== "0") return;
 
   el.dataset.count = val;
+  el.textContent = "0";
+
+  // ako je već u viewport-u → odmah animiraj
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight) {
+    window.counterObserver.observe(el);
+  }
 }
 
 /* =====================================================
@@ -165,7 +193,7 @@ function setCounter(id, val) {
 })();
 
 /* =====================================================
-   YOUTUBE EPISODES (INDEX = 3, EPIZODE = SVE)
+   YOUTUBE EPISODES
 ===================================================== */
 (() => {
 
@@ -212,24 +240,24 @@ function setCounter(id, val) {
         const isNew = i === 0;
         const duration = format(parse(v.contentDetails.duration));
 
-        grid.innerHTML += `
-          <article class="card episode-card reveal"
-            onclick="window.open('https://www.youtube.com/watch?v=${v.id}','_blank')">
+        const card = document.createElement("article");
+        card.className = "card episode-card reveal";
+        card.onclick = () =>
+          window.open(`https://www.youtube.com/watch?v=${v.id}`, "_blank");
 
-            ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
-            <span class="episode-duration">${duration}</span>
-
-            <img src="${v.snippet.thumbnails.high.url}" alt="">
-            <div class="card-body">
-              <h3>${v.snippet.title}</h3>
-            </div>
-          </article>
+        card.innerHTML = `
+          ${isNew ? `<span class="badge-new">Nova epizoda</span>` : ""}
+          <span class="episode-duration">${duration}</span>
+          <img src="${v.snippet.thumbnails.high.url}">
+          <div class="card-body"><h3>${v.snippet.title}</h3></div>
         `;
+
+        grid.appendChild(card);
       });
 
       requestAnimationFrame(() => {
-        document.querySelectorAll("#yt-episodes .reveal")
-          .forEach(el => el.classList.add("reveal-visible"));
+        observeReveals();
+        forceReveal();
       });
 
     } catch (e) {
@@ -242,16 +270,10 @@ function setCounter(id, val) {
     return (m[1]||0)*3600 + (m[2]||0)*60 + (m[3]||0);
   }
 
-  /* =====================
-     FORMAT: SATI + MINUTI
-  ===================== */
   function format(sec){
     const h = Math.floor(sec / 3600);
     const m = Math.floor((sec % 3600) / 60);
-
-    return h > 0
-      ? `${h} h ${m} min`
-      : `${m} min`;
+    return h > 0 ? `${h} h ${m} min` : `${m} min`;
   }
 
   loadEpisodes();
