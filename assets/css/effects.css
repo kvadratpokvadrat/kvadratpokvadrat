@@ -332,12 +332,23 @@ body:not(.dark) .guest-modal{
    CLOSE BUTTON
 ========================================================= */
 #closeGuest{
-  background:var(--accent);
-  color:#000;
-  border:none;
-  border-radius:999px;
-  padding:12px 26px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 0 30px var(--glow-main);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 26px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 0 30px var(--glow-main);
+
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#closeGuest:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px var(--glow-main);
 }
