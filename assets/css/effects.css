@@ -352,3 +352,14 @@ body:not(.dark) .guest-modal{
   transform: translateY(-2px);
   box-shadow: 0 10px 40px var(--glow-main);
 }
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition: all .6s ease;
+}
+
