@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="assets/css/layout.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/effects.css">
-
-  <!-- ✅ BREVO CSS (DODATO) -->
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 </head>
 
 <body class="home">
@@ -86,7 +83,7 @@
 <div class="section-divider"></div>
 
 <!-- =====================
-     EPISODES
+     EPISODES (GRID – 3)
 ===================== -->
 <section>
   <div class="section-header">
@@ -94,6 +91,7 @@
     <a href="epizode.html" class="badge-btn">Pogledaj sve</a>
   </div>
 
+  <!-- FIX: zatvoren tag -->
   <div class="episode-grid" id="yt-episodes" data-limit="3">
     <!-- JS ubacuje TAČNO 3 episode kartice -->
   </div>
@@ -110,8 +108,34 @@
     <a href="gosti.html" class="badge-btn">Pogledaj sve</a>
   </div>
 
+  <!-- JS puni kartice -->
   <div class="guests-grid" id="guestsGrid"></div>
 </section>
+
+<div class="section-divider"></div>
+
+<!-- =====================
+     GUEST MODAL
+===================== -->
+<div class="guest-modal" id="guestModal">
+  <div class="guest-modal-content">
+    <div class="guest-modal-grid">
+
+      <div class="guest-modal-image">
+        <img id="guestModalImg" src="" alt="">
+      </div>
+
+      <div class="guest-modal-text">
+        <h3 id="guestModalName"></h3>
+        <p id="guestModalRole"></p>
+        <div class="guest-modal-line"></div>
+        <p id="guestModalBio"></p>
+        <button class="btn" id="closeGuest">Zatvori</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <div class="section-divider"></div>
 
@@ -130,25 +154,11 @@
 
       <form
         class="newsletter-form"
-        action="https://9e6e5df6.sibforms.com/serve/MUIFAOe567v1lZxWm_8MYaJVcyavCzYgkFtGz_vphEAF3GkMiX3epitwNfKIBBPZOaMGobHM4iRigWGdx7g8uLvLyyVg3c19EAoox8OomHeAgKIVG4eCIvDpza76LvqFJqCpq_hSMWDGU2G726f4QPvABfTTpsAzcq3Bmr18yWQwCe8I7socS5a7MWwXocF15M6t-BFmgcMQg=="
-        method="POST"
-      >
-        <input
-          type="email"
-          name="EMAIL"
-          placeholder="Vaš email"
-          required
-        >
-
-        <!-- ✅ OBAVEZNA BREVO POLJA -->
-        <input type="hidden" name="locale" value="sr">
-        <input type="text" name="email_address_check" value="" style="display:none">
-
-        <button class="btn" type="submit">
-          Subscribe
-        </button>
+        action="https://9e6e5df6.sibforms.com/serve/MUIFAOOe567v1lZxWm_8MYaJVvcvayCzYgkFtGz_yphEAF3GkMiX3epjtwNfKlBBPZOaMGobHM4jRigWGdx7q8uLyyl_Vq3c19EAoox8OomHeAqKlVG4eCIyDpza76ILyQKgFJqcPq_hSMWDGU2G72f64QPvABfTTpsAzcq3Bmr18yWQwCe8I7socS5a7MWwXocF15M6t-BFmgcMQg=="
+        method="POST">
+        <input type="email" name="EMAIL" placeholder="Vaš email" required>
+        <button class="btn" type="submit">Subscribe</button>
       </form>
-
     </div>
   </div>
 </section>
@@ -165,16 +175,6 @@
 ===================== -->
 <script src="assets/js/main.js"></script>
 <script type="module" src="assets/js/guests.js"></script>
-
-<!-- ✅ BREVO SCRIPT (DODATO) -->
-<script>
-window.REQUIRED_CODE_ERROR_MESSAGE = 'Ovo polje je obavezno.';
-window.EMAIL_INVALID_MESSAGE = "Email nije ispravan.";
-window.REQUIRED_ERROR_MESSAGE = "Ovo polje ne može biti prazno.";
-window.GENERIC_INVALID_MESSAGE = "Neispravni podaci.";
-window.LOCALE = 'sr';
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 </body>
 </html>
