@@ -162,6 +162,10 @@
     </div>
   </div>
 </section>
+  
+<div id="newsletter-success" style="display:none;" class="newsletter-success">
+  ✅ Uspešno ste se pretplatili!
+</div>
 
 <!-- =====================
      FOOTER
@@ -175,6 +179,20 @@
 ===================== -->
 <script src="assets/js/main.js"></script>
 <script type="module" src="assets/js/guests.js"></script>
+<script>
+  const form = document.querySelector(".newsletter-form");
+  const success = document.getElementById("newsletter-success");
+
+  if(form){
+    form.addEventListener("submit", () => {
+      setTimeout(() => {
+        success.style.display = "block";
+        form.reset();
+      }, 800);
+    });
+  }
+</script>
 
 </body>
 </html>
+
