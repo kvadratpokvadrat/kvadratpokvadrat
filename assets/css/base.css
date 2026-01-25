@@ -295,8 +295,12 @@ header {
 }
 
 /* =====================
-   NEWSLETTER (SAME EVERYWHERE)
+   NEWSLETTER (GLOBAL)
 ===================== */
+.newsletter {
+  padding: 120px 0;
+}
+
 .newsletter-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -305,15 +309,33 @@ header {
   border-radius: var(--radius-lg);
   padding: 56px;
   box-shadow: var(--shadow);
+
   display: grid;
-  gap: 56px;
   grid-template-columns: 1fr 1fr;
+  gap: 56px;
 }
 
+/* CONTENT */
+.newsletter-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.newsletter-content h2 {
+  margin-bottom: 12px;
+}
+
+.newsletter-content .muted {
+  margin-bottom: 24px;
+}
+
+/* FORM */
 .newsletter-form {
   display: flex;
   gap: 14px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .newsletter-form input {
@@ -321,15 +343,48 @@ header {
   padding: 14px 18px;
   border-radius: 999px;
   border: 1px solid var(--border);
+  background: #fff;
+  color: #000;
 }
+
+/* IMAGE PLACEHOLDER */
+.newsletter-image {
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at top, rgba(250,204,21,.15), transparent 60%);
+}
+
 /* =====================
-   NEWSLETTER – HIDE IMAGE ON MOBILE & TABLET
+   TABLET & MOBILE
 ===================== */
 @media (max-width: 1024px) {
+  .newsletter-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 40px 24px;
+  }
+
   .newsletter-image {
     display: none;
   }
+
+  .newsletter-form {
+    justify-content: center;
+  }
 }
+
+@media (max-width: 768px) {
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form input,
+  .newsletter-form button {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
 
 /* =====================
    FOOTER
@@ -419,6 +474,7 @@ header {
   align-items:center;
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
+
 
 
 
