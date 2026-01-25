@@ -292,7 +292,7 @@ body:not(.dark) .guest-modal{
   border-radius:28px;
   width:92%;
   max-width:840px;
-  padding:36px;
+  padding:65px;
   box-shadow:
     0 40px 140px rgba(0,0,0,.85),
     0 0 80px var(--glow-soft);
