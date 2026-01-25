@@ -121,7 +121,7 @@ header::after{
 .card-meta,
 .muted,
 #guestModalBio{
-  color:#f9fafb;
+   color: var(--text);
 }
 
 /* =========================================================
