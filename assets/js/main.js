@@ -236,12 +236,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function format(sec){
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    return `${m}:${s.toString().padStart(2,"0")}`;
-  }
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+
+  return h > 0
+    ? `${h}:${m.toString().padStart(2,"0")}`
+    : `${m} min`;
+}
+
 
   loadEpisodes();
   setInterval(loadEpisodes, 5 * 60 * 1000);
 
 })();
+
