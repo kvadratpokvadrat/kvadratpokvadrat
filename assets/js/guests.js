@@ -9,9 +9,10 @@ const supabase = createClient(
 );
 
 /* =====================
-   DOM
+   DOM READY
 ===================== */
 document.addEventListener("DOMContentLoaded", () => {
+
   const grid  = document.getElementById("guestsGrid");
   const modal = document.getElementById("guestModal");
 
@@ -25,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalRole = document.getElementById("guestModalRole");
   const modalBio  = document.getElementById("guestModalBio");
   const closeBtn  = document.getElementById("closeGuest");
+
+  // ✅ DA LI JE HOME (index.html)
+  const isHome = window.location.pathname.endsWith("index.html")
+              || window.location.pathname === "/";
 
   /* =====================
      LOAD GUESTS
@@ -42,7 +47,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     grid.innerHTML = "";
 
-    data.forEach(guest => {
+    // 👉 index.html = 4 poslednja gosta
+    const list = isHome ? data.slice(0, 4) : data;
+
+    list.forEach(guest => {
       const card = document.createElement("article");
       card.className = "card card--guest reveal";
 
@@ -99,4 +107,5 @@ document.addEventListener("DOMContentLoaded", () => {
      INIT
   ===================== */
   loadGuests();
+
 });
