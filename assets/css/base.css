@@ -108,7 +108,7 @@ header {
   position: fixed;
   inset: 0 0 auto 0;
   height: 96px;
-  padding: 0 56px;
+  padding: 0 0px;
   display: flex;
   align-items: center;
   background: var(--card);
@@ -474,6 +474,7 @@ header {
   align-items:center;
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
+
 
 
 
