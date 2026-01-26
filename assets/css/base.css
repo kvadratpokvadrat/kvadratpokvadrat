@@ -491,6 +491,13 @@ header {
 .cta.single .cta-content{
   max-width: 720px;
 }
+/* CTA dugme – normalna širina */
+.cta .btn{
+  width:auto;
+  display:inline-flex;
+  padding:14px 28px;
+}
+
 
 
 
