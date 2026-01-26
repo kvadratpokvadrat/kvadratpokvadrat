@@ -13,23 +13,23 @@ const supabase = createClient(
 ===================== */
 document.addEventListener("DOMContentLoaded", () => {
 
-  const grid  = document.getElementById("guestsGrid");
-  const modal = document.getElementById("guestModal");
-
-  if (!grid || !modal) {
-    console.error("GUESTS: Nedostaje guestsGrid ili guestModal u HTML-u");
+  const grid = document.getElementById("guestsGrid");
+  if (!grid) {
+    console.error("GUESTS: #guestsGrid ne postoji u HTML-u");
     return;
   }
 
+  // modal NIJE obavezan
+  const modal     = document.getElementById("guestModal");
   const modalImg  = document.getElementById("guestModalImg");
   const modalName = document.getElementById("guestModalName");
   const modalRole = document.getElementById("guestModalRole");
   const modalBio  = document.getElementById("guestModalBio");
   const closeBtn  = document.getElementById("closeGuest");
 
-  // ✅ DA LI JE HOME (index.html)
-  const isHome = window.location.pathname.endsWith("index.html")
-              || window.location.pathname === "/";
+  const isHome =
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname === "/";
 
   /* =====================
      LOAD GUESTS
@@ -41,13 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("SUPABASE:", error);
+      console.error("SUPABASE ERROR:", error);
       return;
     }
 
     grid.innerHTML = "";
 
-    // 👉 index.html = 4 poslednja gosta
     const list = isHome ? data.slice(0, 4) : data;
 
     list.forEach(guest => {
@@ -58,46 +57,52 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${guest.image_url}" alt="${guest.name}">
         <div class="card-body">
           <h3 class="card-title">${guest.name}</h3>
-          <p class="card-meta">${guest.role}</p>
+          <p class="card-meta">${guest.role || ""}</p>
         </div>
       `;
 
-      card.addEventListener("click", () => openGuest(guest));
+      // klik samo ako modal postoji
+      if (modal) {
+        card.addEventListener("click", () => openGuest(guest));
+      }
+
       grid.appendChild(card);
     });
 
-   /* reveal animacija – PRAVILNO */
-requestAnimationFrame(() => {
-  requestAnimationFrame(() => {
-    grid
-      .querySelectorAll(".reveal")
-      .forEach(el => el.classList.add("reveal-visible"));
-  });
-});
-
+    // reveal animacija POSLE rendera
+    requestAnimationFrame(() => {
+      grid
+        .querySelectorAll(".reveal")
+        .forEach(el => el.classList.add("reveal-visible"));
+    });
+  }
 
   /* =====================
      MODAL
   ===================== */
   function openGuest(guest) {
+    if (!modal) return;
+
     modalImg.src = guest.image_url;
     modalImg.alt = guest.name;
     modalName.textContent = guest.name;
-    modalRole.textContent = guest.role;
-    modalBio.textContent  = guest.bio;
+    modalRole.textContent = guest.role || "";
+    modalBio.textContent  = guest.bio || "";
 
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
   }
 
   function closeGuest() {
+    if (!modal) return;
+
     modal.classList.remove("active");
     document.body.style.overflow = "";
   }
 
   closeBtn?.addEventListener("click", closeGuest);
 
-  modal.addEventListener("click", e => {
+  modal?.addEventListener("click", e => {
     if (e.target === modal) closeGuest();
   });
 
