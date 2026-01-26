@@ -467,3 +467,80 @@ body:not(.dark) .guest-modal{
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
 }
+/* =========================================================
+   CTA – IDENTIČAN NEWSLETTER OKVIR (ALI SAMOSTALAN)
+========================================================= */
+
+.cta{
+  padding:120px 24px;
+}
+
+/* OKVIR – ISTI FEEL KAO NEWSLETTER */
+.cta-inner{
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:56px;
+  box-shadow:var(--shadow);
+}
+
+/* SADRŽAJ – CENTAR */
+.cta-content{
+  max-width:720px;
+  margin:0 auto;
+  text-align:center;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* NASLOV */
+.cta-content h2{
+  margin-bottom:14px;
+}
+
+/* UNDERLINE U CENTRU */
+.cta-content h2::after{
+  left:50%;
+  transform:translateX(-50%);
+}
+
+/* TEKST */
+.cta-content p{
+  margin-bottom:12px;
+}
+
+/* EMAIL */
+.cta-content strong{
+  color:var(--accent);
+}
+
+/* DUGME */
+.cta .btn{
+  margin-top:26px;
+  padding:14px 32px;
+  width:auto;
+}
+
+/* =====================
+   TABLET & MOBILE
+===================== */
+@media (max-width:1024px){
+  .cta-inner{
+    padding:40px 24px;
+  }
+}
+
+@media (max-width:768px){
+  .cta{
+    padding:80px 24px;
+  }
+
+  .cta .btn{
+    width:100%;
+    max-width:260px;
+  }
+}
