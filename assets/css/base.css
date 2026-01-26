@@ -475,10 +475,7 @@ header {
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
 
-/* =========================================================
-   CTA INNER — ISTI OKVIR KAO NEWSLETTER
-========================================================= */
-
+/* CTA OKVIR – IDENTIČAN newsletter-inner */
 .cta-inner{
   max-width:1100px;
   margin:0 auto;
@@ -487,44 +484,31 @@ header {
   border-radius:var(--radius-lg);
   padding:56px;
   box-shadow:var(--shadow);
-
-  display:grid;
-  grid-template-columns:1fr;
-  gap:32px;
-  text-align:center;
 }
 
-/* sadržaj u centru */
+/* CTA sadržaj – CENTRIRAN */
 .cta-content{
   max-width:720px;
   margin:0 auto;
+  text-align:center;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-/* underline ispod h2 u centru */
+/* naslov underline – centar */
 .cta-content h2::after{
   left:50%;
   transform:translateX(-50%);
 }
 
-/* dugme normalne širine */
+/* CTA dugme */
 .cta .btn{
-  width:auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:14px 28px;
   margin-top:24px;
+  padding:14px 28px;
+  width:auto;
 }
-
-/* MOBILE */
-@media(max-width:768px){
-  .cta-inner{
-    padding:40px 24px;
-  }
-}
-
-
-
 
 
 
