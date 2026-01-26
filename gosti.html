@@ -83,7 +83,7 @@
      NEWSLETTER
 ===================== -->
 <section>
-  <div class="newsletter-inner">
+  <div class="newsletter-inner reveal">
     <div class="newsletter-image">
       <img src="assets/images/newsletter.jpg" alt="">
     </div>
@@ -246,43 +246,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
-  /* =====================
-     MODAL
-  ===================== */
-  function openGuest(guest) {
-    if (!modal) return;
-
-    modalImg.src = guest.image_url;
-    modalImg.alt = guest.name;
-    modalName.textContent = guest.name;
-    modalRole.textContent = guest.role || "";
-    modalBio.textContent  = guest.bio || "";
-
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeGuest() {
-    if (!modal) return;
-
-    modal.classList.remove("active");
-    document.body.style.overflow = "";
-  }
-
-  closeBtn?.addEventListener("click", closeGuest);
-
-  modal?.addEventListener("click", e => {
-    if (e.target === modal) closeGuest();
-  });
-
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") closeGuest();
-  });
-
-  /* =====================
-     INIT
-  ===================== */
-  loadGuests();
-
-});
-
+ 
