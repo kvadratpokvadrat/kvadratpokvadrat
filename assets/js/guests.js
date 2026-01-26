@@ -32,50 +32,62 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.pathname === "/";
 
   /* =====================
-     LOAD GUESTS
-  ===================== */
-  async function loadGuests() {
-    const { data, error } = await supabase
-      .from("guests")
-      .select("*")
-      .order("created_at", { ascending: false });
+   REVEAL OBSERVER
+===================== */
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("reveal-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  {
+    threshold: 0.15
+  }
+);
 
-    if (error) {
-      console.error("SUPABASE ERROR:", error);
-      return;
+/* =====================
+   LOAD GUESTS
+===================== */
+async function loadGuests() {
+  const { data, error } = await supabase
+    .from("guests")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("SUPABASE ERROR:", error);
+    return;
+  }
+
+  grid.innerHTML = "";
+
+  const list = isHome ? data.slice(0, 4) : data;
+
+  list.forEach(guest => {
+    const card = document.createElement("article");
+    card.className = "card card--guest reveal";
+
+    card.innerHTML = `
+      <img src="${guest.image_url}" alt="${guest.name}">
+      <div class="card-body">
+        <h3 class="card-title">${guest.name}</h3>
+        <p class="card-meta">${guest.role || ""}</p>
+      </div>
+    `;
+
+    if (modal) {
+      card.addEventListener("click", () => openGuest(guest));
     }
 
-    grid.innerHTML = "";
+    grid.appendChild(card);
 
-    const list = isHome ? data.slice(0, 4) : data;
-
-    list.forEach(guest => {
-      const card = document.createElement("article");
-      card.className = "card card--guest reveal";
-
-      card.innerHTML = `
-        <img src="${guest.image_url}" alt="${guest.name}">
-        <div class="card-body">
-          <h3 class="card-title">${guest.name}</h3>
-          <p class="card-meta">${guest.role || ""}</p>
-        </div>
-      `;
-
-      // klik samo ako modal postoji
-      if (modal) {
-        card.addEventListener("click", () => openGuest(guest));
-      }
-
-      grid.appendChild(card);
-    });
-
-    // reveal animacija POSLE rendera
-    requestAnimationFrame(() => {
-      grid
-        .querySelectorAll(".reveal")
-        .forEach(el => el.classList.add("reveal-visible"));
-    });
-  }
+    // 👇 OVO JE KLJUČ
+    revealObserver.observe(card);
+  });
+}
 
   /* =====================
      MODAL
