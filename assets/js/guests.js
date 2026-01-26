@@ -66,13 +66,15 @@ document.addEventListener("DOMContentLoaded", () => {
       grid.appendChild(card);
     });
 
-    /* reveal animacija POSLE rendera */
-    requestAnimationFrame(() => {
-      grid
-        .querySelectorAll(".reveal")
-        .forEach(el => el.classList.add("reveal-visible"));
-    });
-  }
+   /* reveal animacija – PRAVILNO */
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    grid
+      .querySelectorAll(".reveal")
+      .forEach(el => el.classList.add("reveal-visible"));
+  });
+});
+
 
   /* =====================
      MODAL
