@@ -4,22 +4,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!social || !toggle) return;
 
-  // UVEK aktivan (opacity / scale)
+  // uvek vidljiv (opacity / scale)
   social.classList.add("visible");
 
-  const isMobile = window.matchMedia("(max-width: 768px)").matches;
+  function handleSocial() {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-  // Desktop: uvek izvučeno, bez strelice
-  if (!isMobile) {
-    social.classList.add("open");
-    toggle.style.display = "none";
-    return;
+    if (isMobile) {
+      // 📱 MOBILE
+      social.classList.remove("open");
+      toggle.style.display = "flex";
+    } else {
+      // 💻 DESKTOP
+      social.classList.add("open");
+      toggle.style.display = "none";
+    }
   }
 
-  // Mobile: start sakriveno (samo strelica)
-  social.classList.remove("open");
-
+  // klik na strelicu (samo mobile)
   toggle.addEventListener("click", () => {
     social.classList.toggle("open");
   });
+
+  // init + resize
+  handleSocial();
+  window.addEventListener("resize", handleSocial);
 });
