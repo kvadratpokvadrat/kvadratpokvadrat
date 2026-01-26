@@ -195,6 +195,26 @@
 
 <!-- ================= JS ================= -->
 <script src="assets/js/main.js"></script>
+<script>
+  const form = document.querySelector(".newsletter-form");
+  const success = document.getElementById("newsletter-success");
 
+  if(form){
+    form.addEventListener("submit", function(e){
+      e.preventDefault(); // ❌ sprečava belu stranu
+
+      const data = new FormData(form);
+
+      fetch(form.action, {
+        method: "POST",
+        body: data,
+        mode: "no-cors"
+      });
+
+      success.style.display = "block";
+      form.reset();
+    });
+  }
+</script>
 </body>
 </html>
