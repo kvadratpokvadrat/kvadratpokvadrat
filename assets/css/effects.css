@@ -417,7 +417,7 @@ body:not(.dark) .guest-modal{
 .reveal-visible{
   opacity:1;
   transform:none;
-  transition:all .6s ease;
+  transition:all .8s ease;
 }
 .contact-mail{
   color: var(--accent);
