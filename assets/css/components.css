@@ -321,6 +321,12 @@
     border: none;
     font-size: 22px;
     cursor: pointer;
+     /* 🔑 OVO FALI */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1; /* dodatno zatezanje */
   }
 
   .social-float.open .social-toggle{
