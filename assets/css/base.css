@@ -476,27 +476,27 @@ header {
 }  ovo je moj base da li ce raditi sa ovim effects  
 
 /* CTA koristi newsletter layout ali u 1 koloni */
-.cta .newsletter-inner {
+.cta .newsletter-inner{
   grid-template-columns: 1fr;
 }
 
-.cta .newsletter-image {
-  display: none;
+.cta .newsletter-image{
+  display:none;
 }
 
-.cta.single .cta-inner{
-  grid-template-columns: 1fr;
+/* CTA sadržaj – kontrola širine */
+.cta .newsletter-content{
+  max-width:720px;
 }
 
-.cta.single .cta-content{
-  max-width: 720px;
-}
 /* CTA dugme – normalna širina */
 .cta .btn{
   width:auto;
   display:inline-flex;
   padding:14px 28px;
 }
+
+
 
 
 
