@@ -428,3 +428,42 @@ body:not(.dark) .guest-modal{
 .contact-mail:hover{
   text-decoration: underline;
 }
+/* =========================================================
+   MODAL SCROLL – CINEMATIC (SAFE)
+========================================================= */
+
+
+/* ===============================
+   WEBKIT (Chrome, Edge, Safari)
+================================ */
+
+.guest-modal-text::-webkit-scrollbar{
+  width: 6px;
+}
+
+.guest-modal-text::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+.guest-modal-text::-webkit-scrollbar-thumb{
+  background: linear-gradient(
+    180deg,
+    rgba(250,204,21,.85),
+    rgba(250,204,21,.45)
+  );
+  border-radius: 999px;
+}
+
+/* hover efekat */
+.guest-modal-text::-webkit-scrollbar-thumb:hover{
+  background: rgba(250,204,21,1);
+}
+
+/* ===============================
+   FIREFOX
+================================ */
+
+.guest-modal-text{
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
