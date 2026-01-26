@@ -82,9 +82,8 @@
 <!-- =====================
      NEWSLETTER
 ===================== -->
-<section class="newsletter">
+<section>
   <div class="newsletter-inner">
-
     <div class="newsletter-image">
       <img src="assets/images/newsletter.jpg" alt="">
     </div>
@@ -93,14 +92,20 @@
       <h2>Ostanite u toku</h2>
       <p>Pretplatite se i dobijajte nove epizode prvi.</p>
 
-      <form class="newsletter-form">
-        <input type="email" placeholder="Vaš email" required>
-        <button class="btn">Subscribe</button>
+      <form
+        class="newsletter-form"
+        action="https://9e6e5df6.sibforms.com/serve/MUIFAOOe567v1lZxWm_8MYaJVvcvayCzYgkFtGz_yphEAF3GkMiX3epjtwNfKlBBPZOaMGobHM4jRigWGdx7q8uLyyl_Vq3c19EAoox8OomHeAqKlVG4eCIyDpza76ILyQKgFJqcPq_hSMWDGU2G72f64QPvABfTTpsAzcq3Bmr18yWQwCe8I7socS5a7MWwXocF15M6t-BFmgcMQg=="
+        method="POST">
+        <input type="email" name="EMAIL" placeholder="Vaš email" required>
+        <button class="btn" type="submit">Subscribe</button>
       </form>
     </div>
-
   </div>
 </section>
+  
+<div id="newsletter-success" style="display:none;" class="newsletter-success">
+  ✅ Uspešno ste se pretplatili!
+</div>
 
 <div class="section-divider"></div>
 
@@ -165,6 +170,7 @@
 
 </body>
 </html>
+
 
 
 
