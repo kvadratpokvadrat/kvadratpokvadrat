@@ -496,6 +496,36 @@ header {
   padding:14px 28px;
 }
 
+/* =========================================================
+   CTA SINGLE – CENTERED (NE DIRAMO NEWSLETTER)
+========================================================= */
+
+.cta.single .cta-inner{
+  display:grid;
+  grid-template-columns:1fr;
+  justify-items:center;
+  text-align:center;
+}
+
+.cta.single .cta-content{
+  max-width:720px;
+}
+
+/* naslov underline u centru */
+.cta.single h2::after{
+  left:50%;
+  transform:translateX(-50%);
+}
+
+/* CTA dugme – normalna širina */
+.cta.single .btn{
+  width:auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 28px;
+}
+
 
 
 
