@@ -475,56 +475,55 @@ header {
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
 
-/* CTA koristi newsletter layout ali u 1 koloni */
-.cta .newsletter-inner{
-  grid-template-columns: 1fr;
-}
-
-.cta .newsletter-image{
-  display:none;
-}
-
-/* CTA sadržaj – kontrola širine */
-.cta .newsletter-content{
-  max-width:720px;
-}
-
-/* CTA dugme – normalna širina */
-.cta .btn{
-  width:auto;
-  display:inline-flex;
-  padding:14px 28px;
-}
-
 /* =========================================================
-   CTA SINGLE – CENTERED (NE DIRAMO NEWSLETTER)
+   CTA INNER — ISTI OKVIR KAO NEWSLETTER
 ========================================================= */
 
-.cta.single .cta-inner{
+.cta-inner{
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:56px;
+  box-shadow:var(--shadow);
+
   display:grid;
   grid-template-columns:1fr;
-  justify-items:center;
+  gap:32px;
   text-align:center;
 }
 
-.cta.single .cta-content{
+/* sadržaj u centru */
+.cta-content{
   max-width:720px;
+  margin:0 auto;
 }
 
-/* naslov underline u centru */
-.cta.single h2::after{
+/* underline ispod h2 u centru */
+.cta-content h2::after{
   left:50%;
   transform:translateX(-50%);
 }
 
-/* CTA dugme – normalna širina */
-.cta.single .btn{
+/* dugme normalne širine */
+.cta .btn{
   width:auto;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   padding:14px 28px;
+  margin-top:24px;
 }
+
+/* MOBILE */
+@media(max-width:768px){
+  .cta-inner{
+    padding:40px 24px;
+  }
+}
+
+
 
 
 
