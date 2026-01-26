@@ -400,7 +400,6 @@ body:not(.dark) .guest-modal{
   }
 
   #closeGuest{
-    position:fixed;
     bottom:16px;
     right:16px;
     z-index:10000;
