@@ -296,15 +296,34 @@
   box-shadow: 0 18px 45px rgba(0,0,0,.55);
 }
 
-/* mobile malo manji */
 @media (max-width: 768px){
+
   .social-float{
-    right: 16px;
-    bottom: 24px;
+    right: -62px; /* sakriveno */
+    transition: right .45s cubic-bezier(.16,1,.3,1);
   }
 
-  .social-float a{
-    width: 48px;
-    height: 48px;
+  .social-float.open{
+    right: 16px; /* izvučeno */
+  }
+
+  /* strelica */
+  .social-toggle{
+    position: absolute;
+    left: -34px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 44px;
+    border-radius: 10px 0 0 10px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  .social-float.open .social-toggle{
+    transform: translateY(-50%) rotate(180deg);
   }
 }
