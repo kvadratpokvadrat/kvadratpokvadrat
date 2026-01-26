@@ -230,7 +230,7 @@ body:not(.dark) .episode-duration {
 }
 
 .card.featured::after{
-  content:"Najpopularnije";
+  content:"Premium";
   position:absolute;
   top:18px;
   right:18px;
