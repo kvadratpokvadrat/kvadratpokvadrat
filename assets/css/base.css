@@ -117,7 +117,7 @@ header {
   z-index: 5000;
 }
 
-.logo img { height: 52px; }
+.logo img { height: 100px; }
 
 .nav {
   margin-left: auto;
@@ -474,6 +474,7 @@ header {
   align-items:center;
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
+
 
 
 
