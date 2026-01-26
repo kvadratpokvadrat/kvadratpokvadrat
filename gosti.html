@@ -1,181 +1,118 @@
-<!DOCTYPE html>
-<html lang="sr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gosti | Kvadrat po Kvadrat</title>
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/layout.css">
-  <link rel="stylesheet" href="assets/css/components.css">
-  <link rel="stylesheet" href="assets/css/effects.css">
-</head>
+/* =====================
+   SUPABASE
+===================== */
+const supabase = createClient(
+  "https://qwqohgpzsbrsfekkqctq.supabase.co",
+  "sb_publishable_8q1nuH711miG6jzJlyuQqw_l7Wna1-f"
+);
 
-<body>
+/* =====================
+   DOM READY
+===================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-<!-- =====================
-     HEADER
-===================== -->
-<header class="header">
-  <div class="header-inner">
+  const grid = document.getElementById("guestsGrid");
+  if (!grid) {
+    console.error("GUESTS: #guestsGrid ne postoji u HTML-u");
+    return;
+  }
 
-    <a href="index.html" class="logo">
-  <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
-</a>
+  // modal NIJE obavezan
+  const modal     = document.getElementById("guestModal");
+  const modalImg  = document.getElementById("guestModalImg");
+  const modalName = document.getElementById("guestModalName");
+  const modalRole = document.getElementById("guestModalRole");
+  const modalBio  = document.getElementById("guestModalBio");
+  const closeBtn  = document.getElementById("closeGuest");
 
+  const isHome =
+    window.location.pathname.endsWith("index.html") ||
+    window.location.pathname === "/";
 
-    <button class="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+  /* =====================
+     LOAD GUESTS
+  ===================== */
+  async function loadGuests() {
+    const { data, error } = await supabase
+      .from("guests")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    <nav class="nav">
-      <a href="index.html">Početna</a>
-      <a href="epizode.html">Epizode</a>
-      <a href="gosti.html" class="active">Gosti</a>
-      <a href="o-nama.html">O nama</a>
-      <a href="kontakt.html">Kontakt</a>
+    if (error) {
+      console.error("SUPABASE ERROR:", error);
+      return;
+    }
 
-      <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
-      <button class="badge-btn" id="themeToggle">Dark</button>
-    </nav>
+    grid.innerHTML = "";
 
-  </div>
-</header>
+    const list = isHome ? data.slice(0, 4) : data;
 
-<div class="nav-overlay"></div>
-<!-- =====================
-     HERO
-===================== -->
-<section class="hero">
-  <div class="hero-inner">
-    <h1 class="hero-title">
-      <span>Naši gosti</span> 
-    </h1>
+    list.forEach(guest => {
+      const card = document.createElement("article");
+      card.className = "card card--guest reveal";
 
-    <p class="hero-subtitle">
-   Lideri i oni koji prave razliku. 
-    </p>
+      card.innerHTML = `
+        <img src="${guest.image_url}" alt="${guest.name}">
+        <div class="card-body">
+          <h3 class="card-title">${guest.name}</h3>
+          <p class="card-meta">${guest.role || ""}</p>
+        </div>
+      `;
 
-    <div class="hero-actions">
-    </div>
-  </div>
-</section>
-<!-- =====================
-     DIVIDER
-===================== -->
-<div class="section-divider"></div>
+      // klik samo ako modal postoji
+      if (modal) {
+        card.addEventListener("click", () => openGuest(guest));
+      }
 
-<!-- =====================
-     GUESTS
-===================== -->
-<section class="section">
-  <div class="section-header">
-    <h2>Naši gosti</h2>
-  </div>
+      grid.appendChild(card);
+    });
 
-  <!-- JS puni kartice -->
-  <div class="guests-grid" id="guestsGrid"></div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- =====================
-     NEWSLETTER
-===================== -->
-<section>
-  <div class="newsletter-inner">
-    <div class="newsletter-image">
-      <img src="assets/images/newsletter.jpg" alt="">
-    </div>
-
-    <div class="newsletter-content">
-      <h2>Ostanite u toku</h2>
-      <p>Pretplatite se i dobijajte nove epizode prvi.</p>
-
-      <form
-        class="newsletter-form"
-        action="https://9e6e5df6.sibforms.com/serve/MUIFAOOe567v1lZxWm_8MYaJVvcvayCzYgkFtGz_yphEAF3GkMiX3epjtwNfKlBBPZOaMGobHM4jRigWGdx7q8uLyyl_Vq3c19EAoox8OomHeAqKlVG4eCIyDpza76ILyQKgFJqcPq_hSMWDGU2G72f64QPvABfTTpsAzcq3Bmr18yWQwCe8I7socS5a7MWwXocF15M6t-BFmgcMQg=="
-        method="POST">
-        <input type="email" name="EMAIL" placeholder="Vaš email" required>
-        <button class="btn" type="submit">Subscribe</button>
-      </form>
-    </div>
-  </div>
-</section>
-  
-<div id="newsletter-success" style="display:none;" class="newsletter-success">
-  ✅ Uspešno ste se pretplatili!
-</div>
-
-<div class="section-divider"></div>
-
-<!-- =====================
-     FOOTER
-===================== -->
-<footer class="footer">
-  © 2026 Kvadrat po Kvadrat
-</footer>
-
-<!-- =====================
-     GUEST MODAL (JEDAN!)
-===================== -->
-<div class="guest-modal" id="guestModal">
-  <div class="guest-modal-content">
-
-    <button class="guest-close" id="closeGuest">Zatvori</button>
-
-    <div class="guest-modal-grid">
-
-      <div class="guest-modal-image">
-        <img id="guestModalImg" src="" alt="">
-      </div>
-
-      <div class="guest-modal-text">
-        <h3 id="guestModalName"></h3>
-        <span class="guest-modal-line"></span>
-        <p id="guestModalRole"></p>
-        <p id="guestModalBio"></p>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- =====================
-     JS
-===================== -->
-<script src="assets/js/main.js"></script>
-<script type="module" src="assets/js/guests.js"></script>
-<script>
-  const form = document.querySelector(".newsletter-form");
-  const success = document.getElementById("newsletter-success");
-
-  if(form){
-    form.addEventListener("submit", function(e){
-      e.preventDefault(); // ❌ sprečava belu stranu
-
-      const data = new FormData(form);
-
-      fetch(form.action, {
-        method: "POST",
-        body: data,
-        mode: "no-cors"
-      });
-
-      success.style.display = "block";
-      form.reset();
+    // reveal animacija POSLE rendera
+    requestAnimationFrame(() => {
+      grid
+        .querySelectorAll(".reveal")
+        .forEach(el => el.classList.add("reveal-visible"));
     });
   }
-</script>
 
-</body>
-</html>
+  /* =====================
+     MODAL
+  ===================== */
+  function openGuest(guest) {
+    if (!modal) return;
 
+    modalImg.src = guest.image_url;
+    modalImg.alt = guest.name;
+    modalName.textContent = guest.name;
+    modalRole.textContent = guest.role || "";
+    modalBio.textContent  = guest.bio || "";
 
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
 
+  function closeGuest() {
+    if (!modal) return;
 
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+  }
 
+  closeBtn?.addEventListener("click", closeGuest);
 
+  modal?.addEventListener("click", e => {
+    if (e.target === modal) closeGuest();
+  });
 
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") closeGuest();
+  });
 
+  /* =====================
+     INIT
+  ===================== */
+  loadGuests();
 
+});
