@@ -475,40 +475,9 @@ header {
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
 
-/* CTA OKVIR – IDENTIČAN newsletter-inner */
-.cta-inner{
-  max-width:1100px;
-  margin:0 auto;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius-lg);
-  padding:56px;
-  box-shadow:var(--shadow);
-}
 
-/* CTA sadržaj – CENTRIRAN */
-.cta-content{
-  max-width:720px;
-  margin:0 auto;
-  text-align:center;
 
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
 
-/* naslov underline – centar */
-.cta-content h2::after{
-  left:50%;
-  transform:translateX(-50%);
-}
-
-/* CTA dugme */
-.cta .btn{
-  margin-top:24px;
-  padding:14px 28px;
-  width:auto;
-}
 
 
 
