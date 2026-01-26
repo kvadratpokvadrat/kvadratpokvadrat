@@ -484,6 +484,14 @@ header {
   display: none;
 }
 
+.cta.single .cta-inner{
+  grid-template-columns: 1fr;
+}
+
+.cta.single .cta-content{
+  max-width: 720px;
+}
+
 
 
 
