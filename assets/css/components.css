@@ -241,64 +241,102 @@
   line-height: 1.7;
 }
 /* =========================================================
-   FLOATING SOCIAL BAR
+   FLOATING SOCIAL BAR — CINEMATIC
 ========================================================= */
 
 .social-float{
-  position:fixed;
-  top:50%;
-  left:24px; /* 👉 promeni u right:24px ako hoćeš desno */
-  transform:translateY(-50%);
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  z-index:4000;
+  position: fixed;
+  top: 50%;
+  left: 28px;
+  transform: translateY(-50%);
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  pointer-events: auto;
 }
 
-/* dugme */
+/* ITEM */
 .social-float a{
-  width:46px;
-  height:46px;
-  border-radius:999px;
-  background:var(--card);
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
+  width: 52px;
+  height: 52px;
 
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--border);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.12),
+    inset 0 0 0 1px rgba(255,255,255,.06);
 
   transition:
-    transform .45s cubic-bezier(.4,0,.2,1),
-    box-shadow .45s cubic-bezier(.4,0,.2,1),
-    background .45s cubic-bezier(.4,0,.2,1);
+    transform .35s cubic-bezier(.22,.61,.36,1),
+    box-shadow .35s cubic-bezier(.22,.61,.36,1),
+    background .35s ease;
+
+  backdrop-filter: blur(12px);
 }
 
-/* ikonica */
-.social-float img{
-  width:20px;
-  height:20px;
-  opacity:.85;
-  transition:opacity .3s ease;
+/* ICON */
+.social-float svg{
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  color: var(--text);
+  transition: transform .35s ease, color .35s ease;
 }
 
-/* hover efekat */
+/* HOVER */
 .social-float a:hover{
-  transform:translateY(-4px) scale(1.06);
+  transform: translateX(8px) scale(1.08);
   box-shadow:
-    var(--shadow-hover),
-    0 0 24px rgba(250,204,21,.45);
-  background:#000;
+    0 22px 60px rgba(0,0,0,.25),
+    0 0 22px rgba(250,204,21,.45);
+
+  background: var(--accent);
+  border-color: transparent;
 }
 
-.social-float a:hover img{
-  opacity:1;
-  filter:invert(1);
+.social-float a:hover svg{
+  color: #000;
+  transform: scale(1.15);
 }
 
-/* MOBILE – sakrij */
-@media(max-width:900px){
+/* ACTIVE CLICK */
+.social-float a:active{
+  transform: translateX(10px) scale(1.02);
+}
+
+/* =========================================================
+   MOBILE — MINIMAL
+========================================================= */
+
+@media (max-width: 768px){
   .social-float{
-    display:none;
+    left: 12px;
   }
+
+  .social-float a{
+    width: 44px;
+    height: 44px;
+  }
+
+  .social-float svg{
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* =========================================================
+   DARK MODE TWEAK
+========================================================= */
+
+body.dark .social-float a{
+  background: rgba(18,18,18,.92);
+  border-color: rgba(255,255,255,.12);
 }
