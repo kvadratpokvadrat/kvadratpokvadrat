@@ -240,3 +240,65 @@
   font-size: 15px;
   line-height: 1.7;
 }
+/* =========================================================
+   FLOATING SOCIAL BAR
+========================================================= */
+
+.social-float{
+  position:fixed;
+  top:50%;
+  left:24px; /* 👉 promeni u right:24px ako hoćeš desno */
+  transform:translateY(-50%);
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:4000;
+}
+
+/* dugme */
+.social-float a{
+  width:46px;
+  height:46px;
+  border-radius:999px;
+  background:var(--card);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:
+    transform .45s cubic-bezier(.4,0,.2,1),
+    box-shadow .45s cubic-bezier(.4,0,.2,1),
+    background .45s cubic-bezier(.4,0,.2,1);
+}
+
+/* ikonica */
+.social-float img{
+  width:20px;
+  height:20px;
+  opacity:.85;
+  transition:opacity .3s ease;
+}
+
+/* hover efekat */
+.social-float a:hover{
+  transform:translateY(-4px) scale(1.06);
+  box-shadow:
+    var(--shadow-hover),
+    0 0 24px rgba(250,204,21,.45);
+  background:#000;
+}
+
+.social-float a:hover img{
+  opacity:1;
+  filter:invert(1);
+}
+
+/* MOBILE – sakrij */
+@media(max-width:900px){
+  .social-float{
+    display:none;
+  }
+}
