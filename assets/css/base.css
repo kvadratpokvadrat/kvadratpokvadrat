@@ -475,6 +475,15 @@ header {
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
 
+/* CTA koristi newsletter layout ali u 1 koloni */
+.cta .newsletter-inner {
+  grid-template-columns: 1fr;
+}
+
+.cta .newsletter-image {
+  display: none;
+}
+
 
 
 
