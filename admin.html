@@ -3,21 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin – Gosti</title>
-  <link rel="stylesheet" href="assets/css/admin.css">
 
+  <!-- ADMIN CSS -->
+  <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
 
+<!-- =====================
+     PIN OVERLAY
+===================== -->
+<div class="admin-pin-overlay" id="adminPin">
+  <div class="admin-pin-box">
+    <h2>Admin pristup</h2>
+    <input type="password" id="adminPinInput" placeholder="PIN">
+    <button id="adminPinBtn">Uđi</button>
+  </div>
+</div>
+
+<!-- =====================
+     ADMIN PANEL
+===================== -->
 <h1>Admin panel – Gosti</h1>
 
 <form id="guestForm">
   <input type="hidden" id="guestId">
 
-  <input type="text" id="name" placeholder="Ime" required><br><br>
-  <input type="text" id="role" placeholder="Uloga" required><br><br>
-  <textarea id="bio" placeholder="Biografija" required></textarea><br><br>
+  <input type="text" id="name" placeholder="Ime" required>
+  <input type="text" id="role" placeholder="Uloga" required>
+  <textarea id="bio" placeholder="Biografija" required></textarea>
 
-  <input type="file" id="image"><br><br>
+  <input type="file" id="image">
 
   <button type="submit">Sačuvaj</button>
 </form>
@@ -27,6 +42,32 @@
 <h2>Svi gosti</h2>
 <div id="adminGuestList"></div>
 
+<!-- =====================
+     SCRIPTS
+===================== -->
 <script type="module" src="assets/js/admin-guests.js"></script>
+
+<script>
+  const PIN = "260397"; // 🔴 PROMENI OVO
+
+  const overlay = document.getElementById("adminPin");
+  const input = document.getElementById("adminPinInput");
+  const btn = document.getElementById("adminPinBtn");
+
+  btn.addEventListener("click", checkPin);
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") checkPin();
+  });
+
+  function checkPin(){
+    if(input.value === PIN){
+      overlay.style.display = "none";
+    } else {
+      input.value = "";
+      input.placeholder = "Pogrešan PIN";
+    }
+  }
+</script>
+
 </body>
 </html>
