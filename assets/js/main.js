@@ -180,13 +180,16 @@ function setCounter(id, val) {
         `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
+      const uploads =
+        ch.items[0].contentDetails.relatedPlaylists.uploads;
 
       const pl = await fetch(
         `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
+      const ids = pl.items
+        .map(v => v.contentDetails.videoId)
+        .join(",");
 
       const vids = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
@@ -194,29 +197,39 @@ function setCounter(id, val) {
 
       let episodes = vids.items
         .filter(v => parseISO(v.contentDetails.duration) >= MIN)
-        .sort((a,b)=> new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
+        .sort(
+          (a,b) =>
+            new Date(b.snippet.publishedAt) -
+            new Date(a.snippet.publishedAt)
+        );
 
-      if(isHome) episodes = episodes.slice(0,3);
+      if (isHome) episodes = episodes.slice(0,3);
 
       grid.innerHTML = "";
 
       episodes.forEach((v,i)=>{
-        const duration = formatTime(parseISO(v.contentDetails.duration));
+        const duration = formatTime(
+          parseISO(v.contentDetails.duration)
+        );
+
         grid.insertAdjacentHTML("beforeend", `
           <article class="card episode-card reveal">
-            ${i===0?`<span class="badge-new">Nova epizoda</span>`:""}
+            ${i===0 ? `<span class="badge-new">Nova epizoda</span>` : ""}
             <span class="episode-duration">${duration}</span>
             <img src="${v.snippet.thumbnails.high.url}">
-            <div class="card-body"><h3>${v.snippet.title}</h3></div>
+            <div class="card-body">
+              <h3>${v.snippet.title}</h3>
+            </div>
           </article>
         `);
       });
 
-      document.querySelectorAll("#yt-episodes .reveal")
+      document
+        .querySelectorAll("#yt-episodes .reveal")
         .forEach(el => revealObserver.observe(el));
 
     } catch(e){
-      console.error(e);
+      console.error("YT ERROR:", e);
     }
   }
 
@@ -234,6 +247,10 @@ function setCounter(id, val) {
   loadEpisodes();
 
 })();
+
+/* =====================================================
+   SOCIAL FLOAT – HIDE ON HERO / SHOW ON SCROLL
+===================================================== */
 document.addEventListener("DOMContentLoaded", () => {
   const hero = document.querySelector(".hero");
   const social = document.getElementById("socialFloat");
@@ -242,19 +259,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const observer = new IntersectionObserver(
     ([entry]) => {
-      if (entry.isIntersecting) {
-        // hero je vidljiv → sakrij
-        social.classList.remove("visible");
-      } else {
-        // hero nije vidljiv → prikaži
-        social.classList.add("visible");
-      }
+      social.classList.toggle("visible", !entry.isIntersecting);
     },
-    {
-      threshold: 0.4
-    }
+    { threshold: 0.4 }
   );
 
   observer.observe(hero);
 });
+
+
 
