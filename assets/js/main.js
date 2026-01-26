@@ -180,16 +180,13 @@ function setCounter(id, val) {
         `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const uploads =
-        ch.items[0].contentDetails.relatedPlaylists.uploads;
+      const uploads = ch.items[0].contentDetails.relatedPlaylists.uploads;
 
       const pl = await fetch(
         `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=50&playlistId=${uploads}&key=${API_KEY}`
       ).then(r => r.json());
 
-      const ids = pl.items
-        .map(v => v.contentDetails.videoId)
-        .join(",");
+      const ids = pl.items.map(v => v.contentDetails.videoId).join(",");
 
       const vids = await fetch(
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${ids}&key=${API_KEY}`
@@ -197,54 +194,41 @@ function setCounter(id, val) {
 
       let episodes = vids.items
         .filter(v => parseISO(v.contentDetails.duration) >= MIN)
-        .sort(
-          (a, b) =>
-            new Date(b.snippet.publishedAt) -
-            new Date(a.snippet.publishedAt)
-        );
+        .sort((a,b)=> new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt));
 
-      if (isHome) episodes = episodes.slice(0, 3);
+      if(isHome) episodes = episodes.slice(0,3);
 
       grid.innerHTML = "";
 
-      episodes.forEach((v, i) => {
-        const duration = formatTime(
-          parseISO(v.contentDetails.duration)
-        );
-
-        grid.insertAdjacentHTML(
-          "beforeend",
-          `
+      episodes.forEach((v,i)=>{
+        const duration = formatTime(parseISO(v.contentDetails.duration));
+        grid.insertAdjacentHTML("beforeend", `
           <article class="card episode-card reveal">
-            ${i === 0 ? `<span class="badge-new">Nova epizoda</span>` : ""}
+            ${i===0?`<span class="badge-new">Nova epizoda</span>`:""}
             <span class="episode-duration">${duration}</span>
-            <img src="${v.snippet.thumbnails.high.url}" alt="">
-            <div class="card-body">
-              <h3>${v.snippet.title}</h3>
-            </div>
+            <img src="${v.snippet.thumbnails.high.url}">
+            <div class="card-body"><h3>${v.snippet.title}</h3></div>
           </article>
-          `
-        );
+        `);
       });
 
-      document
-        .querySelectorAll("#yt-episodes .reveal")
+      document.querySelectorAll("#yt-episodes .reveal")
         .forEach(el => revealObserver.observe(el));
 
-    } catch (e) {
-      console.error("YT ERROR:", e);
+    } catch(e){
+      console.error(e);
     }
   }
 
   function parseISO(iso){
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
-    return (m[1] || 0) * 3600 + (m[2] || 0) * 60;
+    return (m[1]||0)*3600 + (m[2]||0)*60;
   }
 
   function formatTime(sec){
-    const h = Math.floor(sec / 3600);
-    const m = Math.floor((sec % 3600) / 60);
-    return h > 0 ? `${h} h ${m} min` : `${m} min`;
+    const h = Math.floor(sec/3600);
+    const m = Math.floor((sec%3600)/60);
+    return h>0 ? `${h} h ${m} min` : `${m} min`;
   }
 
   loadEpisodes();
