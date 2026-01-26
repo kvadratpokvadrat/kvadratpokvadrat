@@ -198,74 +198,60 @@ function setCounter(id, val) {
       let episodes = vids.items
         .filter(v => parseISO(v.contentDetails.duration) >= MIN)
         .sort(
-          (a,b) =>
+          (a, b) =>
             new Date(b.snippet.publishedAt) -
             new Date(a.snippet.publishedAt)
         );
 
-      if (isHome) episodes = episodes.slice(0,3);
+      if (isHome) episodes = episodes.slice(0, 3);
 
       grid.innerHTML = "";
 
-      episodes.forEach((v,i)=>{
+      episodes.forEach((v, i) => {
         const duration = formatTime(
           parseISO(v.contentDetails.duration)
         );
 
-        grid.insertAdjacentHTML("beforeend", `
+        grid.insertAdjacentHTML(
+          "beforeend",
+          `
           <article class="card episode-card reveal">
-            ${i===0 ? `<span class="badge-new">Nova epizoda</span>` : ""}
+            ${i === 0 ? `<span class="badge-new">Nova epizoda</span>` : ""}
             <span class="episode-duration">${duration}</span>
-            <img src="${v.snippet.thumbnails.high.url}">
+            <img src="${v.snippet.thumbnails.high.url}" alt="">
             <div class="card-body">
               <h3>${v.snippet.title}</h3>
             </div>
           </article>
-        `);
+          `
+        );
       });
 
       document
         .querySelectorAll("#yt-episodes .reveal")
         .forEach(el => revealObserver.observe(el));
 
-    } catch(e){
+    } catch (e) {
       console.error("YT ERROR:", e);
     }
   }
 
   function parseISO(iso){
     const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
-    return (m[1]||0)*3600 + (m[2]||0)*60;
+    return (m[1] || 0) * 3600 + (m[2] || 0) * 60;
   }
 
   function formatTime(sec){
-    const h = Math.floor(sec/3600);
-    const m = Math.floor((sec%3600)/60);
-    return h>0 ? `${h} h ${m} min` : `${m} min`;
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    return h > 0 ? `${h} h ${m} min` : `${m} min`;
   }
 
   loadEpisodes();
 
 })();
 
-/* =====================================================
-   SOCIAL FLOAT – HIDE ON HERO / SHOW ON SCROLL
-===================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const hero = document.querySelector(".hero");
-  const social = document.getElementById("socialFloat");
 
-  if (!hero || !social) return;
-
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      social.classList.toggle("visible", !entry.isIntersecting);
-    },
-    { threshold: 0.4 }
-  );
-
-  observer.observe(hero);
-});
 
 
 
