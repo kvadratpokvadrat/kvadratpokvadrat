@@ -4,21 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!social || !toggle) return;
 
+  // UVEK aktivan (opacity / scale)
+  social.classList.add("visible");
+
   const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-  // desktop – uvek vidljivo
+  // Desktop: uvek izvučeno, bez strelice
   if (!isMobile) {
-    social.classList.add("visible");
+    social.classList.add("open");
     toggle.style.display = "none";
     return;
   }
 
-  // mobile – start sakriveno (samo strelica)
-  social.classList.add("visible");
+  // Mobile: start sakriveno (samo strelica)
   social.classList.remove("open");
 
   toggle.addEventListener("click", () => {
     social.classList.toggle("open");
-    toggle.textContent = social.classList.contains("open") ? "›" : "‹";
   });
 });
