@@ -150,7 +150,7 @@ header {
   color: #000;
   border: none;
   border-radius: 999px;
-  padding: 12px 28px;
+  padding: 12px 5px;
   font-weight: 600;
   cursor: pointer;
   transition: .35s var(--ease);
@@ -474,6 +474,7 @@ header {
   align-items:center;
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
+
 
 
 
