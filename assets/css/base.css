@@ -51,7 +51,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.65;
-  padding-top: 0px;
+  padding-top: 80px;
   overflow-x: hidden;
 }
 
@@ -474,6 +474,7 @@ header {
   align-items:center;
   gap:26px;
 }  ovo je moj base da li ce raditi sa ovim effects  
+
 
 
 
