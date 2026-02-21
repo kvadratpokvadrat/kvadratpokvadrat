@@ -24,9 +24,6 @@
 /* =========================================================
    HEADER FLOW LINE (UVEK VIDLJIVA)
 ========================================================= */
-header{
-  position:relative;
-}
 
 header::after{
   content:"";
