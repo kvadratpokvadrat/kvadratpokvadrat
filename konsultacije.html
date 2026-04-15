@@ -3,361 +3,336 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Konsultacije | Kvadrat po kvadrat</title>
-  <meta name="description" content="Kupite nekretninu bez greške uz ekspertski konsalting Slavka Bogdanovića. Pristup tržištu, insider informacije i kupovina bez agencijske provizije." />
+  <title>Konsultacije</title>
 
-  <!-- Tvoji postojeći CSS fajlovi -->
-  <link rel="stylesheet" href="assets/css/base.css" />
-  <link rel="stylesheet" href="assets/css/layout.css" />
-  <link rel="stylesheet" href="assets/css/components.css" />
-  <link rel="stylesheet" href="assets/css/effects.css" />
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/effects.css">
 </head>
-<body class="dark">
 
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="logo">Kvadrat po kvadrat</a>
+<body class="home">
 
-      <nav class="nav" id="nav">
-        <a href="index.html">Početna</a>
-        <a href="epizode.html">Epizode</a>
-        <a href="gosti.html">Gosti</a>
-        <a href="o-nama.html">O nama</a>
-        <a href="kontakt.html">Kontakt</a>
-        <a href="sponzor.html">Postani sponzor</a>
-        <a href="konsultacije.html" class="btn btn-primary">Konsultacije</a>
-      </nav>
+<!-- =====================
+     HEADER
+===================== -->
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <img src="assets/images/logo.png" alt="Kvadrat po Kvadrat">
+    </a>
 
-      <button class="hamburger" id="hamburger" aria-label="Otvori meni">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav">
+      <a href="index.html">Početna</a>
+      <a href="epizode.html">Epizode</a>
+      <a href="gosti.html">Gosti</a>
+      <a href="o-nama.html">O nama</a>
+      <a href="kontakt.html">Kontakt</a>
+
+      <a href="konsultacije.html" class="active">Konsultacije</a>
+      <a href="postani-sponzor.html" class="badge-btn">Postani sponzor</a>
+      <button class="badge-btn" id="themeToggle">Dark</button>
+    </nav>
+  </div>
+</header>
+
+<div class="nav-overlay"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero hero-small">
+  <div class="hero-content reveal">
+    <h1>Konsultacije</h1>
+    <p>Kupite nekretninu sigurnije, pametnije i bez agencijske provizije</p>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================= INTRO ================= -->
+<section>
+  <div class="newsletter-inner reveal">
+
+    <div class="newsletter-content">
+      <h2>Rad sa Slavkom Bogdanovićem</h2>
+      <p>
+        Kupovina nekretnine danas traži mnogo više od običnog pregleda oglasa.
+        Potrebni su iskustvo, pravi filter, razumevanje tržišta i procena
+        onoga što zaista ima vrednost.
+      </p>
+      <p>
+        Kroz konsultacije dobijate stručno mišljenje, preporuku kvalitetne gradnje,
+        insajderske informacije i pristup ponudi od preko 1000 aktuelnih nekretnina
+        — bez agencijske provizije.
+      </p>
+
+      <div style="margin-top: 1.5rem;">
+        <a href="#forma" class="btn">Zakaži konsultacije</a>
+      </div>
     </div>
-  </header>
 
-  <main>
+    <img src="assets/images/about-1.jpg" loading="lazy" alt="Konsultacije">
 
-    <!-- HERO -->
-    <section class="hero hero-consulting">
-      <div class="container">
-        <div class="hero-content reveal">
-          <span class="section-badge">Rad sa Slavkom Bogdanovićem</span>
-          <h1>
-            Kupite nekretninu bez greške — uz ekspertski konsalting i pristup tržištu koji nemate kao kupac
-          </h1>
-          <p class="hero-text">
-            Kvadrat po kvadrat vam pomaže da donesete sigurnu i pametnu odluku pri kupovini nekretnine.
-            Dobijate iskustvo, anticipaciju tržišta, preporuku kvalitetne gradnje i pristup nekretninama
-            bez agencijske provizije.
-          </p>
+  </div>
+</section>
 
-          <div class="hero-actions">
-            <a href="#zakazi" class="btn btn-primary">Zakaži konsultacije</a>
-            <a href="#kako-radimo" class="btn btn-secondary">Kako radimo</a>
-          </div>
-        </div>
+<div class="section-divider"></div>
+
+<!-- ================= BENEFITI ================= -->
+<section>
+  <div class="section-header reveal">
+    <h2>Šta dobijate</h2>
+  </div>
+
+  <div class="episode-grid">
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>Bolju odluku</h3>
+        <p>
+          Ne kupujete naslepo, već uz jasniju sliku o realnoj vrednosti,
+          lokaciji i potencijalu nekretnine.
+        </p>
       </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- PROBLEM -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-kicker">Zašto je ovo važno</span>
-          <h2>Kupovina nekretnine danas nije jednostavna</h2>
-          <p>
-            Jedna pogrešna odluka može vas koštati mnogo više nego što mislite. Većina kupaca ulazi u proces
-            bez dovoljno znanja, bez pravih informacija i bez osobe koja zaista zastupa njihov interes.
-          </p>
-        </div>
-
-        <div class="grid grid-3">
-          <article class="card reveal">
-            <h3>Nejasna cena</h3>
-            <p>Teško je proceniti da li je cena realna i da li nekretnina zaista vredi traženi novac.</p>
-          </article>
-
-          <article class="card reveal">
-            <h3>Rizik loše gradnje</h3>
-            <p>Kupac često ne zna koji investitori imaju dobru reputaciju, a koji projekti nose rizik.</p>
-          </article>
-
-          <article class="card reveal">
-            <h3>Pogrešna odluka</h3>
-            <p>Bez iskustva i uvida u tržište, lako je kupiti stan koji danas deluje dobro, a sutra pravi problem.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- REŠENJE -->
-    <section class="section section-highlight">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-kicker">Naše rešenje</span>
-          <h2>Ne prodajemo vam stan — pomažemo vam da donesete bolju odluku</h2>
-          <p>
-            Umesto da kupujete naslepo, dobijate stručan konsalting koji vam štedi vreme, novac i greške.
-            Fokus nije na prodaji po svaku cenu, već na tome da kupite ono što zaista ima smisla za vas.
-          </p>
-        </div>
-
-        <div class="grid grid-2">
-          <article class="card reveal">
-            <h3>Šta dobijate</h3>
-            <ul class="feature-list">
-              <li>Detaljan razgovor o ciljevima, budžetu i planu kupovine</li>
-              <li>Preporuku lokacija, projekata i tipova nekretnina</li>
-              <li>Iskustvo i anticipaciju budućih kretanja tržišta</li>
-              <li>Insajderske informacije koje kupac najčešće nema</li>
-              <li>Preporuku kvalitetne gradnje i pouzdanih investitora</li>
-            </ul>
-          </article>
-
-          <article class="card reveal">
-            <h3>Ključna prednost</h3>
-            <ul class="feature-list">
-              <li>Pristup ponudi od preko 1000 aktuelnih nekretnina</li>
-              <li>Kupovina bez agencijske provizije</li>
-              <li>Plaćate znanje i savet, a ne klasično posredovanje</li>
-              <li>Vodstvo kroz proces kupovine sa fokusom na vaš interes</li>
-              <li>Posebni saveti za investicione kupce i pametno ulaganje</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- KAKO RADIMO -->
-    <section class="section" id="kako-radimo">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-kicker">Proces saradnje</span>
-          <h2>Kako izgleda rad sa nama</h2>
-        </div>
-
-        <div class="grid grid-4 process-grid">
-          <article class="card reveal">
-            <div class="process-number">01</div>
-            <h3>Uvodne konsultacije</h3>
-            <p>Analiziramo vaše potrebe, budžet, cilj kupovine i vremenski okvir.</p>
-          </article>
-
-          <article class="card reveal">
-            <div class="process-number">02</div>
-            <h3>Filtriranje tržišta</h3>
-            <p>Sužavamo izbor i izdvajamo samo opcije koje zaista imaju smisla za vas.</p>
-          </article>
-
-          <article class="card reveal">
-            <div class="process-number">03</div>
-            <h3>Stručna preporuka</h3>
-            <p>Dobijate konkretan savet, mišljenje i procenu kvaliteta i potencijala nekretnine.</p>
-          </article>
-
-          <article class="card reveal">
-            <div class="process-number">04</div>
-            <h3>Sigurna kupovina</h3>
-            <p>Ulazite u proces sa više sigurnosti, manje rizika i bez agencijske provizije.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- ZA KOGA JE -->
-    <section class="section">
-      <div class="container">
-        <div class="grid grid-2">
-          <article class="card reveal">
-            <h2>Za koga je ovaj konsalting</h2>
-            <ul class="feature-list">
-              <li>Za kupce prve nekretnine</li>
-              <li>Za porodice koje žele sigurnu odluku</li>
-              <li>Za ljude koji nemaju poverenje u klasične agencije</li>
-              <li>Za kupce koji žele kvalitetnu gradnju i proverene projekte</li>
-              <li>Za investitore koji žele da znaju gde danas ima smisla uložiti novac</li>
-            </ul>
-          </article>
-
-          <article class="card reveal">
-            <h2>Zašto je ovo drugačije</h2>
-            <p>
-              Klasičan model agencije je fokusiran na promet. Naš pristup je fokusiran na odluku kupca.
-              Zato je konsalting posebno vredan onima koji žele više od običnog oglasa i klasičnog pokazivanja stana.
-            </p>
-            <p>
-              Ovde ne dobijate samo ponudu — dobijate kontekst, iskustvo, filter i strateško mišljenje.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- INVESTITORI -->
-    <section class="section section-highlight">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-kicker">Investicioni kupci</span>
-          <h2>Gde danas ima smisla investirati u nekretnine?</h2>
-          <p>
-            Ako nekretninu ne kupujete samo za život, već kao ulaganje, potrebna vam je mnogo preciznija analiza.
-            Investicioni konsalting je namenjen kupcima koji žele da razumeju gde je danas pametno uložiti novac,
-            šta ima potencijal rasta i šta bi trebalo izbegavati.
-          </p>
-        </div>
-
-        <div class="grid grid-3">
-          <article class="card reveal">
-            <h3>Lokacija</h3>
-            <p>Gledamo realni potencijal lokacije, ne samo trenutni marketing projekta.</p>
-          </article>
-
-          <article class="card reveal">
-            <h3>Potencijal rasta</h3>
-            <p>Procena gde nekretnina može imati bolju buduću vrednost i tržišnu otpornost.</p>
-          </article>
-
-          <article class="card reveal">
-            <h3>Rizik ulaganja</h3>
-            <p>Prepoznajemo projekte i odluke koje mogu delovati primamljivo, ali nose skriven rizik.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- O SLAVKU -->
-    <section class="section">
-      <div class="container">
-        <div class="grid grid-2 align-center">
-          <div class="reveal">
-            <span class="section-kicker">Ko stoji iza konsultacija</span>
-            <h2>Slavko Bogdanović</h2>
-            <p>
-              Kao osnivač i voditelj platforme <strong>Kvadrat po kvadrat</strong>, Slavko Bogdanović godinama gradi
-              mrežu kontakata, tržišno iskustvo i uvid u realno stanje na tržištu nepokretnosti.
-            </p>
-            <p>
-              Kroz rad u prometu nepokretnosti i kroz kontakte sa investitorima, kupcima i stručnjacima,
-              klijentima pruža nešto što većina ne može da dobije sama: jasniju sliku, kvalitetniji izbor
-              i sigurniju odluku.
-            </p>
-          </div>
-
-          <div class="card reveal">
-            <h3>Šta klijent dobija kroz ovaj rad</h3>
-            <ul class="feature-list">
-              <li>Iskustvo koje nema kao pojedinačni kupac</li>
-              <li>Pristup širokoj i aktuelnoj ponudi</li>
-              <li>Bolje razumevanje tržišta i budućih kretanja</li>
-              <li>Preporuku projekata i gradnje sa više sigurnosti</li>
-              <li>Podršku u kupovini bez nepotrebnih grešaka</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    <!-- CTA / FORMA -->
-    <section class="section cta-section" id="zakazi">
-      <div class="container">
-        <div class="section-header reveal">
-          <span class="section-kicker">Zakažite razgovor</span>
-          <h2>Ne donosite odluku sami</h2>
-          <p>
-            Jedan razgovor može vam uštedeti mnogo vremena, novca i pogrešnih poteza.
-            Ostavite svoje podatke i javićemo vam se u najkraćem roku.
-          </p>
-        </div>
-
-        <div class="card reveal form-card">
-          <form class="consulting-form" action="#" method="post">
-            <div class="form-row">
-              <div class="form-group">
-                <label for="ime">Ime i prezime</label>
-                <input type="text" id="ime" name="ime" placeholder="Unesite ime i prezime" required />
-              </div>
-
-              <div class="form-group">
-                <label for="telefon">Telefon</label>
-                <input type="tel" id="telefon" name="telefon" placeholder="Unesite broj telefona" required />
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Unesite email adresu" />
-              </div>
-
-              <div class="form-group">
-                <label for="tip">Tip interesovanja</label>
-                <select id="tip" name="tip" required>
-                  <option value="">Izaberite</option>
-                  <option value="prva-nekretnina">Kupovina prve nekretnine</option>
-                  <option value="porodicna-kupovina">Porodična kupovina</option>
-                  <option value="investicija">Investiciona kupovina</option>
-                  <option value="savetovanje">Opšte savetovanje</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="poruka">Kratko opišite šta tražite</label>
-              <textarea id="poruka" name="poruka" rows="6" placeholder="Na primer: lokacija, budžet, da li kupujete za život ili investiciju..."></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Pošalji upit</button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© 2026 Kvadrat po kvadrat. Sva prava zadržana.</p>
     </div>
-  </footer>
 
-  <!-- JS -->
-  <script>
-    const hamburger = document.getElementById("hamburger");
-    const nav = document.getElementById("nav");
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>Bez provizije</h3>
+        <p>
+          Kupujete nekretninu bez agencijske provizije i plaćate znanje,
+          iskustvo i savet koji štite vaš interes.
+        </p>
+      </div>
+    </div>
 
-    if (hamburger && nav) {
-      hamburger.addEventListener("click", () => {
-        nav.classList.toggle("active");
-        document.body.classList.toggle("menu-open");
-      });
-    }
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>Pristup tržištu</h3>
+        <p>
+          Dobijate filtrirane preporuke, uvid u projekte i informacije
+          koje većina kupaca nema.
+        </p>
+      </div>
+    </div>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("reveal-visible");
-        }
-      });
-    }, { threshold: 0.15 });
+  </div>
+</section>
 
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-  </script>
+<div class="section-divider"></div>
+
+<!-- ================= PROCESS ================= -->
+<section>
+  <div class="section-header reveal">
+    <h2>Kako izgleda saradnja</h2>
+  </div>
+
+  <div class="episode-grid">
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>01. Razgovor</h3>
+        <p>
+          Analiziramo vaše potrebe, budžet, lokaciju i cilj kupovine.
+        </p>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>02. Selekcija</h3>
+        <p>
+          Izdvajamo nekretnine i projekte koji zaista imaju smisla za vas.
+        </p>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>03. Preporuka</h3>
+        <p>
+          Dobijate stručno mišljenje, procenu kvaliteta i pravac za sigurniju odluku.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================= FOR WHO ================= -->
+<section>
+  <div class="newsletter-inner reveal">
+
+    <div class="newsletter-content">
+      <h2>Za koga su konsultacije</h2>
+      <p>
+        Ova usluga je namenjena onima koji ne žele da naprave skupu grešku:
+        kupcima prve nekretnine, porodicama koje traže sigurnost, kao i
+        investitorima koji žele da znaju gde danas ima smisla uložiti novac.
+      </p>
+      <p>
+        Ako želite više od obične prodaje i tražite stvaran savet,
+        konsultacije su pravi prvi korak.
+      </p>
+    </div>
+
+    <img src="assets/images/newsletter.jpg" loading="lazy" alt="Za koga su konsultacije">
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================= INVESTITORI ================= -->
+<section>
+  <div class="section-header reveal">
+    <h2>Investicioni kupci</h2>
+  </div>
+
+  <div class="episode-grid">
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>Gde ulagati</h3>
+        <p>
+          Procena lokacija i projekata koji imaju realan potencijal rasta.
+        </p>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>Šta izbegavati</h3>
+        <p>
+          Upozorenje na projekte i odluke koje mogu izgledati dobro,
+          a dugoročno nose problem.
+        </p>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-content">
+        <h3>Strateški pristup</h3>
+        <p>
+          Fokus nije samo na kupovini, već na tome gde je danas pametno
+          investirati novac.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================= SLAVKO ================= -->
+<section class="hosts">
+  <div class="section-header reveal">
+    <h2>Ko stoji iza konsultacija</h2>
+  </div>
+
+  <div class="guests-grid">
+
+    <article class="card card--guest reveal">
+      <img src="assets/images/slavko.jpg" alt="Slavko Bogdanović">
+      <div class="card-body">
+        <h3 class="card-title">Slavko Bogdanović</h3>
+        <p class="card-meta">Osnivač & voditelj</p>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-content">
+        <h3>Iskustvo iz tržišta</h3>
+        <p>
+          Slavko kroz rad sa kupcima, investitorima i projektima pruža
+          uvid koji većina ljudi nema kada kupuje sama.
+        </p>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-content">
+        <h3>Fokus na vaš interes</h3>
+        <p>
+          Cilj nije da vam se “proda nešto”, već da kupite nekretninu
+          koja zaista ima smisla za vas.
+        </p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================= FORMA ================= -->
+<section id="forma">
+  <div class="newsletter-inner reveal">
+
+    <div class="newsletter-content">
+      <h2>Zakažite konsultacije</h2>
+      <p>
+        Ostavite svoje podatke i javićemo vam se u najkraćem roku.
+      </p>
+
+      <form class="newsletter-form consulting-form">
+        <input type="text" name="ime" placeholder="Ime i prezime" required>
+        <input type="tel" name="telefon" placeholder="Broj telefona" required>
+        <input type="email" name="email" placeholder="Email adresa">
+
+        <select name="tip" required>
+          <option value="">Tip interesovanja</option>
+          <option value="prva-nekretnina">Kupovina prve nekretnine</option>
+          <option value="porodicna-kupovina">Porodična kupovina</option>
+          <option value="investicija">Investiciona kupovina</option>
+          <option value="savetovanje">Opšte savetovanje</option>
+        </select>
+
+        <textarea name="poruka" rows="5" placeholder="Napišite ukratko šta tražite"></textarea>
+
+        <button class="btn" type="submit">Pošalji upit</button>
+      </form>
+    </div>
+
+    <img src="assets/images/about-1.jpg" loading="lazy" alt="Zakažite konsultacije">
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>© 2025 Kvadrat po Kvadrat</p>
+</footer>
+
+<!-- ================= JS ================= -->
+<script src="assets/js/main.js"></script>
+<script src="assets/js/float.js"></script>
+
+<div class="social-float" id="socialFloat">
+  <button class="social-toggle" aria-label="Društvene mreže">
+    ‹
+  </button>
+
+  <a href="https://youtube.com/@kvadratpokvadrat" target="_blank" aria-label="YouTube">
+    <img src="assets/icons/youtube.svg" alt="YouTube">
+  </a>
+
+  <a href="https://www.instagram.com/kvadratpokvadrat.podcast/" target="_blank" aria-label="Instagram">
+    <img src="assets/icons/instagram.svg" alt="Instagram">
+  </a>
+
+  <a href="mailto:podcastkvadratpokvadrat@gmail.com" aria-label="Email">
+    <img src="assets/icons/mail.svg" alt="Email">
+  </a>
+</div>
+
 </body>
 </html>
